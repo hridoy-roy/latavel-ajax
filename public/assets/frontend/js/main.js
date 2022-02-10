@@ -8,7 +8,7 @@ function allData(){
     $.ajax({
         type:"GET",
         dataType: 'json',
-        url: '/products/create',
+        url: '/products',
         success: function(responce){
             var data = ''
             $.each(responce, function(key, value){
@@ -22,7 +22,6 @@ function allData(){
                 data = data + "<button type='button' onClick='deleteData("+value.id+")' class='btn btn-sm btn-danger fw-bolder'>Delete</button>"
                 data = data + "</td>"
                 data = data + "</tr>"
-                console.log(++key);
             })
             $('#tableBody').html(data);
         }
@@ -55,7 +54,7 @@ function addData(){
         type: "POST",
         dataType: "json",
         data: {name:produc_name, quantity:produc_quantity, rate:produc_rate},
-        url: "/products/store",
+        url: "/products",
         success: function(data){
             clearData();
             allData();
@@ -86,6 +85,21 @@ function addData(){
             }
  
             console.log(error.responseJSON.errors);
+        }
+    });
+}
+
+function deleteData(id){
+ 
+    $.ajax({
+        type: "DELETE",
+        url: "/products/"+id,
+        success: function(data){
+            console.log("data");
+            allData();
+        },
+        error: function(error){
+            console.log("error");
         }
     });
 }

@@ -33,5 +33,13 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        DB::table('invoices')->insert([
+            'user_id' => 2,
+            'invoice_id' => 1,
+            'name' => 'Test',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

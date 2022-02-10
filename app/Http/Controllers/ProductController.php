@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return('ok');
+        $data = Product::orderBy('id', 'ASC')->get();
+        return response()->json($data);
     }
 
     /**
@@ -24,8 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $data = Product::orderBy('id', 'ASC')->get();
-        return response()->json($data);
+        //
     }
 
     /**
@@ -42,16 +44,27 @@ class ProductController extends Controller
             'rate' => 'required|numeric|min:1',
         ]);
 
+        $id =2;
+
+       if ($id != 2) {
+
+        $invoiceset = Invoice::Insert([
+            'user_id' => 2,
+            'invoice_id' => 2,
+            'name' => 'Test2',
+        ]);
+       }
+
         $total = $request->quantity * $request->rate;
         
-        $dataset = Product::Insert([
-            'invoice_id' => 1,
+        $productset = Product::Insert([
+            'invoice_id' => 2,
             'product_name' => $request->name,
             'quantity' => $request->quantity,
             'rate' => $request->rate,
             'amount' => $total
         ]);
-        return response()->json($dataset);
+        return response()->json($productset);
     }
 
     /**
@@ -62,7 +75,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return "ok";
     }
 
     /**
@@ -96,6 +109,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        //  dd($product);
+        // Product::findOrFail($product)->delete($product);
+        DB::table('products')->where('id', '==', $product)->delete();
+        return response()->json([
+            'success' => 'Record deleted successfully!'
+        ]);
     }
 }
