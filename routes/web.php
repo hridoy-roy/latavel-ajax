@@ -33,14 +33,14 @@ require __DIR__.'/auth.php';
 
 // product add route With Ajax
 
-Route::resource('products', ProductController::class);
+// Route::post('products', [ProductController::class, 'store']);
 
-// Route::get('/products/create', [ProductController::class, 'create']);
-// Route::post('/products/store', [ProductController::class, 'store']);
+Route::post('/products/create', [ProductController::class, 'index']);
+Route::post('/products/store', [ProductController::class, 'store']);
 // Route::post('/products/delete', [ProductController::class, 'store']);
 
 
 
 // Invoice Route
 
-// Route::resource('invoices', InvoiceController::class);
+Route::resource('invoices', InvoiceController::class);

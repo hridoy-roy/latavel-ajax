@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -12,9 +14,12 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('frontend.create_invoice');
+        $id  = $request;
+        dd($id);
+        $data = Product::where('invoice_id', $id)->orderBy('id')->get();
+        return view('frontend.create_invoice')->with(compact('data'));
     }
 
     /**
@@ -35,7 +40,43 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $validated = $request->validate([
+        //     'invoiceid' => 'required',
+        // ]);
+
+        // $invoice_id = $request->invoiceid;
+        // $id = $request->id;
+        // $data = array(
+        //     'user_id' => 2,
+        //     'invoice_id' => $invoice_id,
+        //     'name' => 'Test2',
+        // );
+
+        // $status =  Invoice::updateOrCreate(['id' => $id], $data);
+
+
+        // if ($status == "uncomplet") {
+        //     $invoiceset = Invoice::Insert([
+        //         'user_id' => 2,
+        //         'invoice_id' => $invoice_id,
+        //         'name' => 'Test2',
+        //     ]);
+        // } elseif($status == "complet"){
+        //     $invoiceset = Invoice::Update([
+        //         'user_id' => 2,
+        //         'invoice_id' => $invoice_id,
+        //         'name' => 'Test2',
+        //     ]);
+        // }
+
+        
+
+        $invoice = DB::table('invoices')->where('invoice_id', $invoice_id)->value('id');
+
+        
+
+        return response()->json($invoice);
+
     }
 
     /**

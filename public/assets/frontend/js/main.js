@@ -1,3 +1,5 @@
+const { Collapse } = require("bootstrap");
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -5,10 +7,14 @@ $.ajaxSetup({
 });
 
 function allData(){
+
+    var id = $('#id').val();
     $.ajax({
-        type:"GET",
+        type:"POST",
         dataType: 'json',
-        url: '/products',
+        data: {id:id},
+        url: '/products/create',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(responce){
             var data = ''
             $.each(responce, function(key, value){
@@ -45,7 +51,10 @@ function clearData(){
 
 
 function addData(){
-    
+    // Invoice data
+    var invoiceid = $('#invoiceid').val();
+    var id = $('#id').val();
+    // Product data
     var produc_name = $('#produc_name').val();
     var produc_quantity = $('#produc_quantity').val();
     var produc_rate = $('#produc_rate').val();
@@ -53,9 +62,11 @@ function addData(){
     $.ajax({
         type: "POST",
         dataType: "json",
-        data: {name:produc_name, quantity:produc_quantity, rate:produc_rate},
-        url: "/products",
+        data: {name:produc_name, quantity:produc_quantity, rate:produc_rate,invoiceid:invoiceid,id:id},
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        url: "/products/store",
         success: function(data){
+            $('#id').val(data[1]);
             clearData();
             allData();
         },
@@ -90,6 +101,8 @@ function addData(){
 }
 
 function deleteData(id){
+
+    
  
     $.ajax({
         type: "DELETE",
@@ -103,6 +116,38 @@ function deleteData(id){
         }
     });
 }
+
+
+
+// invoice add
+// function addinvoice(){
+
+//     var invoiceid = $('#invoiceid').val();
+//     var id = $('#id').val();
+
+    
+//     $.ajax({
+//         type:"POST",
+//         dataType: 'json',
+//         data:{invoiceid:invoiceid,id:id},
+//         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+//         url: '/invoices',
+//         success: function(responce){
+//             $('#id').val(responce);
+//         },
+//         error: function(error){
+//             Collapse.log(error);
+//         }
+
+//     });
+// }
+
+// function getInvoiceId(id){
+//     $.ajax({
+//         type: "GET",
+//         url: "/invoices"
+//     });
+// }
 
 // function addInvoiceData(){
 //     var po_number = $('#po_number').val();

@@ -42,29 +42,38 @@ class ProductController extends Controller
             'name' => 'required|max:255',
             'quantity' => 'required|numeric|min:1',
             'rate' => 'required|numeric|min:1',
+            'invoiceid' => 'required',
         ]);
 
-        $id =2;
-
-       if ($id != 2) {
-
-        $invoiceset = Invoice::Insert([
+        $invoice_id = $request->invoiceid;
+        $id = $request->id;
+        $data = array(
             'user_id' => 2,
-            'invoice_id' => 2,
+            'invoice_id' => $invoice_id,
             'name' => 'Test2',
-        ]);
-       }
+        );
+
+        $invoice =  Invoice::updateOrCreate(['id' => $id], $data);
+
+        // dd($invoice->id);
+
+        // $invoice = DB::table('invoices')->where('invoice_id', $invoice_id)->value('id');
+        $invoice_id = $invoice->id;
+
 
         $total = $request->quantity * $request->rate;
-        
+
         $productset = Product::Insert([
-            'invoice_id' => 2,
+            'invoice_id' => $invoice_id,
             'product_name' => $request->name,
             'quantity' => $request->quantity,
             'rate' => $request->rate,
             'amount' => $total
         ]);
-        return response()->json($productset);
+
+
+
+        return response()->json([$productset, $invoice_id]);
     }
 
     /**

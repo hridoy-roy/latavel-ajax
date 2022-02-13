@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Invoice extends Model
 {
     use HasFactory;
+    
+    protected $guarded = [];
 
     public function invoice()
     {

@@ -43,7 +43,7 @@
     <!-- Invoice Section Start -->
     <section class="invoice_section">
         <div class="my-5">
-            <form action="{{ route('create.boll') }}" method="post">
+            <form id="productForm">
                 @csrf
             <div class="container p-4 " style="background-color: #F0F0F0;">
                 <div class="row">
@@ -103,14 +103,15 @@
                             <div class="col-sm-8 mb-2">
                                 <div class="input-group">
                                     <div class="input-group-text">#</div>
-                                    <input type="text" name="username" class="form-control" id="autoSizingInputGroup"
+                                    <input type="text" name="Invoice" class="form-control" id="invoiceid"
                                         placeholder="Username">
+                                        <input type="hidden" id="id" name="id" value="">
                                     <div class="input-group-text">01</div>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="colFormLabel" class="col-sm-4 col-form-label">Data</label>
+                            <label for="colFormLabel" class="col-sm-4 col-form-label">Date</label>
                             <div class="col-sm-8">
                                 <input type="date" name="current_date" class="form-control" id="colFormLabel">
                             </div>
@@ -179,6 +180,7 @@
                     <div class="mt-4 ms-2">
                         <button type="button" class="py-2 px-4 btn add-field rounded" id="addButton" onclick="addData();"><i class="bi bi-plus"></i> add line</button>
                     </div>
+                    {{--  --}}
                 </form>
                 <div class="row pt-4">
                     <div class="col-md-7">
