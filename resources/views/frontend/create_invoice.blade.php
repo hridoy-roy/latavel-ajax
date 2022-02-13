@@ -180,7 +180,6 @@
                     <div class="mt-4 ms-2">
                         <button type="button" class="py-2 px-4 btn add-field rounded" id="addButton" onclick="addData();"><i class="bi bi-plus"></i> add line</button>
                     </div>
-                    {{--  --}}
                 </form>
                 <div class="row pt-4">
                     <div class="col-md-7">

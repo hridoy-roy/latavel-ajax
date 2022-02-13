@@ -357,7 +357,7 @@ p{
 }
 .invoice_section .product{
   display: grid;
-  grid-template-columns: auto 100px 100px 100px;
+  grid-template-columns: auto 150px 150px;
 }
 .add-field{
   background-color: #fff;

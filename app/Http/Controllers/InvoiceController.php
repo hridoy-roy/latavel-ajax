@@ -14,12 +14,10 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $id  = $request;
-        dd($id);
-        $data = Product::where('invoice_id', $id)->orderBy('id')->get();
-        return view('frontend.create_invoice')->with(compact('data'));
+        
+        return view('frontend.create_invoice');
     }
 
     /**

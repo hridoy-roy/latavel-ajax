@@ -14,9 +14,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Product::orderBy('id', 'ASC')->get();
+        $id  = $request->id;
+        // dd($id);
+        $data = Product::where('invoice_id', $id)->orderBy('id', 'ASC')->get();
+
+        // $data = Product::orderBy()->get();
+        // ->with(compact('data'))
         return response()->json($data);
     }
 
@@ -116,11 +121,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //  dd($product);
-        // Product::findOrFail($product)->delete($product);
-        DB::table('products')->where('id', '==', $product)->delete();
+        Product::where('id', $id)->delete();
         return response()->json([
             'success' => 'Record deleted successfully!'
         ]);

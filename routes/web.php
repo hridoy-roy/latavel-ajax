@@ -37,7 +37,7 @@ require __DIR__.'/auth.php';
 
 Route::post('/products/create', [ProductController::class, 'index']);
 Route::post('/products/store', [ProductController::class, 'store']);
-// Route::post('/products/delete', [ProductController::class, 'store']);
+Route::post('/products/delete/{id}', [ProductController::class, 'destroy']);
 
 
 

@@ -102,17 +102,18 @@ function addData(){
 
 function deleteData(id){
 
-    
+    var id = id;
  
     $.ajax({
-        type: "DELETE",
-        url: "/products/"+id,
+        type: "post",
+        dataType: "json",
+        data: {id:id},
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        url: "/products/delete/"+id,
         success: function(data){
-            console.log("data");
             allData();
         },
         error: function(error){
-            console.log("error");
         }
     });
 }
