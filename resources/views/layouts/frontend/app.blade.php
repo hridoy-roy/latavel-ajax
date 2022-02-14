@@ -34,13 +34,13 @@
 
 <body>
   <!-- Header Start -->
-  @include('layouts.frontend.header')
+  @include('layouts.frontend.partial.header')
   <!-- Header End -->
 
     @yield('frontend_content')
 
   <!-- Footer Start -->
-  @include('layouts.frontend.footer')
+  @include('layouts.frontend.partial.footer')
   <!-- Footer End -->
 
   <script src="{{ asset('assets/frontend/js/vendor/modernizr-3.11.2.min.js') }}"></script>

@@ -16,8 +16,10 @@ function allData(){
         url: '/products/create',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(responce){
-            var data = ''
+            var data = '';
+            var totalamount =  0;
             $.each(responce, function(key, value){
+                totalamount = totalamount + value.amount
                 data = data + "<tr>"
                 data = data + "<th scope='row'>"+ ++key +"</th>"
                 data = data + "<td>"+ value.product_name +"</td>"
@@ -30,6 +32,8 @@ function allData(){
                 data = data + "</tr>"
             })
             $('#tableBody').html(data);
+            total(totalamount);
+
         }
     })
 }
@@ -105,7 +109,7 @@ function deleteData(id){
     var id = id;
  
     $.ajax({
-        type: "post",
+        type: "delete",
         dataType: "json",
         data: {id:id},
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -172,3 +176,28 @@ function deleteData(id){
 //         type:
 //     });
 // }
+
+// Sub total 
+function total(itemAmount){
+     $('#subtotal').text(itemAmount);
+}
+
+// Tax 
+function total(itemAmount){
+        $('#subtotal').text(itemAmount);
+        var itemAmount = $('#subtotal').text()*1;
+        var tax = $('#inputTax').val()*1;
+
+        var total = itemAmount+tax;
+
+        $('#total').text(total);
+
+        var paid = $('#inputPaid').val()*1;
+
+        var balanceDue = total - paid; 
+
+        $('#balanceDue').text(balanceDue);
+
+        console.log(balanceDue);
+}
+

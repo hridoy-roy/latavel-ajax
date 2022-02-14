@@ -16,13 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PagesController::class, 'index']);
+Route::get('/', [PagesController::class, 'index'])->name('home');
 Route::get('/create', [PagesController::class, 'create'])->name('create');
 Route::post('/create/bill', [PagesController::class, 'createbill'])->name('create.boll');
 
 
 Route::get('/layout', function () {
     return view('frontend.home');
+});
+Route::get('/login2', function () {
+    return view('auth.login-2');
 });
 
 Route::get('/dashboard', function () {
@@ -37,7 +40,7 @@ require __DIR__.'/auth.php';
 
 Route::post('/products/create', [ProductController::class, 'index']);
 Route::post('/products/store', [ProductController::class, 'store']);
-Route::post('/products/delete/{id}', [ProductController::class, 'destroy']);
+Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
 
 
 

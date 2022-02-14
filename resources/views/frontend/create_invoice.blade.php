@@ -178,7 +178,7 @@
                     </div>
     
                     <div class="mt-4 ms-2">
-                        <button type="button" class="py-2 px-4 btn add-field rounded" id="addButton" onclick="addData();"><i class="bi bi-plus"></i> add line</button>
+                        <button type="button" class="py-2 px-4 btn add-field rounded" id="addButton" onclick="addData();total();"><i class="bi bi-plus"></i> add line</button>
                     </div>
                 </form>
                 <div class="row pt-4">
@@ -190,12 +190,12 @@
                     <div class="col-md-5 d-flex flex-column justify-content-end ps-4 pt-4">
                         <div class="row">
                             <div class="col-4">Sub total</div>
-                            <div class="col-8 text-end">$0.00</div>
+                            <div class="col-8 text-end" id="subtotal">0.00</div>
                         </div>
                         <div class="row pt-4">
                             <div class="col-4">Tax</div>
                             <div class="col-8">
-                                <input type="text" class="form-control" id="inputCity">
+                                <input type="text" class="form-control" id="inputTax" onchange="total()">
                             </div>
                         </div>
                     </div>
@@ -209,17 +209,17 @@
                     <div class="col-md-5 d-flex flex-column justify-content-end ps-4 pt-4">
                         <div class="row">
                             <div class="col-4">Total</div>
-                            <div class="col-8 text-end">$0.00</div>
+                            <div class="col-8 text-end" id="total">0.00</div>
                         </div>
                         <div class="row pt-2">
                             <div class="col-4 d-flex align-items-center">Amount Paid</div>
                             <div class="col-8">
-                                <input type="text" class="form-control" id="inputCity">
+                                <input type="text" class="form-control" id="inputPaid" onchange="total()">
                             </div>
                         </div>
                         <div class="row pt-2">
                             <div class="col-4">Balance Due</div>
-                            <div class="col-8 text-end">$0.00</div>
+                            <div class="col-8 text-end" id="balanceDue">0.00</div>
                         </div>
                     </div>
                 </div>
