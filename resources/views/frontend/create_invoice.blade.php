@@ -75,19 +75,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-8">
+                                <label for="inputCity"class="form-label">From</label>
                                 <textarea name="" id="" rows="2" type="text" class="form-control"
                                     placeholder="Who is this invoice from? (required)"></textarea>
                             </div>
                         </div>
                         <div class="row py-4">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <label for="inputCity" class="form-label">Bill to</label>
-                                <input type="text" name="bill_to" class="form-control" id="inputCity"
-                                    placeholder="Who is this invoice to?(required)">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputCity"class="form-label">Ship to</label>
-                                <input type="text" name="ship_to" class="form-control" id="inputCity" placeholder="(Optional)">
+                                <textarea name="" id="" rows="2" type="text" class="form-control"
+                                    placeholder="Who is this invoice to?(required)"></textarea>
                             </div>
                         </div>
                     </div>
@@ -112,13 +109,13 @@
                         <div class="row mb-2">
                             <label for="colFormLabel" class="col-sm-4 col-form-label">Date</label>
                             <div class="col-sm-8">
-                                <input type="date" name="current_date" class="form-control" id="colFormLabel">
+                                <input type="date" name="current_date" class="form-control" value="{{ date('Y-m-d'); }}" id="colFormLabel">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <label for="colFormLabel" class="col-sm-4 col-form-label">Payment Terms</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="colFormLabel">
+                                <input type="text" class="form-control" id="colFormLabel"  placeholder="Online/Bank/Cash Transaction">
                             </div>
                         </div>
                         <div class="row mb-2">

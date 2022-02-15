@@ -42,6 +42,8 @@ function clearData(){
     $('#produc_name').val('');
     $('#produc_quantity').val('');
     $('#produc_rate').val('');
+    $('#inputTax').val('');
+    $('#inputPaid').val('');
 
     $('#produc_name').removeClass("is-valid");
     $('#produc_quantity').removeClass("is-valid");
