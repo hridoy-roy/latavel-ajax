@@ -23,6 +23,8 @@ class CreateInvoicesTable extends Migration
                     ->onUpdate('cascade');
             $table->string('invoice_id', 20);
             $table->string('name');
+            $table->string('inv_from');
+            $table->string('bill_to');
             $table->timestamps();
         });
     }

@@ -184,20 +184,18 @@ function total(itemAmount){
 
 // Tax 
 function total(itemAmount){
-        $('#subtotal').text(itemAmount);
+    $('#subtotal').text(itemAmount);
         var itemAmount = $('#subtotal').text()*1;
         var tax = $('#inputTax').val()*1;
 
-        var total = itemAmount+tax;
+        var persent = (itemAmount*tax)/100
 
+        console.log(persent);
+
+        var total = itemAmount+persent;
         $('#total').text(total);
-
         var paid = $('#inputPaid').val()*1;
-
         var balanceDue = total - paid; 
-
         $('#balanceDue').text(balanceDue);
-
-        console.log(balanceDue);
 }
 

@@ -66,7 +66,7 @@
                             <div class="col-md-8">
                                 <div>
                                     <label class="form-label">Currency: </label>
-                                    <span class="tk">TK</span>
+                                    <span class="&#2547;">&#2547;</span>
                                 </div>
                                 <div>
                                     <label class="form-label">Using Default Template</label>
@@ -102,10 +102,9 @@
                             <div class="col-sm-4"></div>
                             <div class="col-sm-8 mb-2">
                                 <div class="input-group">
-                                    <div class="input-group-text">#</div>
-                                    <input type="text" name="Invoice" class="form-control" id="invoiceid"
-                                        placeholder="Username">
-                                        <input type="hidden" id="id" name="id" value="">
+                                    <div class="input-group-text">&#9839;</div>
+                                    <input type="text" name="Invoice" class="form-control" value="INVID-01" id="invoiceid" placeholder="Username">
+                                    <input type="hidden" id="id" name="id" value="">
                                     <div class="input-group-text">01</div>
                                 </div>
                             </div>
@@ -162,14 +161,16 @@
                                 
                             </div>
                         </div>
-                        <div class="text-start p-1">
-                            <input type="text" name="produc_quantity" id="produc_quantity" class="form-control" >
+                        <div class="text-start p-1 input-group">
+                            <input type="text" name="produc_quantity" id="produc_quantity" class="form-control" placeholder="Rate">
+                            <div class="input-group-text">&#2547;</div>
                             <div id="quantity_error" class="invalid-feedback">
                                 
                             </div>
                         </div>
-                        <div class="text-center p-1">
-                            <input type="text" name="produc_rate" id="produc_rate" class="form-control">
+                        <div class="text-center p-1 input-group">
+                            <input type="text" name="produc_rate" id="produc_rate" class="form-control" placeholder="Amount">
+                            <div class="input-group-text">&#9839;</div>
                             <div id="rate_error" class="invalid-feedback">
                                 
                             </div>
@@ -187,39 +188,50 @@
                         <textarea name="" id="" rows="3" class="form-control"
                             placeholder="Notes - any related information not already covered"></textarea>
                     </div>
-                    <div class="col-md-5 d-flex flex-column justify-content-end ps-4 pt-4">
+                    <div class="col-md-5 d-flex flex-column justify-content-end ps-4 pt-2">
                         <div class="row">
-                            <div class="col-4">Sub total</div>
-                            <div class="col-8 text-end" id="subtotal">0.00</div>
+                            <div class="col-4 d-flex align-items-center fw-bolder text-primary">Sub total</div>
+                            <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+                                <span class="p-2 fw-bolder text-primary" id="subtotal">0.00</span>
+                                <div class="input-group-text">&#2547;</div>
+                            </div>
                         </div>
-                        <div class="row pt-4">
-                            <div class="col-4">Tax</div>
-                            <div class="col-8">
+                        <div class="row pt-2 ">
+                            <div class="col-4 d-flex align-items-center">Tax</div>
+                            <div class="col input-group p-0">
                                 <input type="text" class="form-control" id="inputTax" onchange="total()">
+                                <div class="input-group-text">&#8453;</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-7">
-                        <label for="inputCity" class="form-label p-2">Terms</label>
+                        <label for="inputCity" class="form-label p-2 d-flex align-items-center">Terms</label>
                         <textarea name="" id="" rows="3" class="form-control"
                             placeholder="Terms and conditions, late fees, payment methods, delivery schedule"></textarea>
                     </div>
-                    <div class="col-md-5 d-flex flex-column justify-content-end ps-4 pt-4">
+                    <div class="col-md-5 d-flex flex-column justify-content-end ps-4 pt-2">
                         <div class="row">
-                            <div class="col-4">Total</div>
-                            <div class="col-8 text-end" id="total">0.00</div>
-                        </div>
-                        <div class="row pt-2">
-                            <div class="col-4 d-flex align-items-center">Amount Paid</div>
-                            <div class="col-8">
-                                <input type="text" class="form-control" id="inputPaid" onchange="total()">
+                            <div class="col-4 d-flex align-items-center fw-bolder text-success">Total</div>
+                            <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+                                <span class="p-2 fw-bolder text-success" id="total">0.00</span>
+                                <div class="input-group-text">&#2547;</div>
                             </div>
                         </div>
                         <div class="row pt-2">
-                            <div class="col-4">Balance Due</div>
-                            <div class="col-8 text-end" id="balanceDue">0.00</div>
+                            <div class="col-4 d-flex align-items-center">Amount Paid</div>
+                            <div class="col input-group p-0">
+                                <input type="text" class="form-control" id="inputPaid" onchange="total()">
+                                <div class="input-group-text">&#2547;</div>
+                            </div>
+                        </div>
+                        <div class="row pt-2">
+                            <div class="col-4 d-flex align-items-center fw-bolder text-danger">Balance Due</div>
+                            <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+                                <span class="p-2 fw-bolder text-danger" id="balanceDue">0.00</span>
+                                <div class="input-group-text">&#2547;</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -227,7 +239,6 @@
             <div class="container p-0 pt-3">
                 <button type="submit" class="btn send-invoice py-2 px-4">Send Invoice</button>
                 <button type="submit" class="btn send-downlod py-2 px-4">Download Invoice</button>
-                <button type="submit" class="btn send-downlod py-2 px-4">My Invoices</button>
             </div>
         </form>
         </div>
