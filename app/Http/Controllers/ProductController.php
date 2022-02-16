@@ -43,28 +43,57 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->invoice_logo = "21323123123";
+
+        // dd($request->invoice_logo);
+
+        // invoice_logo:invoice_logo,
+        // invoice_form:invoice_form,
+        // invoice_to:invoice_to,
+        // invoice_id:invoice_id,
+        // invoice_date:invoice_date,
+        // invoice_payment_term:invoice_payment_term,
+        // invoice_dou_date:invoice_dou_date,
+        // invoice_po_number:invoice_po_number,
+        // invoice_notes:invoice_notes,
+        // invoice_terms:invoice_terms,
+
         $validated = $request->validate([
             'name' => 'required|max:255',
             'quantity' => 'required|numeric|min:1',
             'rate' => 'required|numeric|min:1',
-            'invoiceid' => 'required',
+            // 'invoice_logo' => 'required|max:1024',
+            'invoice_form' => 'required|max:300',
+            'invoice_to' => 'required|max:300',
+            'invoice_id' => 'required|max:10',
+            'invoice_date' => 'required|date',
+            'invoice_payment_term' => 'max:30',
+            'invoice_dou_date' => 'date|after:invoice_date',
+            'invoice_po_number' => 'max:30',
+            'invoice_notes' => 'max:400',
+            'invoice_terms' => 'max:400',
         ]);
 
-        $invoice_id = $request->invoiceid;
+        $invoice_id = $request->invoice_id;
         $id = $request->id;
         $data = array(
             'user_id' => 2,
-            'invoice_id' => $invoice_id,
-            'name' => 'Test2',
+            'invoice_logo' => $request->invoice_logo,
+            'invoice_form' => $request->invoice_form,
+            'invoice_to' => $request->invoice_to,
+            'invoice_id' => $request->invoice_id,
+            'invoice_date' => $request->invoice_date,
+            'invoice_payment_term' => $request->invoice_payment_term,
+            'invoice_dou_date' => $request->invoice_dou_date,
+            'invoice_po_number' => $request->invoice_po_number,
+            'invoice_notes' => $request->invoice_notes,
+            'invoice_terms' => $request->invoice_terms,
         );
 
         $invoice =  Invoice::updateOrCreate(['id' => $id], $data);
 
-        // dd($invoice->id);
-
-        // $invoice = DB::table('invoices')->where('invoice_id', $invoice_id)->value('id');
         $invoice_id = $invoice->id;
-
 
         $total = $request->quantity * $request->rate;
 

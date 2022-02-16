@@ -26,8 +26,8 @@ function allData(){
                 data = data + "<td>"+ value.quantity +"</td>"
                 data = data + "<td>"+ value.rate +"</td>"
                 data = data + "<td>"+ value.amount +"</td>"
-                data = data + "<td>"
-                data = data + "<button type='button' onClick='deleteData("+value.id+")' class='btn btn-sm btn-danger fw-bolder'>Delete</button>"
+                data = data + "<td class='text-center'>"
+                data = data + "<button type='button' onClick='deleteData("+value.id+")' class='btn btn-sm btn-danger fw-bolder'><i class='bi bi-trash'></i></button>"
                 data = data + "</td>"
                 data = data + "</tr>"
             })
@@ -58,8 +58,19 @@ function clearData(){
 
 function addData(){
     // Invoice data
-    var invoiceid = $('#invoiceid').val();
     var id = $('#id').val();
+    var invoice_logo = $('#imageUpload').val();
+    var invoice_form = $('#invoice_form').val();
+    var invoice_to = $('#invoice_to').val();
+    var invoice_id = $('#invoice_id').val();
+    var invoice_date = $('#invoice_date').val();
+    var invoice_payment_term = $('#invoice_payment_term').val();
+    var invoice_dou_date = $('#invoice_dou_date').val();
+    var invoice_po_number = $('#invoice_po_number').val();
+    var invoice_notes = $('#invoice_notes').val();
+    var invoice_terms = $('#invoice_terms').val();
+
+
     // Product data
     var produc_name = $('#produc_name').val();
     var produc_quantity = $('#produc_quantity').val();
@@ -68,7 +79,23 @@ function addData(){
     $.ajax({
         type: "POST",
         dataType: "json",
-        data: {name:produc_name, quantity:produc_quantity, rate:produc_rate,invoiceid:invoiceid,id:id},
+        data: {
+                name:produc_name, 
+                quantity:produc_quantity, 
+                rate:produc_rate,
+                // invoice data
+                id:id,
+                invoice_logo:invoice_logo,
+                invoice_form:invoice_form,
+                invoice_to:invoice_to,
+                invoice_id:invoice_id,
+                invoice_date:invoice_date,
+                invoice_payment_term:invoice_payment_term,
+                invoice_dou_date:invoice_dou_date,
+                invoice_po_number:invoice_po_number,
+                invoice_notes:invoice_notes,
+                invoice_terms:invoice_terms,
+            },
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         url: "/products/store",
         success: function(data){
@@ -101,7 +128,7 @@ function addData(){
                 $('#produc_rate').addClass("is-valid");
             }
  
-            console.log(error.responseJSON.errors);
+            // console.log(error.responseJSON.errors);
         }
     });
 }
@@ -124,60 +151,21 @@ function deleteData(id){
     });
 }
 
+function ptotal(){
+    var produc_quantity = $('#produc_quantity').val();
+    var produc_rate = $('#produc_rate').val();
 
+    var ptotal = produc_quantity * produc_rate;
 
-// invoice add
-// function addinvoice(){
+    $('#product_amount').text(ptotal);
+}
 
-//     var invoiceid = $('#invoiceid').val();
-//     var id = $('#id').val();
-
-    
-//     $.ajax({
-//         type:"POST",
-//         dataType: 'json',
-//         data:{invoiceid:invoiceid,id:id},
-//         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-//         url: '/invoices',
-//         success: function(responce){
-//             $('#id').val(responce);
-//         },
-//         error: function(error){
-//             Collapse.log(error);
-//         }
-
-//     });
-// }
-
-// function getInvoiceId(id){
-//     $.ajax({
-//         type: "GET",
-//         url: "/invoices"
-//     });
-// }
-
-// function addInvoiceData(){
-//     var po_number = $('#po_number').val();
-//     $.ajax({
-//         type: "POST",
-//         dataType: "json",
-//         data: {poNumber:po_number},
-//         url: "/invoicemaster/store",
-//         success: function(data){
-//             console.log(data);
-//         },
-//         error: function(error){
-//             console.log(error);
-//         }
-//     });
-// }
-
-
-// function deleteData(id){
-//     $.ajax({
-//         type:
-//     });
-// }
+function pclear(){
+    $('#produc_name').val("");
+    $('#produc_quantity').val("");
+    $('#produc_rate').val("");
+    $('#product_amount').text("");
+}
 
 // Sub total 
 function total(itemAmount){

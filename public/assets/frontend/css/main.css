@@ -355,10 +355,10 @@ p{
   text-decoration: none;
   color: #fff;
 }
-.invoice_section .product{
+/* .invoice_section .product{
   display: grid;
-  grid-template-columns: auto 150px 150px;
-}
+  grid-template-columns: auto 13% 13% 12% 7%;
+} */
 .add-field{
   background-color: #fff;
   cursor: pointer;

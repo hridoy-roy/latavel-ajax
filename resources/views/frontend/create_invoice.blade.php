@@ -43,9 +43,14 @@
     <!-- Invoice Section Start -->
     <section class="invoice_section">
         <div class="my-5">
-            <form id="productForm">
+            <form method="post" >
                 @csrf
             <div class="container p-4 " style="background-color: #F0F0F0;">
+                <div class="row md-2 invoice_header_right">
+                    <div class="col-md-12 text-center">
+                        <h1>INVOICE</h1>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-7">
                         <div class="row">
@@ -53,7 +58,7 @@
                                 <div class="input-group">
                                     <div class="avatar-upload">
                                         <div class="avatar-edit">
-                                            <input type='file' name="image" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                            <input type='file' name="invoice_logo" id="imageUpload" accept=".png, .jpg, .jpeg" />
                                             <label for="imageUpload"><i class="bi bi-plus"></i></label>
                                         </div>
                                         <div class="avatar-preview">
@@ -66,7 +71,7 @@
                             <div class="col-md-8">
                                 <div>
                                     <label class="form-label">Currency: </label>
-                                    <span class="&#2547;">&#2547;</span>
+                                    <span class="tk">&#2547;</span>
                                 </div>
                                 <div>
                                     <label class="form-label">Using Default Template</label>
@@ -75,59 +80,72 @@
                         </div>
                         <div class="row">
                             <div class="col-md-8">
-                                <label for="inputCity"class="form-label">From</label>
-                                <textarea name="" id="" rows="2" type="text" class="form-control"
+                                <label for="invoice_form"class="form-label">From</label>
+                                <textarea name="invoice_form" id="invoice_form" rows="2" type="text" class="form-control"
                                     placeholder="Who is this invoice from? (required)"></textarea>
+                                <div id="invoice_form_error" class="invalid-feedback"></div>
                             </div>
                         </div>
-                        <div class="row py-4">
+                        <div class="row pt-1 pb-3">
                             <div class="col-md-8">
-                                <label for="inputCity" class="form-label">Bill to</label>
-                                <textarea name="" id="" rows="2" type="text" class="form-control"
+                                <label for="invoice_to" class="form-label">Bill to</label>
+                                <textarea name="invoice_to" id="invoice_to" rows="2" type="text" class="form-control"
                                     placeholder="Who is this invoice to?(required)"></textarea>
+                                <div id="invoice_to_error" class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <div class="row md-2">
-                            <div class="col-sm-4"></div>
-                            <div class="col-sm-8 text-center">
-                                <h1>INVOICE</h1>
+                    <div class="col-md-5" style="display: grid">
+                        {{-- <div class="row md-2 invoice_header_right">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-8 text-center">
+                                <h1>INVOICE ID</h1>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="row">
-                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4 d-flex align-items-center">
+                                <h6>INVOICE ID</h6>
+                            </div>
                             <div class="col-sm-8 mb-2">
                                 <div class="input-group">
                                     <div class="input-group-text">&#9839;</div>
-                                    <input type="text" name="Invoice" class="form-control" value="INVID-01" id="invoiceid" placeholder="Username">
+                                    <input type="text" name="invoice_id" class="form-control" value="INVID-01" id="invoice_id" placeholder="INVOICE ID">
                                     <input type="hidden" id="id" name="id" value="">
                                     <div class="input-group-text">01</div>
+                                    <div id="invoice_id_error" class="invalid-feedback"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="colFormLabel" class="col-sm-4 col-form-label">Date</label>
+                            <label for="invoice_date" class="col-sm-4 col-form-label">Date</label>
                             <div class="col-sm-8">
-                                <input type="date" name="current_date" class="form-control" value="{{ date('Y-m-d'); }}" id="colFormLabel">
+                                <input type="date" name="invoice_date" class="form-control" value="{{ date('Y-m-d'); }}" id="invoice_date">
+                                <div id="invoice_date_error" class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="colFormLabel" class="col-sm-4 col-form-label">Payment Terms</label>
+                            <label for="invoice_payment_term" class="col-sm-4 col-form-label">Payment Terms</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="colFormLabel"  placeholder="Online/Bank/Cash Transaction">
+                                <input type="text" name="invoice_payment_term" class="form-control" id="invoice_payment_term"  placeholder="Online/Bank/Cash Transaction">
+                                <div id="invoice_payment_term_error" class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="colFormLabel" class="col-sm-4 col-form-label">Due Date</label>
+                            <label for="invoice_dou_date" class="col-sm-4 col-form-label">Due Date</label>
+                            @php
+                                $date = new DateTime(now());
+                                $date->modify('+4 day');
+                            @endphp 
                             <div class="col-sm-8">
-                                <input type="date" class="form-control" id="colFormLabel">
+                                <input type="date" name="invoice_dou_date" class="form-control" value="{{ $date->format('Y-m-d'); }}" id="invoice_dou_date">
+                                <div id="invoice_dou_date_error" class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="colFormLabel" class="col-sm-4 col-form-label">PO Number</label>
+                            <label for="invoice_po_number" class="col-sm-4 col-form-label">PO Number</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="colFormLabel">
+                                <input type="text" name="invoice_po_number" class="form-control" id="invoice_po_number">
+                                <div id="invoice_po_number_error" class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -137,11 +155,11 @@
                         <thead style="background-color: #FFB317;">
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col" style="width: 55%">Item</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Rate</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Item</th>
+                            <th scope="col" style="width: 14%">Quantity</th>
+                            <th scope="col" style="width: 10%">Rate</th>
+                            <th scope="col" style="width: 10%">Amount</th>
+                            <th scope="col" style="width: 5%">Action</th>
                           </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -151,41 +169,60 @@
                 </div>
                 <form id="productForm">
                    @csrf
-                    <div class="product">
-                        <div class="p-1">
+                    <div class="product row">
+                        <div class="p-0 pe-1 pb-2 col-md-6">
                             <input type="text" name="produc_name" id="produc_name" class="form-control" placeholder="Description of service or product">
-                            <div id="name_error" class="invalid-feedback">
-                                
+                            <div id="name_error" class="invalid-feedback"></div>
+                        </div>
+                        <div class="text-start p-0 pe-1 pb-2 col-md-2">
+                            <div class="input-group">
+                                <input type="text" name="produc_quantity" id="produc_quantity" class="form-control" placeholder="Quantity" onchange="ptotal()">
+                                <div class="input-group-text">&#9839;</div>
+                                <div id="quantity_error" class="invalid-feedback"></div>
                             </div>
                         </div>
-                        <div class="text-start p-1 input-group">
-                            <input type="text" name="produc_quantity" id="produc_quantity" class="form-control" placeholder="Rate">
-                            <div class="input-group-text">&#2547;</div>
-                            <div id="quantity_error" class="invalid-feedback">
-                                
+                        <div class="text-center p-0 pe-1 pb-2 col-md-2">
+                            <div class="input-group">
+                                <input type="text" name="produc_rate" id="produc_rate" class="form-control" placeholder="Rate" onchange="ptotal()">
+                                <div class="input-group-text">&#2547;</div>
+                                <div id="rate_error" class="invalid-feedback"></div>
                             </div>
                         </div>
-                        <div class="text-center p-1 input-group">
-                            <input type="text" name="produc_rate" id="produc_rate" class="form-control" placeholder="Amount">
-                            <div class="input-group-text">&#9839;</div>
-                            <div id="rate_error" class="invalid-feedback">
-                                
+                        <div class=" col-md-2 p-0 pe-1 pb-2">
+                            <div class="ps-2 input-group text-center border rounded justify-content-between align-items-center ">
+                                <span id="product_amount" class="fw-bolder"></span>
+                            <div class="input-group-text ">&#2547;</div>
                             </div>
                         </div>
-
                     </div>
     
                     <div class="mt-4 ms-2">
                         <button type="button" class="py-2 px-4 btn add-field rounded" id="addButton" onclick="addData();total();"><i class="bi bi-plus"></i> add line</button>
+                        <span id="product_clear" class="btn btn-danger" onclick="pclear()">
+                            Clear Input
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+                                <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                              </svg>
+                        </span>
                     </div>
                 </form>
                 <div class="row pt-4">
                     <div class="col-md-7">
-                        <label for="inputCity" class="form-label p-2">Notes</label>
-                        <textarea name="" id="" rows="3" class="form-control"
+                        <div>
+                            <label for="invoice_notes" class="form-label p-2">Notes</label>
+                        <textarea name="invoice_notes" id="invoice_notes" rows="3" class="form-control"
                             placeholder="Notes - any related information not already covered"></textarea>
+                        <div id="invoice_notes_error" class="invalid-feedback"></div>
+                        </div>
+                        <div class="">
+                            <label for="invoice_terms" class="form-label p-2 d-flex align-items-center">Terms</label>
+                            <textarea name="invoice_terms" id="invoice_terms" rows="3" class="form-control"
+                                placeholder="Terms and conditions, late fees, payment methods, delivery schedule"></textarea>
+                            <div id="invoice_terms_error" class="invalid-feedback"></div>
+                        </div>
                     </div>
-                    <div class="col-md-5 d-flex flex-column justify-content-end ps-4 pt-2">
+                    <div class="col-md-5 d-flex flex-column justify-content-end pt-2 pe-4">
                         <div class="row">
                             <div class="col-4 d-flex align-items-center fw-bolder text-primary">Sub total</div>
                             <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
@@ -200,42 +237,41 @@
                                 <div class="input-group-text">&#8453;</div>
                             </div>
                         </div>
+                        <div class="d-flex flex-column justify-content-end pt-2">
+                            <div class="row">
+                                <div class="col-4 d-flex align-items-center fw-bolder text-success">Total</div>
+                                <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+                                    <span class="p-2 fw-bolder text-success" id="total">0.00</span>
+                                    <div class="input-group-text">&#2547;</div>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-4 d-flex align-items-center">Amount Paid</div>
+                                <div class="col input-group p-0">
+                                    <input type="text" class="form-control" id="inputPaid" onchange="total()">
+                                    <div class="input-group-text">&#2547;</div>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-4 d-flex align-items-center fw-bolder text-danger">Balance Due</div>
+                                <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+                                    <span class="p-2 fw-bolder text-danger" id="balanceDue">0.00</span>
+                                    <div class="input-group-text">&#2547;</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-7">
-                        <label for="inputCity" class="form-label p-2 d-flex align-items-center">Terms</label>
-                        <textarea name="" id="" rows="3" class="form-control"
-                            placeholder="Terms and conditions, late fees, payment methods, delivery schedule"></textarea>
                     </div>
-                    <div class="col-md-5 d-flex flex-column justify-content-end ps-4 pt-2">
-                        <div class="row">
-                            <div class="col-4 d-flex align-items-center fw-bolder text-success">Total</div>
-                            <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
-                                <span class="p-2 fw-bolder text-success" id="total">0.00</span>
-                                <div class="input-group-text">&#2547;</div>
-                            </div>
-                        </div>
-                        <div class="row pt-2">
-                            <div class="col-4 d-flex align-items-center">Amount Paid</div>
-                            <div class="col input-group p-0">
-                                <input type="text" class="form-control" id="inputPaid" onchange="total()">
-                                <div class="input-group-text">&#2547;</div>
-                            </div>
-                        </div>
-                        <div class="row pt-2">
-                            <div class="col-4 d-flex align-items-center fw-bolder text-danger">Balance Due</div>
-                            <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
-                                <span class="p-2 fw-bolder text-danger" id="balanceDue">0.00</span>
-                                <div class="input-group-text">&#2547;</div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="container p-0 pt-3">
-                <button type="submit" class="btn send-invoice py-2 px-4">Send Invoice</button>
-                <button type="submit" class="btn send-downlod py-2 px-4">Download Invoice</button>
+                <button type="submit" class="btn send-invoice py-2 px-4">Complete Invoice</button>
+                <a href="#" class="btn send-invoice py-2 px-4">Send Invoice</a>
+                <a href="#" class="btn send-downlod py-2 px-4">Download Invoice</a>
             </div>
         </form>
         </div>
