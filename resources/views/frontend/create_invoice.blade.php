@@ -43,7 +43,7 @@
     <!-- Invoice Section Start -->
     <section class="invoice_section">
         <div class="my-5">
-            <form method="post" >
+            <form method="post" id="productForm" enctype="multipart/form-data">
                 @csrf
             <div class="container p-4 " style="background-color: #F0F0F0;">
                 <div class="row md-2 invoice_header_right">
@@ -58,7 +58,7 @@
                                 <div class="input-group">
                                     <div class="avatar-upload">
                                         <div class="avatar-edit">
-                                            <input type='file' name="invoice_logo" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                            <input type='file' name="imageUpload" id="imageUpload" />
                                             <label for="imageUpload"><i class="bi bi-plus"></i></label>
                                         </div>
                                         <div class="avatar-preview">
@@ -96,12 +96,6 @@
                         </div>
                     </div>
                     <div class="col-md-5" style="display: grid">
-                        {{-- <div class="row md-2 invoice_header_right">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-8 text-center">
-                                <h1>INVOICE ID</h1>
-                            </div>
-                        </div> --}}
                         <div class="row">
                             <div class="col-sm-4 d-flex align-items-center">
                                 <h6>INVOICE ID</h6>
@@ -167,8 +161,8 @@
                         </tbody>
                     </table>
                 </div>
-                <form id="productForm">
-                   @csrf
+                {{-- <form>
+                   @csrf --}}
                     <div class="product row">
                         <div class="p-0 pe-1 pb-2 col-md-6">
                             <input type="text" name="produc_name" id="produc_name" class="form-control" placeholder="Description of service or product">
@@ -206,7 +200,7 @@
                               </svg>
                         </span>
                     </div>
-                </form>
+                {{-- </form> --}}
                 <div class="row pt-4">
                     <div class="col-md-7">
                         <div>

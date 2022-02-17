@@ -59,7 +59,7 @@ function clearData(){
 function addData(){
     // Invoice data
     var id = $('#id').val();
-    var invoice_logo = $('#imageUpload').val();
+    var invoice_logo =  $('#imageUpload').val();
     var invoice_form = $('#invoice_form').val();
     var invoice_to = $('#invoice_to').val();
     var invoice_id = $('#invoice_id').val();
@@ -76,6 +76,10 @@ function addData(){
     var produc_quantity = $('#produc_quantity').val();
     var produc_rate = $('#produc_rate').val();
 
+    // let myForm = document.getElementById('productForm');
+    // let formData = new FormData(myForm);
+
+
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -83,6 +87,7 @@ function addData(){
                 name:produc_name, 
                 quantity:produc_quantity, 
                 rate:produc_rate,
+
                 // invoice data
                 id:id,
                 invoice_logo:invoice_logo,
@@ -127,8 +132,6 @@ function addData(){
                 $('#produc_rate').removeClass("is-invalid");
                 $('#produc_rate').addClass("is-valid");
             }
- 
-            // console.log(error.responseJSON.errors);
         }
     });
 }
