@@ -17,7 +17,7 @@ class InvoiceController extends Controller
     public function index()
     {
         
-        return view('frontend.create_invoice');
+        return view('frontend.create-invoice');
     }
 
     /**
@@ -38,43 +38,10 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        // $validated = $request->validate([
-        //     'invoiceid' => 'required',
-        // ]);
-
-        // $invoice_id = $request->invoiceid;
-        // $id = $request->id;
-        // $data = array(
-        //     'user_id' => 2,
-        //     'invoice_id' => $invoice_id,
-        //     'name' => 'Test2',
-        // );
-
-        // $status =  Invoice::updateOrCreate(['id' => $id], $data);
-
-
-        // if ($status == "uncomplet") {
-        //     $invoiceset = Invoice::Insert([
-        //         'user_id' => 2,
-        //         'invoice_id' => $invoice_id,
-        //         'name' => 'Test2',
-        //     ]);
-        // } elseif($status == "complet"){
-        //     $invoiceset = Invoice::Update([
-        //         'user_id' => 2,
-        //         'invoice_id' => $invoice_id,
-        //         'name' => 'Test2',
-        //     ]);
-        // }
-
-        
-
-        $invoice = DB::table('invoices')->where('invoice_id', $invoice_id)->value('id');
-
-        
-
-        return response()->json($invoice);
-
+        if ($request->file('invoice_logo')) {
+            dd('ok');
+        }
+        dd('not ok');
     }
 
     /**

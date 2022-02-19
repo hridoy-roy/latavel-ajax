@@ -6,28 +6,28 @@ $.ajaxSetup({
     }
 });
 
-function allData(){
+function allData() {
 
     var id = $('#id').val();
     $.ajax({
-        type:"POST",
+        type: "POST",
         dataType: 'json',
-        data: {id:id},
+        data: { id: id },
         url: '/products/create',
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        success: function(responce){
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        success: function (responce) {
             var data = '';
-            var totalamount =  0;
-            $.each(responce, function(key, value){
+            var totalamount = 0;
+            $.each(responce, function (key, value) {
                 totalamount = totalamount + value.amount
                 data = data + "<tr>"
-                data = data + "<th scope='row'>"+ ++key +"</th>"
-                data = data + "<td>"+ value.product_name +"</td>"
-                data = data + "<td>"+ value.quantity +"</td>"
-                data = data + "<td>"+ value.rate +"</td>"
-                data = data + "<td>"+ value.amount +"</td>"
+                data = data + "<th scope='row'>" + ++key + "</th>"
+                data = data + "<td>" + value.product_name + "</td>"
+                data = data + "<td>" + value.quantity + "</td>"
+                data = data + "<td>" + value.rate + "</td>"
+                data = data + "<td>" + value.amount + "</td>"
                 data = data + "<td class='text-center'>"
-                data = data + "<button type='button' onClick='deleteData("+value.id+")' class='btn btn-sm btn-danger fw-bolder'><i class='bi bi-trash'></i></button>"
+                data = data + "<button type='button' onClick='deleteData(" + value.id + ")' class='btn btn-sm btn-danger fw-bolder'><i class='bi bi-trash'></i></button>"
                 data = data + "</td>"
                 data = data + "</tr>"
             })
@@ -38,7 +38,7 @@ function allData(){
     })
 }
 allData();
-function clearData(){
+function clearData() {
     $('#produc_name').val('');
     $('#produc_quantity').val('');
     $('#produc_rate').val('');
@@ -56,10 +56,11 @@ function clearData(){
 }
 
 
-function addData(){
+function addData() {
     // Invoice data
     var id = $('#id').val();
-    var invoice_logo =  $('#imageUpload').val();
+    var invoice_logo = document.getElementById("imageUpload").files[0].name; 
+    // var invoice_logo = $('#imageUpload').val();
     var invoice_form = $('#invoice_form').val();
     var invoice_to = $('#invoice_to').val();
     var invoice_id = $('#invoice_id').val();
@@ -76,59 +77,64 @@ function addData(){
     var produc_quantity = $('#produc_quantity').val();
     var produc_rate = $('#produc_rate').val();
 
-    // let myForm = document.getElementById('productForm');
-    // let formData = new FormData(myForm);
+    
 
 
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
-                name:produc_name, 
-                quantity:produc_quantity, 
-                rate:produc_rate,
+            name: produc_name,
+            quantity: produc_quantity,
+            rate: produc_rate,
 
-                // invoice data
-                id:id,
-                invoice_logo:invoice_logo,
-                invoice_form:invoice_form,
-                invoice_to:invoice_to,
-                invoice_id:invoice_id,
-                invoice_date:invoice_date,
-                invoice_payment_term:invoice_payment_term,
-                invoice_dou_date:invoice_dou_date,
-                invoice_po_number:invoice_po_number,
-                invoice_notes:invoice_notes,
-                invoice_terms:invoice_terms,
-            },
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            // invoice data
+            id: id,
+            invoice_logo: invoice_logo,
+            invoice_form: invoice_form,
+            invoice_to: invoice_to,
+            invoice_id: invoice_id,
+            invoice_date: invoice_date,
+            invoice_payment_term: invoice_payment_term,
+            invoice_dou_date: invoice_dou_date,
+            invoice_po_number: invoice_po_number,
+            invoice_notes: invoice_notes,
+            invoice_terms: invoice_terms,
+        },
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         url: "/products/store",
-        success: function(data){
+        success: function (data) {
             $('#id').val(data[1]);
             clearData();
             allData();
         },
-        error: function(error){
-            if (error.responseJSON.errors.name != null) {
+        error: function (error) {
+            if (error.responseJSON.errors.name != null)
+            {
                 $('#produc_name').addClass("is-invalid");
                 $('#name_error').text(error.responseJSON.errors.name);
-            }else{
+            } else
+            {
                 $('#produc_name').removeClass("is-invalid");
                 $('#produc_name').addClass("is-valid");
             }
 
-            if (error.responseJSON.errors.quantity != null) {
+            if (error.responseJSON.errors.quantity != null)
+            {
                 $('#produc_quantity').addClass("is-invalid");
                 $('#quantity_error').text(error.responseJSON.errors.quantity);
-            }else{
+            } else
+            {
                 $('#produc_quantity').removeClass("is-invalid");
                 $('#produc_quantity').addClass("is-valid");
             }
 
-            if (error.responseJSON.errors.rate != null) {
+            if (error.responseJSON.errors.rate != null)
+            {
                 $('#produc_rate').addClass("is-invalid");
                 $('#rate_error').text(error.responseJSON.errors.rate);
-            }else{
+            } else
+            {
                 $('#produc_rate').removeClass("is-invalid");
                 $('#produc_rate').addClass("is-valid");
             }
@@ -136,25 +142,25 @@ function addData(){
     });
 }
 
-function deleteData(id){
+function deleteData(id) {
 
     var id = id;
- 
+
     $.ajax({
         type: "delete",
         dataType: "json",
-        data: {id:id},
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        url: "/products/delete/"+id,
-        success: function(data){
+        data: { id: id },
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        url: "/products/delete/" + id,
+        success: function (data) {
             allData();
         },
-        error: function(error){
+        error: function (error) {
         }
     });
 }
 
-function ptotal(){
+function ptotal() {
     var produc_quantity = $('#produc_quantity').val();
     var produc_rate = $('#produc_rate').val();
 
@@ -163,7 +169,7 @@ function ptotal(){
     $('#product_amount').text(ptotal);
 }
 
-function pclear(){
+function pclear() {
     $('#produc_name').val("");
     $('#produc_quantity').val("");
     $('#produc_rate').val("");
@@ -171,24 +177,24 @@ function pclear(){
 }
 
 // Sub total 
-function total(itemAmount){
-     $('#subtotal').text(itemAmount);
+function total(itemAmount) {
+    $('#subtotal').text(itemAmount);
 }
 
 // Tax 
-function total(itemAmount){
+function total(itemAmount) {
     $('#subtotal').text(itemAmount);
-        var itemAmount = $('#subtotal').text()*1;
-        var tax = $('#inputTax').val()*1;
+    var itemAmount = $('#subtotal').text() * 1;
+    var tax = $('#inputTax').val() * 1;
 
-        var persent = (itemAmount*tax)/100
+    var persent = (itemAmount * tax) / 100
 
-        console.log(persent);
+    console.log(persent);
 
-        var total = itemAmount+persent;
-        $('#total').text(total);
-        var paid = $('#inputPaid').val()*1;
-        var balanceDue = total - paid; 
-        $('#balanceDue').text(balanceDue);
+    var total = itemAmount + persent;
+    $('#total').text(total);
+    var paid = $('#inputPaid').val() * 1;
+    var balanceDue = total - paid;
+    $('#balanceDue').text(balanceDue);
 }
 

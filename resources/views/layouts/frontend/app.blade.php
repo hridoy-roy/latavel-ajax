@@ -48,7 +48,7 @@
 
   <!-- Bootstrap v5.1.3 -->
   <script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+  <script src="{{ asset('assets/frontend/js/main.js1') }}"></script>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>

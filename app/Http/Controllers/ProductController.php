@@ -44,32 +44,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $file = $request->invoice_logo;
-        // $extension = $file->getClientOriginalExtension();
-        // $url = Storage::url($file);
-        // $file1 = Storage::get($file);
-        // exists('file.jpg')
-        dd($request);
-        // $file = $request->file('invoice_logo');
+       
         $validated = $request->validate([
-            // 'name' => 'required|max:255',
-            // 'quantity' => 'required|numeric|min:1',
-            // 'rate' => 'required|numeric|min:1',
-            'invoice_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-            // 'invoice_form' => 'required|max:300',
-            // 'invoice_to' => 'required|max:300',
-            // 'invoice_id' => 'required|max:10',
-            // 'invoice_date' => 'required|date',
-            // 'invoice_payment_term' => 'max:30',
-            // 'invoice_dou_date' => 'date|after:invoice_date',
-            // 'invoice_po_number' => 'max:30',
-            // 'invoice_notes' => 'max:400',
-            // 'invoice_terms' => 'max:400',
+            'name' => 'required|max:255',
+            'quantity' => 'required|numeric|min:1',
+            'rate' => 'required|numeric|min:1',
+            'invoice_logo' => 'required',
+            'invoice_form' => 'required|max:300',
+            'invoice_to' => 'required|max:300',
+            'invoice_id' => 'required|max:10',
+            'invoice_date' => 'required|date',
+            'invoice_payment_term' => 'max:30',
+            'invoice_dou_date' => 'date|after:invoice_date',
+            'invoice_po_number' => 'max:30',
+            'invoice_notes' => 'max:400',
+            'invoice_terms' => 'max:400',
         ]);
 
        
         
-        if (file_exists($file)) {
+        if ($request->hasFile('invoice_logo')) {
             dd("ok");
         }
 

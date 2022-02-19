@@ -21,8 +21,8 @@ class CreateProductsTable extends Migration
                     ->on('invoices')
                     ->onDelete('cascade');
             $table->string('product_name');
-            $table->float('quantity', 5, 2);
-            $table->float('rate', 5, 2);
+            $table->float('quantity', 8, 2);
+            $table->float('rate', 8, 2);
             $table->float('amount', 9, 2);
             $table->timestamps();
         });
