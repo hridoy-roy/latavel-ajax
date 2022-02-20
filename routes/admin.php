@@ -14,10 +14,10 @@ use App\Http\Controllers\Admin\PageController;
 |
 */
 
-Route::group(['prefix' => 'admin',
-                        'middleware' => ['admin','auth'],
-                        'as' => 'admin.',
-                        'namespace' => 'Admin'
-                    ], function () {
-    Route::get('dashboard', [PageController::class, 'index'])->name('dashboard');
-});
+Route::group([  'prefix' => 'admin',
+                'middleware' => ['admin','auth'],
+                'as' => 'admin.',
+                'namespace' => 'Admin'
+            ], function () {
+                Route::get('dashboard', [PageController::class, 'index'])->name('dashboard');
+            });

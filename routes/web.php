@@ -46,5 +46,8 @@ Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
 
 // Invoice Route
 
-Route::get('/invoices', [InvoiceController::class, 'index']);
-Route::post('/invoices/store', [InvoiceController::class, 'store'])->name('store.');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/invoices', [InvoiceController::class, 'index']);
+    Route::post('/invoices/store', [InvoiceController::class, 'store'])->name('store.');
+});
+

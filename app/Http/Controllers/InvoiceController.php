@@ -6,6 +6,9 @@ use App\Models\Invoice;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -57,22 +60,36 @@ class InvoiceController extends Controller
         ]);
         
      
-        $filename = null;
 
         // invocie Logo name
-        if ($request->file('invoice_logo')) {
-            $file = $request->file('invoice_logo');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time(). '.' .$extension;
-            $file->storeAs('uploads/invoice/logo', $filename);
-        }
-        
+        $filename = null;
         $invoice_id = $request->invoice_id;
-
+        $invoice_logo = $request->invoice_logo;
         $id = $request->id;
 
+        if ($id == null && $invoice_logo != null) {
+            if ($request->file('invoice_logo')) {
+                $file = $request->file('invoice_logo');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time(). '.' .$extension;
+                $file->move(public_path('storage/invoice/logo'), $filename);
+            }
+        } elseif ($id != null && $invoice_logo != null) {
+            $find = Invoice::findOrFail($id);
+            $image_path         = public_path("storage\invoice\logo\\") . $find->invoice_logo;
+            if (File::exists($image_path)) {
+                File::delete($image_path);
+                // Create File 
+                $file = $request->file('invoice_logo');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time(). '.' .$extension;
+                $file->move(public_path('storage/invoice/logo'), $filename);
+            }
+        }
+        
+
         $data = array(
-            'user_id' => 2,
+            'user_id' => Auth::user()->id,
             'invoice_logo' => $filename,
             'invoice_form' => $request->invoice_form,
             'invoice_to' => $request->invoice_to,
