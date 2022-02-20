@@ -18,11 +18,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $id  = $request->id;
-        // dd($id);
         $data = Product::where('invoice_id', $id)->orderBy('id', 'ASC')->get();
-
-        // $data = Product::orderBy()->get();
-        // ->with(compact('data'))
         return response()->json($data);
     }
 
@@ -63,9 +59,9 @@ class ProductController extends Controller
 
        
         
-        if ($request->hasFile('invoice_logo')) {
-            dd("ok");
-        }
+        // if ($request->hasFile('invoice_logo')) {
+        //     dd("ok");
+        // }
 
         $invoice_id = $request->invoice_id;
         $id = $request->id;

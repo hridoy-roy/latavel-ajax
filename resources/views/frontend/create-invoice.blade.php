@@ -160,25 +160,24 @@
             </tbody>
           </table>
         </div>
-        {{-- <form>
-                   @csrf --}}
+
         <div class="product row">
           <div class="p-0 pe-1 pb-2 col-md-6">
-            <input type="text" name="produc_name" id="produc_name" class="form-control" placeholder="Description of service or product">
+            <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Description of service or product">
             <div id="name_error" class="invalid-feedback"></div>
           </div>
           <div class="text-start p-0 pe-1 pb-2 col-md-2">
             <div class="input-group">
-              <input type="text" name="produc_quantity" id="produc_quantity" class="form-control" placeholder="Quantity" onchange="ptotal()">
+              <input type="text" name="product_quantity" id="product_quantity" class="form-control" placeholder="Quantity" onchange="ptotal()">
               <div class="input-group-text">&#9839;</div>
               <div id="quantity_error" class="invalid-feedback"></div>
             </div>
           </div>
-          <div class="text-center p-0 pe-1 pb-2 col-md-2">
+          <div class="text-start p-0 pe-1 pb-2 col-md-2">
             <div class="input-group">
-              <input type="text" name="produc_rate" id="produc_rate" class="form-control" placeholder="Rate" onchange="ptotal()">
+              <input type="text" name="product_rate" id="product_rate" class="form-control" placeholder="Rate" onchange="ptotal()">
               <div class="input-group-text">&#2547;</div>
-              <div id="rate_error" class="invalid-feedback"></div>
+              <div id="product_rate_error" class="invalid-feedback"></div>
             </div>
           </div>
           <div class=" col-md-2 p-0 pe-1 pb-2">
@@ -224,8 +223,9 @@
             <div class="row pt-2 ">
               <div class="col-4 d-flex align-items-center">Tax</div>
               <div class="col input-group p-0">
-                <input type="text" name="invoice_tax class="form-control" id="inputTax" onchange="total()">
+                <input type="text" name="invoice_tax" class="form-control" value="0" id="invoice_tax" onchange="total()">
                 <div class="input-group-text">&#8453;</div>
+                <div id="invoice_tax_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="d-flex flex-column justify-content-end pt-2">
@@ -239,8 +239,9 @@
               <div class="row pt-2">
                 <div class="col-4 d-flex align-items-center">Amount Paid</div>
                 <div class="col input-group p-0">
-                  <input type="text" class="form-control" id="inputPaid" onchange="total()">
+                  <input type="text" class="form-control" name="invoice_amu_paid" value="0" id="invoice_amu_paid" onchange="total()">
                   <div class="input-group-text">&#2547;</div>
+                  <div id="invoice_amu_paid_error" class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="row pt-2">
@@ -298,15 +299,9 @@
 @endsection
 @push('frontend_js')
 <script>
-
-
-// add new employee ajax request
+      // add new employee ajax request
       $("#invoiceForm").submit(function(e) {
         e.preventDefault();
-
-        console.log("ok");
-
-
 
         const fd = new FormData(this);
         $.ajax({
@@ -318,20 +313,240 @@
           processData: false,
           dataType: 'json',
           success: function(response) {
-            if (response.status == 200) {
-              Swal.fire(
-                'Added!',
-                'Employee Added Successfully!',
-                'success'
-              )
-              fetchAllEmployees();
-            }
-            $("#add_employee_btn").text('Add Employee');
-            $("#add_employee_form")[0].reset();
-            $("#addEmployeeModal").modal('hide');
+              $('#id').val(response[1]);
+              clearData();
+              allData();
+          },
+          error: function (error) {
+            console.log(error);
+              if (error.responseJSON.errors.product_name != null)
+              {
+                  $('#product_name').addClass("is-invalid");
+                  $('#name_error').text(error.responseJSON.errors.product_name);
+              } else
+              {
+                  $('#product_name').removeClass("is-invalid");
+                  $('#product_name').addClass("is-valid");
+              }
+
+              if (error.responseJSON.errors.product_quantity != null)
+              {
+                  $('#product_quantity').addClass("is-invalid");
+                  $('#quantity_error').text(error.responseJSON.errors.product_quantity);
+              } else
+              {
+                  $('#product_quantity').removeClass("is-invalid");
+                  $('#product_quantity').addClass("is-valid");
+              }
+              
+              if (error.responseJSON.errors.product_rate != null)
+              {
+                  $('#product_rate').addClass("is-invalid");
+                  $('#product_rate_error').text(error.responseJSON.errors.product_rate);
+              } else
+              {
+                  $('#product_rate').removeClass("is-invalid");
+                  $('#product_rate').addClass("is-valid");
+              }
+              // Invoice Validation 
+              if (error.responseJSON.errors.invoice_form != null)
+              {
+                  $('#invoice_form').addClass("is-invalid");
+                  $('#invoice_form_error').text(error.responseJSON.errors.invoice_form);
+              } else
+              {
+                  $('#invoice_form').removeClass("is-invalid");
+                  $('#invoice_form').addClass("is-valid");
+              }
+              
+              if (error.responseJSON.errors.invoice_to != null)
+              {
+                  $('#invoice_to').addClass("is-invalid");
+                  $('#invoice_to_error').text(error.responseJSON.errors.invoice_to);
+              } else
+              {
+                  $('#invoice_to').removeClass("is-invalid");
+                  $('#invoice_to').addClass("is-valid");
+              }
+
+              if (error.responseJSON.errors.invoice_id != null)
+              {
+                  $('#invoice_id').addClass("is-invalid");
+                  $('#invoice_id_error').text(error.responseJSON.errors.invoice_id);
+              } else
+              {
+                  $('#invoice_id').removeClass("is-invalid");
+                  $('#invoice_id').addClass("is-valid");
+              }
+
+              if (error.responseJSON.errors.invoice_date != null)
+              {
+                  $('#invoice_date').addClass("is-invalid");
+                  $('#invoice_date_error').text(error.responseJSON.errors.invoice_date);
+              } else
+              {
+                  $('#invoice_date').removeClass("is-invalid");
+                  $('#invoice_date').addClass("is-valid");
+              }
+
+              if (error.responseJSON.errors.invoice_dou_date != null)
+              {
+                  $('#invoice_dou_date').addClass("is-invalid");
+                  $('#invoice_dou_date_error').text(error.responseJSON.errors.invoice_dou_date);
+              } else
+              {
+                  $('#invoice_dou_date').removeClass("is-invalid");
+                  $('#invoice_dou_date').addClass("is-valid");
+              }
+
+              if (error.responseJSON.errors.invoice_tax != null)
+              {
+                  $('#invoice_tax').addClass("is-invalid");
+                  $('#invoice_tax_error').text(error.responseJSON.errors.invoice_tax);
+              } else
+              {
+                  $('#invoice_tax').removeClass("is-invalid");
+                  $('#invoice_tax').addClass("is-valid");
+              }
+
+              if (error.responseJSON.errors.invoice_amu_paid != null)
+              {
+                  $('#invoice_amu_paid').addClass("is-invalid");
+                  $('#invoice_amu_paid_error').text(error.responseJSON.errors.invoice_amu_paid);
+              } else
+              {
+                  $('#invoice_amu_paid').removeClass("is-invalid");
+                  $('#invoice_amu_paid').addClass("is-valid");
+              }
           }
         });
       });
+
+
+      function allData() {
+        var id = $('#id').val();
+        console.log(id);
+        $.ajax({
+            type: "POST",
+            dataType: 'json',
+            data: { id: id },
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: '/products/create',
+            success: function (responce) {
+                var data = '';
+                var totalamount = 0;
+                $.each(responce, function (key, value) {
+                    totalamount = totalamount + value.product_amount
+                    data = data + "<tr>"
+                    data = data + "<th scope='row'>" + ++key + "</th>"
+                    data = data + "<td>" + value.product_name + "</td>"
+                    data = data + "<td>" + value.product_quantity + "</td>"
+                    data = data + "<td>" + value.product_rate + "</td>"
+                    data = data + "<td>" + value.product_amount + "</td>"
+                    data = data + "<td class='text-center'>"
+                    data = data + "<button type='button' onClick='deleteData(" + value.id + ")' class='btn btn-sm btn-danger fw-bolder'><i class='bi bi-trash'></i></button>"
+                    data = data + "</td>"
+                    data = data + "</tr>"
+                })
+                $('#tableBody').html(data);
+                total(totalamount);
+
+            }
+        })
+      }
+
+
+
+      function clearData() {
+        $('#product_name').val('');
+        $('#product_quantity').val('');
+        $('#product_rate').val('');
+
+        $('#product_name').removeClass("is-valid");
+        $('#product_quantity').removeClass("is-valid");
+        $('#product_rate').removeClass("is-valid");
+        $('#invoice_form').removeClass("is-valid");
+        $('#invoice_to').removeClass("is-valid");
+        $('#invoice_id').removeClass("is-valid");
+        $('#invoice_date').removeClass("is-valid");
+        $('#invoice_dou_date').removeClass("is-valid");
+        $('#invoice_tax').removeClass("is-valid");
+        $('#invoice_amu_paid').removeClass("is-valid");
+
+        $('#product_name').removeClass("is-invalid");
+        $('#product_quantity').removeClass("is-invalid");
+        $('#product_rate').removeClass("is-invalid");
+        $('#invoice_form').removeClass("is-invalid");
+        $('#invoice_to').removeClass("is-invalid");
+        $('#invoice_id').removeClass("is-invalid");
+        $('#invoice_date').removeClass("is-invalid");
+        $('#invoice_dou_date').removeClass("is-invalid");
+        $('#invoice_tax').removeClass("is-invalid");
+        $('#invoice_amu_paid').removeClass("is-invalid");
+
+    }
+
+
+    function ptotal() {
+        var product_quantity = $('#product_quantity').val();
+        var product_rate = $('#product_rate').val();
+
+        var ptotal = product_quantity * product_rate;
+
+        $('#product_amount').text(ptotal);
+    }
+
+    function pclear() {
+        $('#product_name').val("");
+        $('#product_quantity').val("");
+        $('#product_rate').val("");
+        $('#product_amount').text("");
+    }
+
+    // Sub total 
+    function total(itemAmount) {
+        $('#subtotal').text(itemAmount);
+    }
+
+    // Tax 
+    function total(itemAmount) {
+        $('#subtotal').text(itemAmount);
+        var itemAmount = $('#subtotal').text() * 1;
+        var tax = $('#invoice_tax').val() * 1;
+
+        var persent = (itemAmount * tax) / 100
+
+        console.log(persent);
+
+        var total = itemAmount + persent;
+        $('#total').text(total);
+        var paid = $('#invoice_amu_paid').val() * 1;
+        var balanceDue = total - paid;
+        $('#balanceDue').text(balanceDue);
+    }
+
+
+    function deleteData(id) {
+
+      var id = id;
+
+      $.ajax({
+          type: "delete",
+          dataType: "json",
+          data: { id: id },
+          headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+          url: "/products/delete/" + id,
+          success: function (data) {
+            $('#product_amount').text("");
+              allData();
+          },
+          error: function (error) {
+          }
+      });
+      }
+
+
+
 
   // <!-- Image Upload Start-->
   function readURL(input) {
