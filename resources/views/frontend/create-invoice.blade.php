@@ -11,6 +11,20 @@
 </style>
 @endpush
 @section('frontend_content')
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
 <!-- banner section Start -->
 <section class="bill_banner_section">
   <div style="background-color: #FFB317;">
@@ -261,7 +275,7 @@
         </div>
       </div>
       <div class="container p-0 pt-3">
-        <button type="submit" class="btn send-invoice py-2 px-4">Complete Invoice</button>
+        {{-- <a href="{{ route('complete',) }}" class="btn send-invoice py-2 px-4">Complete Invoice</a> --}}
         <a href="#" class="btn send-invoice py-2 px-4">Send Invoice</a>
         <a href="#" class="btn send-downlod py-2 px-4">Download Invoice</a>
       </div>
@@ -299,6 +313,11 @@
 @endsection
 @push('frontend_js')
 <script>
+
+
+
+
+
       // add new employee ajax request
       $("#invoiceForm").submit(function(e) {
         e.preventDefault();
@@ -426,6 +445,7 @@
       function allData() {
         var id = $('#id').val();
         console.log(id);
+
         $.ajax({
             type: "POST",
             dataType: 'json',
