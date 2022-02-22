@@ -1,7 +1,7 @@
 @extends('layouts.frontend.app')
 @section('title', 'Create Bill page')
 @push('frontend_css')
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <style>
   .avatar-upload .avatar-preview>div {
     border-radius: 0px !important;

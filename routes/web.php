@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\frontend\DashboardController;
 use App\Http\Controllers\Frontend\PagesController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
@@ -50,5 +51,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/invoices', [InvoiceController::class, 'index']);
     Route::post('/invoices/store', [InvoiceController::class, 'store'])->name('store.');
     Route::post('/invoices/complete/{id}', [InvoiceController::class, 'complete'])->name('complete.');
-});
 
+    Route::get('/all/invoices', [DashboardController::class, 'allInvoice'])->name('all.invoice');
+});

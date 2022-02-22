@@ -29,6 +29,15 @@
             </svg>
           </li>
           <li class="nav-item d-flex align-items-center">
+            <a class="nav-link p-1" aria-current="page" href="signin.html">{{ auth()->user()->name }}</a>
+          </li>
+          <li class="nav-item d-flex align-items-center">
+            <svg height="50" width="3">
+              <line x1="0" y1="15" x2="0" y2="40" style="stroke:rgb(0,0,0);stroke-width:2" />
+              Sorry, your browser does not support inline SVG.
+            </svg>
+          </li>
+          <li class="nav-item d-flex align-items-center">
             <a class="nav-link p-1" aria-current="page" href="signin.html">Sign out</a>
           </li>
             @endauth

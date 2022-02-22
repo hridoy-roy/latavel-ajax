@@ -24,6 +24,9 @@
   <!-- Bootstrap icons v1.7.2 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
+  <!--JQuery-->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
   <link rel="stylesheet" href="{{ asset('assets/frontend/css/main.css') }}">
 
     @stack('frontend_css')
@@ -49,6 +52,7 @@
   <!-- Bootstrap v5.1.3 -->
   <script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('assets/frontend/js/main.js1') }}"></script>
+
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
