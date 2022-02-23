@@ -276,7 +276,7 @@
       </div>
       <div class="container p-0 pt-3">
         {{-- <a href="{{ route('complete',) }}" class="btn send-invoice py-2 px-4">Complete Invoice</a> --}}
-        <a href="#" class="btn send-invoice py-2 px-4">Send Invoice</a>
+        <a href="#" class="btn send-invoice py-2 px-4" onclick="completeInvoice()">Send Invoice</a>
         <a href="#" class="btn send-downlod py-2 px-4">Download Invoice</a>
       </div>
     </form>
@@ -314,7 +314,11 @@
 @push('frontend_js')
 <script>
 
-
+function completeInvoice(){
+  var complete = 'complete';
+ 
+  console.log([complete,total]);
+}
 
 
 
@@ -323,9 +327,11 @@
         e.preventDefault();
 
         const fd = new FormData(this);
+
         $.ajax({
           url: '/invoices/store',
           method: 'post',
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
           data: fd,
           cache: false,
           contentType: false,
@@ -333,6 +339,7 @@
           dataType: 'json',
           success: function(response) {
               $('#id').val(response[1]);
+              $('#total').text(response[2]);
               clearData();
               allData();
           },

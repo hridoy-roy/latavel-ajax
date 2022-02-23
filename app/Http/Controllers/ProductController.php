@@ -140,6 +140,16 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        $product_amount =  Product::where('id', $id)->get(['invoice_id', 'product_amount']);
+        $invoice_id = $product_amount[0]->invoice_id;
+        $invoiceData =  Invoice::where('id', $invoice_id)->get(['invoice_tax', 'total']);
+
+        if ($invoiceData[0]->invoice_tax != null && $invoiceData[0]->invoice_tax != 0) {
+            $total = ( $product_amount[0]->product_amount * $invoiceData[0]->invoice_tax)/100;
+            $afterTotal = $invoiceData[0]->total -  $total - $product_amount[0]->product_amount;
+            Invoice::where('id', $invoice_id)->update(['total' => $afterTotal]);
+        }
+        
         Product::where('id', $id)->delete();
         return response()->json([
             'success' => 'Record deleted successfully!'

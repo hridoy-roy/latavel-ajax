@@ -96,6 +96,7 @@
                             <table id="example" class="table table-striped border display nowrap mt-2" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th>SL</th>
                                         <th>CUSTOMER</th>
                                         <th>NUMBER</th>
                                         <th>DATE</th>
@@ -104,13 +105,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($invoicessData as $invoiceData)
+                                    @forelse ($invoicessData as $key => $invoiceData)
                                     <tr class="border border-warning">
-                                        <td>{{ $invoiceData->id }}</td>
+                                        <td>{{ ++$key }}</td>
+                                        <td>{{ $invoiceData->invoice_to }}</td>
                                         <td>{{ $invoiceData->invoice_id }}</td>
                                         <td>{{ $invoiceData->invoice_date }}</td>
-                                        <td>৳ 0.00</td>
-                                        <td>৳ 2,000.00</td>
+                                        <td>৳ {{ $invoiceData->invoice_amu_paid }}</td>
+                                        <td>৳ {{ $invoiceData->total }}</td>
                                     </tr>
                                     @empty
                                         

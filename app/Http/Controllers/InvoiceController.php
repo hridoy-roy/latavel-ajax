@@ -19,7 +19,6 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        
         return view('frontend.create-invoice');
     }
 
@@ -67,6 +66,30 @@ class InvoiceController extends Controller
         $invoice_id = $request->invoice_id;
         $invoice_logo = $request->invoice_logo;
         $id = $request->id;
+        $tax = $request->invoice_tax;
+
+        $iTotal = 0;
+        $totalP = $request->product_quantity * $request->product_rate;
+        
+
+        if ($id == null && $tax != 0) {
+            $tax = ($totalP * $tax) / 100;
+            $iTotal = $totalP + $tax;
+        } elseif ($id != null && $tax != 0) {
+            $tax = ($totalP * $tax) / 100;
+            $total = Invoice::where('id', $id)->get('total');
+            $iTotal = $total[0]->total + $totalP + $tax;
+        } elseif ($id == null && $tax == 0) {
+            $iTotal = $totalP;
+        } elseif ($id != null && $tax == 0) {
+            $total = Invoice::where('id', $id)->get('total');
+            $iTotal = $totalP + $total[0]->total;
+        }
+
+
+
+        
+
 
         if ($id == null && $invoice_logo != null) {
             if ($request->file('invoice_logo')) {
@@ -103,23 +126,24 @@ class InvoiceController extends Controller
             'invoice_terms' => $request->invoice_terms,
             'invoice_tax' => $request->invoice_tax,
             'invoice_amu_paid' => $request->invoice_amu_paid,
+            'total' => $iTotal,
         );
 
         $invoice =  Invoice::updateOrCreate(['id' => $id], $data);
 
         $invoice_id = $invoice->id;
 
-        $total = $request->product_quantity * $request->product_rate;
+        
 
         $productset = Product::Insert([
             'invoice_id' => $invoice_id,
             'product_name' => $request->product_name,
             'product_quantity' => $request->product_quantity,
             'product_rate' => $request->product_rate,
-            'product_amount' => $total
+            'product_amount' => $totalP
         ]);
 
-        return response()->json([$productset, $invoice_id]);
+        return response()->json([$productset, $invoice_id, $iTotal]);
     }
 
     /**

@@ -33,6 +33,7 @@ class CreateInvoicesTable extends Migration
             $table->string('invoice_terms', 400)->nullable();
             $table->string('invoice_tax');
             $table->string('invoice_amu_paid');
+            $table->string('total')->nullable();
             $table->enum('invoice_status', ['complete','incomlete'])->default('incomlete');
             $table->timestamps();
         });
