@@ -12,7 +12,7 @@ class Invoice extends Model
     
     protected $guarded = [];
 
-    public function invoice()
+    public function product()
     {
         return  $this->hasMany(Product::class);
     }

@@ -102,6 +102,7 @@
                                         <th>DATE</th>
                                         <th>PAID</th>
                                         <th>TOTAL</th>
+                                        <th>ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -113,6 +114,9 @@
                                         <td>{{ $invoiceData->invoice_date }}</td>
                                         <td>৳ {{ $invoiceData->invoice_amu_paid }}</td>
                                         <td>৳ {{ $invoiceData->total }}</td>
+                                        <td class="text-center">
+                                            <span class="btn btn-danger btn-sm" onclick="deleteInvoice()"><i class="bi bi-trash"></i></span>
+                                        </td>
                                     </tr>
                                     @empty
                                         
