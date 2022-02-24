@@ -1,7 +1,6 @@
 @extends('layouts.frontend.app')
 @section('title', 'Create Bill page')
 @push('frontend_css')
-
 <style>
   .avatar-upload .avatar-preview>div {
     border-radius: 0px !important;

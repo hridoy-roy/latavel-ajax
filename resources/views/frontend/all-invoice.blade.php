@@ -2,12 +2,22 @@
 @section('title', 'Home page')
 @push('frontend_css')
 
-  <!--Datatable -->
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.css"/>
-  <link href="https://cdn.datatables.net/fixedheader/3.2.1/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.css" />
+<!-- DataTables -->
+<link href="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/admin/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<!-- Responsive datatable examples -->
+<link href="{{ asset('assets/admin/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<!-- Multi Item Selection examples -->
+<link href="{{ asset('assets/admin/plugins/datatables/select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
+<style>
+.dataTables_filter,.datatable_length{
+    margin-bottom: 10px !important; 
+}
+div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
+     margin-top: 10px !important;
+}
+</style>
 @endpush
 @section('frontend_content')
     <!-- Sub Nav Start -->
@@ -93,8 +103,8 @@
                         </ul>
                         <div class="px-2 py-3 py-md-5 border-start border-end border-bottom rounded"
                             style="background: #fff;">
-                            <table id="example" class="table table-striped border display nowrap mt-2" style="width:100%">
-                                <thead>
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead class="bg-dark text-light text-center">
                                     <tr>
                                         <th>SL</th>
                                         <th>CUSTOMER</th>
@@ -103,26 +113,36 @@
                                         <th>PAID</th>
                                         <th>TOTAL</th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($invoicessData as $key => $invoiceData)
-                                    <tr class="border border-warning">
-                                        <td>{{ ++$key }}</td>
-                                        <td>{{ $invoiceData->invoice_to }}</td>
-                                        <td>{{ $invoiceData->invoice_id }}</td>
-                                        <td>{{ $invoiceData->invoice_date }}</td>
-                                        <td>৳ {{ $invoiceData->invoice_amu_paid }}</td>
-                                        <td>৳ {{ $invoiceData->total }}</td>
-                                    </tr>
-                                    @empty
-                                        
-                                    @endforelse
-                                    
-                                </tbody>
-                            </table>
+                                    </thead>
+
+
+                                    <tbody class="mt-5">
+                                        @forelse ($invoicessData as $key => $invoiceData)
+                                        <tr class="border border-warning">
+                                            <td>{{ ++$key }}</td>
+                                            <td>{{ $invoiceData->invoice_to }}</td>
+                                            <td>{{ $invoiceData->invoice_id }}</td>
+                                            <td>{{ $invoiceData->invoice_date }}</td>
+                                            <td>৳ {{ $invoiceData->invoice_amu_paid }}</td>
+                                            <td>৳ {{ $invoiceData->total }}</td>
+
+                                        </tr>
+                                        @empty
+                                            
+                                        @endforelse
+                                    </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                            <div class="col-12">
+                                <div class="card-box">
+
+                                    
+                                </div>
+                            </div>
+                        </div> <!-- end row -->
             </div>
 
         </div>
@@ -130,19 +150,59 @@
     <!-- Sign in form End -->
 @endsection
 @push('frontend_js')
-    <!--Datatable-->
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
+<!-- Required datatable js -->
+<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<!-- Buttons examples -->
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/buttons.print.min.js') }}"></script>
 
-    
-    <script>
-        $(document).ready(function () {
-            var table = $('#example').DataTable({
-                responsive: true
-            });
+<!-- Key Tables -->
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
 
-            new $.fn.dataTable.FixedHeader(table);
+<!-- Responsive examples -->
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
+
+<!-- Selection table -->
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.select.min.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+
+        // Default Datatable
+        $('#datatable').DataTable();
+
+        //Buttons examples
+        var table = $('#datatable-buttons').DataTable({
+            lengthChange: false,
+            buttons: ['copy', 'excel', 'pdf']
         });
-    </script>
+
+        // Key Tables
+
+        $('#key-table').DataTable({
+            keys: true
+        });
+
+        // Responsive Datatable
+        $('#responsive-datatable').DataTable();
+
+        // Multi Selection Datatable
+        $('#selection-datatable').DataTable({
+            select: {
+                style: 'multi'
+            }
+        });
+
+        table.buttons().container()
+                .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+    } );
+
+</script>
 @endpush
