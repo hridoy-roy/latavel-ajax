@@ -112,26 +112,28 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
                                         <th>DATE</th>
                                         <th>PAID</th>
                                         <th>TOTAL</th>
+                                        <th>ACTION</th>
                                     </tr>
-                                    </thead>
-
-
-                                    <tbody class="mt-5">
-                                        @forelse ($invoicessData as $key => $invoiceData)
-                                        <tr class="border border-warning">
-                                            <td>{{ ++$key }}</td>
-                                            <td>{{ $invoiceData->invoice_to }}</td>
-                                            <td>{{ $invoiceData->invoice_id }}</td>
-                                            <td>{{ $invoiceData->invoice_date }}</td>
-                                            <td>৳ {{ $invoiceData->invoice_amu_paid }}</td>
-                                            <td>৳ {{ $invoiceData->total }}</td>
-
-                                        </tr>
-                                        @empty
-                                            
-                                        @endforelse
-                                    </tbody>
-                                </table>
+                                </thead>
+                                <tbody>
+                                    @forelse ($invoicessData as $key => $invoiceData)
+                                    <tr class="border border-warning">
+                                        <td>{{ ++$key }}</td>
+                                        <td>{{ $invoiceData->invoice_to }}</td>
+                                        <td>{{ $invoiceData->invoice_id }}</td>
+                                        <td>{{ $invoiceData->invoice_date }}</td>
+                                        <td>৳ {{ $invoiceData->invoice_amu_paid }}</td>
+                                        <td>৳ {{ $invoiceData->total }}</td>
+                                        <td class="text-center">
+                                            <span class="btn btn-danger btn-sm" onclick="deleteInvoice()"><i class="bi bi-trash"></i></span>
+                                        </td>
+                                    </tr>
+                                    @empty
+                                        
+                                    @endforelse
+                                    
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
