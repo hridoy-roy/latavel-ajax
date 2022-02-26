@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -19,6 +20,8 @@ class InvoiceController extends Controller
      */
     public function index()
     {
+        // $product = Invoice::find(3)->products;
+        // dd($product);
         return view('frontend.create-invoice');
     }
 
@@ -70,6 +73,12 @@ class InvoiceController extends Controller
 
         $iTotal = 0;
         $totalP = $request->product_quantity * $request->product_rate;
+
+        if ($invoice_id != null) {
+            $product = Invoice::find($invoice_id)->products;
+            $product_amount =  Product::where('id', $id)->get(['invoice_id', 'product_amount'])->first();
+        }
+
         
 
         if ($id == null && $tax != 0) {

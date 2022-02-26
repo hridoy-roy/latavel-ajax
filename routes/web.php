@@ -49,6 +49,7 @@ Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/invoices', [InvoiceController::class, 'index']);
+    Route::post('/product/store', [ProductController::class, 'store'])->name('store.product');
     Route::post('/invoices/store', [InvoiceController::class, 'store'])->name('store.');
     Route::post('/invoices/complete/{id}', [InvoiceController::class, 'complete'])->name('complete.');
 

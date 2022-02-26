@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -40,60 +41,33 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
        
         $validated = $request->validate([
-            'name' => 'required|max:255',
-            'quantity' => 'required|numeric|min:1',
-            'rate' => 'required|numeric|min:1',
-            'invoice_logo' => 'required',
-            'invoice_form' => 'required|max:300',
-            'invoice_to' => 'required|max:300',
-            'invoice_id' => 'required|max:10',
-            'invoice_date' => 'required|date',
-            'invoice_payment_term' => 'max:30',
-            'invoice_dou_date' => 'date|after:invoice_date',
-            'invoice_po_number' => 'max:30',
-            'invoice_notes' => 'max:400',
-            'invoice_terms' => 'max:400',
+            'product_name' => 'required|max:255',
+            'product_quantity' => 'required|integer|digits_between:1,10',
+            'product_rate' => 'required|integer|digits_between:1,10'
         ]);
-
-       
         
-        // if ($request->hasFile('invoice_logo')) {
-        //     dd("ok");
-        // }
+        $productAmount = $request->product_quantity * $request->product_rate;
 
-        $invoice_id = $request->invoice_id;
         $id = $request->id;
+
         $data = array(
-            'user_id' => 2,
-            'invoice_logo' => $request->invoice_logo,
-            'invoice_form' => $request->invoice_form,
-            'invoice_to' => $request->invoice_to,
-            'invoice_id' => $request->invoice_id,
-            'invoice_date' => $request->invoice_date,
-            'invoice_payment_term' => $request->invoice_payment_term,
-            'invoice_dou_date' => $request->invoice_dou_date,
-            'invoice_po_number' => $request->invoice_po_number,
-            'invoice_notes' => $request->invoice_notes,
-            'invoice_terms' => $request->invoice_terms,
+            'user_id' => Auth::user()->id
         );
 
         $invoice =  Invoice::updateOrCreate(['id' => $id], $data);
 
         $invoice_id = $invoice->id;
 
-        $total = $request->quantity * $request->rate;
-
         $productset = Product::Insert([
             'invoice_id' => $invoice_id,
-            'product_name' => $request->name,
-            'quantity' => $request->quantity,
-            'rate' => $request->rate,
-            'amount' => $total
+            'product_name' => $request->product_name,
+            'product_quantity' => $request->product_quantity,
+            'product_rate' => $request->product_rate,
+            'product_amount' => $productAmount
         ]);
-
-
 
         return response()->json([$productset, $invoice_id]);
     }
@@ -140,13 +114,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product_amount =  Product::where('id', $id)->get(['invoice_id', 'product_amount']);
-        $invoice_id = $product_amount[0]->invoice_id;
-        $invoiceData =  Invoice::where('id', $invoice_id)->get(['invoice_tax', 'total']);
-       
-        $total = ( $product_amount[0]->product_amount * $invoiceData[0]->invoice_tax)/100;
-        $afterTotal = $invoiceData[0]->total -  $total - $product_amount[0]->product_amount;
-        Invoice::where('id', $invoice_id)->update(['total' => $afterTotal]);
+        $product_amount =  Product::where('id', $id)->get(['invoice_id', 'product_amount'])->first();
+        
+        $invoiceData =  Invoice::where('id', $product_amount->invoice_id)->get(['invoice_tax', 'total'])->first();
+        
+        $total = ( $product_amount->product_amount * $invoiceData->invoice_tax)/100;
+        $afterTotal = $invoiceData->total -  $total - $product_amount->product_amount;
+        Invoice::where('id', $product_amount->invoice_id)->update(['total' => $afterTotal]);
         
         Product::where('id', $id)->delete();
         return response()->json([

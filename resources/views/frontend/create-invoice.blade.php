@@ -202,7 +202,7 @@
         </div>
 
         <div class="mt-4 ms-2">
-          <button type="submit" class="py-2 px-4 btn add-field rounded" id="addButton"><i class="bi bi-plus"></i> add line</button>
+          <button type="button" class="py-2 px-4 btn add-field rounded" onClick="addData();" id="addButton"><i class="bi bi-plus"></i> add line</button>
           <span id="product_clear" class="btn btn-danger" onclick="pclear()">
             Clear Input
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
@@ -322,23 +322,26 @@ function completeInvoice(){
 
 
       // add new employee ajax request
-      $("#invoiceForm").submit(function(e) {
-        e.preventDefault();
+      function addData(){
 
-        const fd = new FormData(this);
+                // Invoice data
+        var id = $('#id').val();
+        // Product data
+        var product_name = $('#product_name').val();
+        var product_quantity = $('#product_quantity').val();
+        var product_rate = $('#product_rate').val();
+
+        console.log(product_name);
+
 
         $.ajax({
-          url: '/invoices/store',
+          url: '/product/store',
           method: 'post',
           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-          data: fd,
-          cache: false,
-          contentType: false,
-          processData: false,
+          data: {product_name:product_name, product_quantity:product_quantity, product_rate:product_rate,id:id},
           dataType: 'json',
           success: function(response) {
               $('#id').val(response[1]);
-              $('#total').text(response[2]);
               clearData();
               allData();
           },
@@ -445,7 +448,7 @@ function completeInvoice(){
               }
           }
         });
-      });
+      }
 
 
       function allData() {
