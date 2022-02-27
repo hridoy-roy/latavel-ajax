@@ -109,8 +109,8 @@
           </div>
           <div class="col-md-5" style="display: grid">
             <div class="row">
-              <div class="col-sm-4 d-flex align-items-center">
-                <h6>INVOICE ID</h6>
+              <div class="col-sm-4 d-flex">
+                <h6 class="mt-2">INVOICE ID</h6>
               </div>
               <div class="col-sm-8 mb-2">
                 <div class="input-group">
@@ -544,6 +544,7 @@ function completeInvoice(){
         $('#product_name').val('');
         $('#product_quantity').val('');
         $('#product_rate').val('');
+        $('#product_amount').text('');
 
         $('#product_name').removeClass("is-valid");
         $('#product_quantity').removeClass("is-valid");

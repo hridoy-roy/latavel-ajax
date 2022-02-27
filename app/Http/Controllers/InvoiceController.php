@@ -108,6 +108,7 @@ class InvoiceController extends Controller
                 'invoice_tax' => $request->invoice_tax,
                 'invoice_amu_paid' => $request->invoice_amu_paid,
                 'total' => $taxAmount,
+                'invoice_status' => 'complete',
             );
             $invoice =  Invoice::updateOrCreate(['id' => $id], $data);
             // invoice Data End

@@ -61,12 +61,12 @@ class ProductController extends Controller
 
         $invoice_id = $invoice->id;
 
-        $productset = Product::Insert([
+        $productset = Product::create([
             'invoice_id' => $invoice_id,
             'product_name' => $request->product_name,
             'product_quantity' => $request->product_quantity,
             'product_rate' => $request->product_rate,
-            'product_amount' => $productAmount
+            'product_amount' => $productAmount,
         ]);
 
         return response()->json([$productset, $invoice_id]);
