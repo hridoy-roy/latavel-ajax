@@ -41,8 +41,7 @@
                             <img src="{{ asset('storage/invoice/logo/'.$invoiceData->invoice_logo) }}" alt="" width="150" class="img-fluid">
                             @else
                             <h1>NO LOGO</h1>
-                            @endif
-                            
+                            @endif                            
                         </div>
                     </section>
                     <section class="bill-to border-top mt-3">
