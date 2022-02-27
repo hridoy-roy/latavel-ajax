@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Product;
+use Carbon\Cli\Invoker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -32,8 +33,7 @@ class InvoiceController extends Controller
      */
     public function complete($id)
     {
-        dd($id);
-        
+        dd($id);   
     }
 
     /**
@@ -44,11 +44,7 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        
         $validated = $request->validate([
-            'product_name' => 'required|max:255',
-            'product_quantity' => 'required|integer|digits_between:1,10',
-            'product_rate' => 'required|integer|digits_between:1,10',
             'invoice_form' => 'required|max:300',
             'invoice_to' => 'required|max:300',
             'invoice_id' => 'required',
@@ -62,97 +58,64 @@ class InvoiceController extends Controller
             'invoice_amu_paid' => 'digits_between:0,9',
         ]);
         
-     
-
-        // invocie Logo name
-        $filename = null;
-        $invoice_id = $request->invoice_id;
-        $invoice_logo = $request->invoice_logo;
-        $id = $request->id;
-        $tax = $request->invoice_tax;
-
-        $iTotal = 0;
-        $totalP = $request->product_quantity * $request->product_rate;
-
-        if ($invoice_id != null) {
-            $product = Invoice::find($invoice_id)->products;
-            $product_amount =  Product::where('id', $id)->get(['invoice_id', 'product_amount'])->first();
-        }
-
         
+        if ($request->id != null) {
+            // Tax Calculation Formula Start
+            $taxPercentage = $request->invoice_tax;
+            $products = Invoice::find($request->id)->products->pluck('product_amount')->sum();
+            $tax = ($taxPercentage * $products)/100;
+            $taxAmount = $tax + $products;
+            // Tax Calculation Formula End
 
-        if ($id == null && $tax != 0) {
-            $tax = ($totalP * $tax) / 100;
-            $iTotal = $totalP + $tax;
-        } elseif ($id != null && $tax != 0) {
-            $tax = ($totalP * $tax) / 100;
-            $total = Invoice::where('id', $id)->get('total');
-            $iTotal = $total[0]->total + $totalP + $tax;
-        } elseif ($id == null && $tax == 0) {
-            $iTotal = $totalP;
-        } elseif ($id != null && $tax == 0) {
-            $total = Invoice::where('id', $id)->get('total');
-            $iTotal = $totalP + $total[0]->total;
-        }
+            // invocie Logo name Strat
+            $id = $request->id;
+            $filename = null;
+            $invoice_logo = $request->invoice_logo;
 
-
-
-        
-
-
-        if ($id == null && $invoice_logo != null) {
-            if ($request->file('invoice_logo')) {
-                $file = $request->file('invoice_logo');
-                $extension = $file->getClientOriginalExtension();
-                $filename = time(). '.' .$extension;
-                $file->move(public_path('storage/invoice/logo'), $filename);
+            if ($id == null && $invoice_logo != null) {
+                if ($request->file('invoice_logo')) {
+                    $file = $request->file('invoice_logo');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time(). '.' .$extension;
+                    $file->move(public_path('storage/invoice/logo'), $filename);
+                }
+            } elseif ($id != null && $invoice_logo != null) {
+                $find = Invoice::findOrFail($id);
+                $image_path         = public_path("storage\invoice\logo\\") . $find->invoice_logo;
+                if (File::exists($image_path)) {
+                    File::delete($image_path);
+                    // Create File
+                    $file = $request->file('invoice_logo');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time(). '.' .$extension;
+                    $file->move(public_path('storage/invoice/logo'), $filename);
+                }
             }
-        } elseif ($id != null && $invoice_logo != null) {
-            $find = Invoice::findOrFail($id);
-            $image_path         = public_path("storage\invoice\logo\\") . $find->invoice_logo;
-            if (File::exists($image_path)) {
-                File::delete($image_path);
-                // Create File 
-                $file = $request->file('invoice_logo');
-                $extension = $file->getClientOriginalExtension();
-                $filename = time(). '.' .$extension;
-                $file->move(public_path('storage/invoice/logo'), $filename);
-            }
+            // invocie Logo name End
+
+            // Update Invoice Data
+            $data = array(
+                'invoice_logo' => $filename,
+                'invoice_form' => $request->invoice_form,
+                'invoice_to' => $request->invoice_to,
+                'invoice_id' => $request->invoice_id,
+                'invoice_date' => $request->invoice_date,
+                'invoice_payment_term' => $request->invoice_payment_term,
+                'invoice_dou_date' => $request->invoice_dou_date,
+                'invoice_po_number' => $request->invoice_po_number,
+                'invoice_notes' => $request->invoice_notes,
+                'invoice_terms' => $request->invoice_terms,
+                'invoice_tax' => $request->invoice_tax,
+                'invoice_amu_paid' => $request->invoice_amu_paid,
+                'total' => $taxAmount,
+            );
+            $invoice =  Invoice::updateOrCreate(['id' => $id], $data);
+            // invoice Data End
+
+            return response()->json([$invoice->id]);
         }
-        
 
-        $data = array(
-            'user_id' => Auth::user()->id,
-            'invoice_logo' => $filename,
-            'invoice_form' => $request->invoice_form,
-            'invoice_to' => $request->invoice_to,
-            'invoice_id' => $request->invoice_id,
-            'invoice_date' => $request->invoice_date,
-            'invoice_payment_term' => $request->invoice_payment_term,
-            'invoice_dou_date' => $request->invoice_dou_date,
-            'invoice_po_number' => $request->invoice_po_number,
-            'invoice_notes' => $request->invoice_notes,
-            'invoice_terms' => $request->invoice_terms,
-            'invoice_tax' => $request->invoice_tax,
-            'invoice_amu_paid' => $request->invoice_amu_paid,
-            'total' => $iTotal,
-        );
-
-        $invoice =  Invoice::updateOrCreate(['id' => $id], $data);
-
-        $invoice_id = $invoice->id;
-
-        
-
-        $productset = Product::Insert([
-            'invoice_id' => $invoice_id,
-            'product_name' => $request->product_name,
-            'product_quantity' => $request->product_quantity,
-            'product_rate' => $request->product_rate,
-            'product_amount' => $totalP
-        ]);
-
-        return response()->json([$productset, $invoice_id, $iTotal]);
+        return response()->json(['message' => 'Please create product']);
     }
 
     /**
@@ -198,5 +161,32 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         //
+    }
+
+    /**
+     * Downlode the specified resource from storage.
+     *
+     * @param  \App\Models\Invoice  $invoice
+     * @return \Illuminate\Http\Response
+     */
+    public function download($id)
+    {
+        $invoiceData = Invoice::where('id', $id)->get([
+            'invoice_logo',
+            'invoice_form',
+            'invoice_to',
+            'invoice_id',
+            'invoice_date',
+            'invoice_payment_term',
+            'invoice_dou_date',
+            'invoice_po_number',
+            'invoice_notes',
+            'invoice_terms',
+            'invoice_tax',
+            'invoice_amu_paid',
+            'total',
+        ])->first();
+        $productsDatas = Invoice::find($id)->products;
+        return view('invoices.wid')->with(compact('invoiceData', 'productsDatas'));
     }
 }

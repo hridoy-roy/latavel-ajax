@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/product/store', [ProductController::class, 'store'])->name('store.product');
     Route::post('/invoices/store', [InvoiceController::class, 'store'])->name('store.');
     Route::post('/invoices/complete/{id}', [InvoiceController::class, 'complete'])->name('complete.');
+    Route::get('/invoice/download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
 
     Route::get('/all/invoices', [DashboardController::class, 'allInvoice'])->name('all.invoice');
 });

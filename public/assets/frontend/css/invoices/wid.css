@@ -1,0 +1,96 @@
+:root {
+    --body-bg: rgb(204,204,204);
+    --white: #fff;
+    --darkWhite: #ccc;
+    --black: #000;
+    --dark: #510c60;
+    --themeColor: #b6241d;
+    --pageShadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+
+/* font Use */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+
+body{
+    background-color: var(--body-bg);
+}
+
+.page{
+    background: var(--white);
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: var(--pageShadow);
+}
+.page[size="A4"] {
+    width: 21cm;
+    min-height: 29.7cm;
+    overflow: hidden;
+}
+/* left-side-bar */
+.left-side-bar {
+    width: 60px;
+    overflow: hidden;
+    position: relative;
+}
+.left-side-bar > div {
+    position: absolute;
+    top: 57px;
+    left: 36px;
+    background: none;
+    transform-origin: 0 0;
+    transform: rotate(90deg);
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+.left-side-bar > div > span{
+    font-size: 30px;
+    padding-right: 15px;
+    direction: revert;
+    transform: scale(-1);
+}
+.left-side-bar > div > h1{
+    color: var(--themeColor);
+    direction: revert;
+    transform: scale(-1);
+}
+/* left-side-bar */
+/* top-section */
+.top-section > div > h1{
+    color: var(--themeColor);
+    font-size: 25px;
+}
+/* top-section */
+
+/* bill-to */
+.bill-to {
+    border-color: var(--themeColor) !important;
+    border-width: 1.5px !important;
+}
+.bill-to-top > div{
+   
+}
+.bill-to h4{
+    color: var(--themeColor);
+    font-size: 18px;
+}
+.total{
+    float: right;
+}
+.total > h4{
+    padding-right: 10px;
+}
+/* bill-to */
+
+/* terms-conditions */
+.terms-conditions{
+    border-color: var(--themeColor) !important;
+    border-width: 1.5px !important;
+}
+.terms-conditions h4{
+    color: var(--themeColor);
+    font-size: 18px;
+}
+/* terms-conditions */
+

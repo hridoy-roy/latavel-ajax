@@ -115,7 +115,7 @@
               <div class="col-sm-8 mb-2">
                 <div class="input-group">
                   <div class="input-group-text">&#9839;</div>
-                  <input type="text" name="invoice_id" class="form-control" value="INVID-01" id="invoice_id" placeholder="INVOICE ID">
+                  <input type="text" name="invoice_id" class="form-control" value="INVID01" id="invoice_id" placeholder="INVOICE ID">
                   <input type="hidden" id="id" name="id" value="">
                   <div class="input-group-text">01</div>
                   <div id="invoice_id_error" class="invalid-feedback"></div>
@@ -274,9 +274,9 @@
         </div>
       </div>
       <div class="container p-0 pt-3">
-        {{-- <a href="{{ route('complete',) }}" class="btn send-invoice py-2 px-4">Complete Invoice</a> --}}
+        <button type="submit" class="btn send-invoice py-2 px-4">Complete Invoice</button>
         <a href="#" class="btn send-invoice py-2 px-4" onclick="completeInvoice()">Send Invoice</a>
-        <a href="#" class="btn send-downlod py-2 px-4">Download Invoice</a>
+        <a href="#" id="downlodeInvoice" class="btn send-downlod py-2 px-4">Download Invoice</a>
       </div>
     </form>
   </div>
@@ -311,29 +311,44 @@
 <!-- Invoice Template End -->
 @endsection
 @push('frontend_js')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+const okButton = Swal.mixin({
+  toast: false,
+  position: 'cnter',
+  showConfirmButton: true,
+  timerProgressBar: true,
+})
 
 function completeInvoice(){
   var complete = 'complete';
  
-  console.log([complete,total]);
+  // console.log([complete,total]);
 }
 
 
 
-      // add new employee ajax request
+      // add new Product ajax request
       function addData(){
 
-                // Invoice data
+        // Invoice data
         var id = $('#id').val();
         // Product data
         var product_name = $('#product_name').val();
         var product_quantity = $('#product_quantity').val();
         var product_rate = $('#product_rate').val();
-
-        console.log(product_name);
-
-
         $.ajax({
           url: '/product/store',
           method: 'post',
@@ -346,7 +361,7 @@ function completeInvoice(){
               allData();
           },
           error: function (error) {
-            console.log(error);
+            // console.log(error);
               if (error.responseJSON.errors.product_name != null)
               {
                   $('#product_name').addClass("is-invalid");
@@ -376,8 +391,48 @@ function completeInvoice(){
                   $('#product_rate').removeClass("is-invalid");
                   $('#product_rate').addClass("is-valid");
               }
-              // Invoice Validation 
-              if (error.responseJSON.errors.invoice_form != null)
+              
+          }
+        });
+      }
+
+      $("#invoiceForm").submit(function(e){
+        e.preventDefault();
+        const fd = new FormData(this);
+
+        $.ajax({
+          url: '/invoices/store',
+          method: 'post',
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          data: fd,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          success: function(response) {
+            console.log(response);
+            if (response['message'] != null) {
+              okButton.fire({
+                icon: 'error',
+                title: response['message'],
+              })
+            }else{
+              $("#downlodeInvoice").attr("href", "invoice/download/"+response);
+              button = 
+              Toast.fire({
+                icon: 'success',
+                title: 'Invoice Created',
+              })
+            }
+            
+          },
+          error: function(error) {
+            okButton.fire({
+                icon: 'error',
+                title: 'Fill UP Invoice Form Properly',
+              })
+            // Invoice Validation 
+            if (error.responseJSON.errors.invoice_form != null)
               {
                   $('#invoice_form').addClass("is-invalid");
                   $('#invoice_form_error').text(error.responseJSON.errors.invoice_form);
@@ -448,12 +503,11 @@ function completeInvoice(){
               }
           }
         });
-      }
-
+      });
 
       function allData() {
         var id = $('#id').val();
-        console.log(id);
+        // console.log(id);
 
         $.ajax({
             type: "POST",
@@ -545,7 +599,7 @@ function completeInvoice(){
 
         var persent = (itemAmount * tax) / 100
 
-        console.log(persent);
+        // console.log(persent);
 
         var total = itemAmount + persent;
         $('#total').text(total);
