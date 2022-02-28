@@ -33,7 +33,7 @@ class InvoiceController extends Controller
      */
     public function complete($id)
     {
-        dd($id);   
+        dd($id);
     }
 
     /**
@@ -54,8 +54,6 @@ class InvoiceController extends Controller
             'invoice_po_number' => 'max:30',
             'invoice_notes' => 'max:400',
             'invoice_terms' => 'max:400',
-            'invoice_tax' => 'digits_between:0,9',
-            'invoice_amu_paid' => 'digits_between:0,9',
         ]);
         
         
@@ -66,6 +64,20 @@ class InvoiceController extends Controller
             $tax = ($taxPercentage * $products)/100;
             $taxAmount = $tax + $products;
             // Tax Calculation Formula End
+
+            // Amount Paid || Advance
+            $invoice_amu_paid = $request->invoice_amu_paid;
+            $invoice_amu_paid_precent = null;
+            $precent = substr($invoice_amu_paid, -1);
+            if ($precent == '%') {
+                $invoice_amu_paid_precent = substr($invoice_amu_paid, 0, -1);
+                $invoice_amu_paid = ($taxAmount * $invoice_amu_paid_precent)/100;
+
+                dd([$invoice_amu_paid,$invoice_amu_paid_precent]);
+            } elseif ($precent != '%' && is_int($precent)) {
+                dd($invoice_amu_paid);
+            }
+            // Amount Paid || Advance
 
             // invocie Logo name Strat
             $id = $request->id;
@@ -106,7 +118,8 @@ class InvoiceController extends Controller
                 'invoice_notes' => $request->invoice_notes,
                 'invoice_terms' => $request->invoice_terms,
                 'invoice_tax' => $request->invoice_tax,
-                'invoice_amu_paid' => $request->invoice_amu_paid,
+                'invoice_amu_paid_precent' => $invoice_amu_paid_precent,
+                'invoice_amu_paid' => $invoice_amu_paid,
                 'total' => $taxAmount,
                 'invoice_status' => 'complete',
             );

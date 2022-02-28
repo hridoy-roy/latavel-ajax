@@ -55,6 +55,12 @@
 
   <!-- Invoice Template Start -->
   <section class="invoice_template">
+  {{-- @php
+    $pad = "4545.45%";
+    $precent = substr($pad,-1);
+    $paid = substr($pad,0,-1);
+    dd([$precent,$paid]);
+  @endphp --}}
     <div>
       <div class="container my-3">
         <div class="text-center pb-5">
