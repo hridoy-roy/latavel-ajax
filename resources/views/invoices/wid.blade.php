@@ -27,21 +27,31 @@
                         <span>Invoice: </span>
                         <h1 class="m-0">{{ $invoiceData->invoice_id }}</h1>
                     </div>
-
                 </section>
                 <div class="w-100 d-flex flex-column justify-content-between" style="height: 26cm;">
-                    <section class="top-section bb d-flex justify-content-between">
-                        <div class="top-rignt">
+                    <section class="top-section row justify-content-between">
+                        <div class="top-rignt col-8">
                             <h1 class="m-0">{!! Str::words($invoiceData->invoice_form, 4, '...') !!}</h1>
                             <br />
                             <pre>{{ $invoiceData->invoice_form }}</pre>
                         </div>
-                        <div class="logo">
+                        <div class="logo col" style="text-align: -webkit-right;">
                             @if ($invoiceData->invoice_logo)
                             <img src="{{ asset('storage/invoice/logo/'.$invoiceData->invoice_logo) }}" alt="" width="150" class="img-fluid">
                             @else
                             <h1>NO LOGO</h1>
                             @endif                            
+                            <div class="logo_bottom pt-4">
+                                <div class="d-flex justify-content-between pb-2">
+                                    <h4 class="m-0 pe-2">Due Date: </h4> <span>{{ $invoiceData->invoice_dou_date }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between pb-2">
+                                    <h4 class="m-0 pe-2">PO Number: </h4> <span>{{ $invoiceData->invoice_po_number }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between pb-2">
+                                    <h4 class="m-0 pe-2">Payment Terms: </h4> <span>{{ $invoiceData->invoice_payment_term }}</span>
+                                </div>
+                            </div>
                         </div>
                     </section>
                     <section class="bill-to border-top mt-3">
@@ -52,7 +62,7 @@
                                 <p>{{ $invoiceData->invoice_to }}</p>
                             </div>
                             <div class="d-flex">
-                                <h4 class="m-0">Invoice Date: </h4>
+                                <h4 class="m-0 pe-2">Invoice Date: </h4>
                                 <span class="fw-bolder">{{ $invoiceData->invoice_date }}</span>
                             </div>
                         </div>
@@ -70,7 +80,7 @@
                                     <th scope="row">{{ ++$Key }}</th>
                                     <td>{{ $productsData->product_name }}</td>
                                     <td class="d-flex justify-content-between">
-                                        <span>TK</span>
+                                        <span>{{  $invoiceData->currency }}</span>
                                         <span>{{ $productsData->product_amount }}</span>
                                     </td>
                                 </tr>
@@ -81,14 +91,21 @@
                                 <tr>
                                     <th colspan="2">Paid</th>
                                     <td class="d-flex justify-content-between">
-                                        <span>TK</span>
+                                        <span>{{  $invoiceData->currency }}</span>
                                         <span>{{ $invoiceData->invoice_amu_paid }}</span>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="total m-3 d-flex">
-                            <h4 class="m-0">Total With {{ $invoiceData->invoice_tax }}% Tax: </h4><span>TK {{ $invoiceData->total }}</span>
+                        <div class="total m-3">
+                            <div class="d-flex pb-2 justify-content-between">
+                                <h4 class="m-0 pe-1">Due: </h4>
+                                <span>{{  $invoiceData->currency }} {{ $due }}</span>
+                            </div>
+                            <div  class="d-flex justify-content-between"> 
+                                <h4 class="m-0 pe-1">Total With {{ $invoiceData->invoice_tax_percent }}% Tax: </h4>
+                                <span>{{  $invoiceData->currency }} {{ $invoiceData->total }}</span>
+                            </div>
                         </div>
                     </section>
                     <section class="terms-conditions border-top pt-3">

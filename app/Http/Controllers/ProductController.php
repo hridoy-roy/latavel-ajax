@@ -116,9 +116,9 @@ class ProductController extends Controller
     {
         $product_amount =  Product::where('id', $id)->get(['invoice_id', 'product_amount'])->first();
         
-        $invoiceData =  Invoice::where('id', $product_amount->invoice_id)->get(['invoice_tax', 'total'])->first();
+        $invoiceData =  Invoice::where('id', $product_amount->invoice_id)->get(['invoice_tax_percent', 'total'])->first();
         
-        $total = ( $product_amount->product_amount * $invoiceData->invoice_tax)/100;
+        $total = ( $product_amount->product_amount * $invoiceData->invoice_tax_percent)/100;
         $afterTotal = $invoiceData->total -  $total - $product_amount->product_amount;
         Invoice::where('id', $product_amount->invoice_id)->update(['total' => $afterTotal]);
         

@@ -94,3 +94,11 @@ body{
 }
 /* terms-conditions */
 
+/* logo_bottom css */
+.logo_bottom div > h4{
+    font-size: 16px;
+}
+.logo_bottom div > span{
+    font-size: 15px;
+}
+/* logo_bottom css */

@@ -22,19 +22,20 @@ class CreateInvoicesTable extends Migration
                     ->onDelete('cascade')
                     ->onUpdate('cascade');
             $table->string('invoice_logo', 1024)->nullable();
-            $table->string('invoice_form', 300)->nullable();
-            $table->string('invoice_to', 300)->nullable();
+            $table->string('invoice_form', 1024)->nullable();
+            $table->string('invoice_to', 1024)->nullable();
             $table->string('invoice_id', 30)->nullable();
             $table->date('invoice_date')->nullable();
             $table->string('invoice_payment_term', 30)->nullable();
             $table->date('invoice_dou_date')->nullable();
             $table->string('invoice_po_number', 30)->nullable();
-            $table->string('invoice_notes', 400)->nullable();
-            $table->string('invoice_terms', 400)->nullable();
+            $table->string('invoice_notes', 1024)->nullable();
+            $table->string('invoice_terms', 1024)->nullable();
             $table->string('invoice_tax_percent')->nullable();
             $table->string('invoice_amu_paid_percent')->nullable();
             $table->string('invoice_amu_paid')->nullable();
             $table->string('total')->nullable();
+            $table->string('currency', 30)->nullable();
             $table->enum('invoice_status', ['complete','incomlete'])->default('incomlete');
             $table->timestamps();
         });
