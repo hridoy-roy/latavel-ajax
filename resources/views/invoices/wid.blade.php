@@ -32,7 +32,7 @@
                 <div class="w-100 d-flex flex-column justify-content-between" style="height: 26cm;">
                     <section class="top-section bb d-flex justify-content-between">
                         <div class="top-rignt">
-                            <h1 class="m-0">Women in Digital</h1>
+                            <h1 class="m-0">{!! Str::words($invoiceData->invoice_form, 4, '...') !!}</h1>
                             <br />
                             <pre>{{ $invoiceData->invoice_form }}</pre>
                         </div>

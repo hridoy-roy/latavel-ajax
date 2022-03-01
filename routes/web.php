@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PagesController::class, 'index'])->name('home');
-Route::get('/create', [PagesController::class, 'create'])->name('create');
+// Route::get('/create', [PagesController::class, 'create'])->name('create');
 Route::post('/create/bill', [PagesController::class, 'createbill'])->name('create.boll');
 
 
@@ -47,8 +47,8 @@ Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
 
 // Invoice Route
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/invoices', [InvoiceController::class, 'index']);
+Route::group(['middleware' => ['auth','verified']], function () {
+    Route::get('/create/invoice', [InvoiceController::class, 'index'])->name('create');
     Route::post('/product/store', [ProductController::class, 'store'])->name('store.product');
     Route::post('/invoices/store', [InvoiceController::class, 'store'])->name('store.');
     Route::post('/invoices/complete/{id}', [InvoiceController::class, 'complete'])->name('complete.');

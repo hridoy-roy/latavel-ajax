@@ -94,14 +94,14 @@
             </div>
             <div class="row">
               <div class="col-md-8">
-                <label for="invoice_form" class="form-label">From</label>
+                <label for="invoice_form" class="form-label">From *</label>
                 <textarea name="invoice_form" id="invoice_form" rows="2" type="text" class="form-control" placeholder="Who is this invoice from? (required)"></textarea>
                 <div id="invoice_form_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="row pt-1 pb-3">
               <div class="col-md-8">
-                <label for="invoice_to" class="form-label">Bill to</label>
+                <label for="invoice_to" class="form-label">Bill to *</label>
                 <textarea name="invoice_to" id="invoice_to" rows="2" type="text" class="form-control" placeholder="Who is this invoice to?(required)"></textarea>
                 <div id="invoice_to_error" class="invalid-feedback"></div>
               </div>
@@ -176,7 +176,7 @@
 
         <div class="product row">
           <div class="p-0 pe-1 pb-2 col-md-6">
-            <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Description of service or product">
+            <textarea type="text" name="product_name" id="product_name" class="form-control" placeholder="Description of service or product" rows="1"></textarea>
             <div id="name_error" class="invalid-feedback"></div>
           </div>
           <div class="text-start p-0 pe-1 pb-2 col-md-2">
@@ -202,7 +202,7 @@
         </div>
 
         <div class="mt-4 ms-2">
-          <button type="button" class="py-2 px-4 btn add-field rounded" onClick="addData();" id="addButton"><i class="bi bi-plus"></i> add line</button>
+          <button type="button" class="py-2 px-4 btn add-field rounded" onClick="addData();" id="addButton"><i class="bi bi-plus"></i> Add Item</button>
           <span id="product_clear" class="btn btn-danger" onclick="pclear()">
             Clear Input
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
@@ -247,6 +247,14 @@
                 <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
                   <span class="p-2 fw-bolder text-success" id="total">0.00</span>
                   <div class="input-group-text">&#2547;</div>
+                </div>
+              </div>
+              <div class="row pt-2 ">
+                <div class="col-4 d-flex align-items-center">Tax</div>
+                <div class="col input-group p-0">
+                  <input type="text" name="invoice_tax" class="form-control" value="0" id="invoice_tax" onchange="total()">
+                  <div class="input-group-text">&#8453;</div>
+                  <div id="invoice_tax_error" class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="row pt-2">
@@ -417,7 +425,7 @@ function completeInvoice(){
                 title: response['message'],
               })
             }else{
-              $("#downlodeInvoice").attr("href", "invoice/download/"+response);
+              $("#downlodeInvoice").attr("href", "/invoice/download/"+response);
               button = 
               Toast.fire({
                 icon: 'success',
