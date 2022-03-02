@@ -262,14 +262,14 @@
             <div class="row">
               <div class="col-md-8">
                 <label for="invoice_form" class="form-label">From *</label>
-                <textarea name="invoice_form" id="invoice_form" rows="2" type="text" class="form-control" placeholder="Who is this invoice from? (required)"></textarea>
+                <textarea name="invoice_form" id="invoice_form" rows="2" type="text" class="form-control" placeholder="Who is this invoice from? (required)">@if ($lastInvoice->invoice_form){{ $lastInvoice->invoice_form }}@endif</textarea>
                 <div id="invoice_form_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="row pt-1 pb-3">
               <div class="col-md-8">
                 <label for="invoice_to" class="form-label">Bill to *</label>
-                <textarea name="invoice_to" id="invoice_to" rows="2" type="text" class="form-control" placeholder="Who is this invoice to?(required)"></textarea>
+                <textarea name="invoice_to" id="invoice_to" rows="2" type="text" class="form-control" placeholder="Who is this invoice to?(required)">@if ($lastInvoice->invoice_form){{ $lastInvoice->invoice_to }}@endif</textarea>
                 <div id="invoice_to_error" class="invalid-feedback"></div>
               </div>
             </div>

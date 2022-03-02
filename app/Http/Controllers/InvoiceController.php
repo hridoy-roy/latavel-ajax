@@ -21,9 +21,16 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        // $product = Invoice::find(3)->products;
-        // dd($product);
-        return view('frontend.create-invoice');
+        $user = Auth::user()->id;
+        $lastInvoice = Invoice::where('user_id', $user)
+                    ->orderBy('created_at', 'desc')
+                    ->get([
+                            'invoice_form',
+                            'invoice_to',
+                        ])
+                    ->first();
+
+        return view('frontend.create-invoice')->with(compact('lastInvoice'));
     }
 
     /**
