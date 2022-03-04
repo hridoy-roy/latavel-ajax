@@ -1,3 +1,20 @@
+@extends('layouts.frontend.app')
+@section('title', 'Forget Password')
+@push('frontend_css')
+    <style>
+      body{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100vh;
+      }
+    #auth-card {
+          max-width: 450px;
+          margin: auto;
+      }
+    </style>
+@endpush
+@section('frontend_content')
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
@@ -34,3 +51,7 @@
         </form>
     </x-auth-card>
 </x-guest-layout>
+@endsection
+@push('frontend_js')
+    
+@endpush

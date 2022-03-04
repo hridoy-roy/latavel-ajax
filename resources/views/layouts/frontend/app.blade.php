@@ -51,7 +51,7 @@
 
   <!-- Bootstrap v5.1.3 -->
   <script src="{{ asset('assets/frontend/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
+
 
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
@@ -62,6 +62,7 @@
   <script src="https://www.google-analytics.com/analytics.js" async></script>
 
   @stack('frontend_js')
+  <script src="{{ asset('assets/frontend/js/main.js') }}"></script>
 </body>
 
 </html>

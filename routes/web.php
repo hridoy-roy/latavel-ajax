@@ -44,7 +44,6 @@ Route::post('/products/store', [ProductController::class, 'store']);
 Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
 
 
-
 // Invoice Route
 
 Route::group(['middleware' => ['auth','verified']], function () {

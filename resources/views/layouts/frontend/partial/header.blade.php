@@ -38,7 +38,10 @@
             </svg>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <a class="nav-link p-1" aria-current="page" href="signin.html">Sign out</a>
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a class="nav-link p-1" aria-current="page" onclick="event.preventDefault(); this.closest('form').submit();">Sign out</a>
+          </form>
           </li>
             @endauth
             @guest

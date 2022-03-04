@@ -1,4 +1,4 @@
-<div class="d-flex flex-sm-column justify-content-center pt-6">
+<div class="" id="auth-card">
     <div>
         {{ $logo }}
     </div>
