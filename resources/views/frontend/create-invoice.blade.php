@@ -451,7 +451,7 @@
       <div class="container p-0 pt-3">
         <button type="submit" id="completeInvoice" class="btn send-invoice py-2 px-4" disabled>Complete Invoice</button>
         <a href="#" class="btn send-invoice py-2 px-4 disabled" role="button" aria-disabled="true" onclick="completeInvoice()">Send Invoice</a>
-        <a href="#" id="downlodeInvoice" class="btn send-downlod py-2 px-4 disabled">Download Invoice</a>
+        <a href="#" id="downlodeInvoice" target="_blank" class="btn send-downlod py-2 px-4 disabled" >Download Invoice</a>
       </div>
     </form>
   </div>
