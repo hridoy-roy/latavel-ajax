@@ -12,9 +12,8 @@ class DashboardController extends Controller
     public function allInvoice()
     {
         $invoicessData = Invoice::where('user_id', Auth::user()->id)->get(['id', 'invoice_to', 'invoice_id', 'invoice_date', 'invoice_amu_paid', 'total']);
+        $count = $invoicessData->count();
 
-
-        // dd($invoicessData);
-        return view('frontend.all-invoice')->with(compact('invoicessData'));
+        return view('frontend.all-invoice')->with(compact('invoicessData', 'count'));
     }
 }

@@ -77,7 +77,7 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
                         <ul class="nav nav-tabs pt-4">
                             <li class="nav-item">
                                 <a class="nav-link p-2 active" aria-current="page" href="#">
-                                    All Invoices <span class="badge bg-info rounded-pill">4</span>
+                                    All Invoices <span class="badge bg-info rounded-pill">{{ $count }}</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -120,7 +120,10 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
                                     <tr class="border border-warning">
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $invoiceData->invoice_to }}</td>
-                                        <td>{{ $invoiceData->invoice_id }}</td>
+                                        <td>
+                                            <a href="{{ route('invoice.download',$invoiceData->id) }}" target="_black" class="text-dark nav-link">
+                                                {{ $invoiceData->invoice_id }}</a>
+                                        </td>
                                         <td>{{ $invoiceData->invoice_date }}</td>
                                         <td>৳ {{ $invoiceData->invoice_amu_paid }}</td>
                                         <td>৳ {{ $invoiceData->total }}</td>
