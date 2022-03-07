@@ -29,7 +29,7 @@
             </svg>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <a class="nav-link p-1" aria-current="page" href="signin.html">{{ auth()->user()->name }}</a>
+            <a class="nav-link p-1" aria-current="page" href="{{ route('all.invoice') }}">{{ auth()->user()->name }}</a>
           </li>
           <li class="nav-item d-flex align-items-center">
             <svg height="50" width="3">

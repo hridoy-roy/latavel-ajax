@@ -202,8 +202,13 @@ class InvoiceController extends Controller
             'invoice_amu_paid',
             'total',
         ])->first();
-        $productsDatas = Invoice::find($id)->products;
+        $productsDatas = Invoice::find($id)->products->skip(0)->take(6);
         $due = $invoiceData->total - $invoiceData->invoice_amu_paid;
-        return view('invoices.wid')->with(compact('invoiceData', 'productsDatas', 'due'));
+        // dd(Auth::user()->plan);
+        if (Auth::user()->plan == 'free') {
+            return view('invoices.premium.inv_id_2')->with(compact('invoiceData', 'productsDatas', 'due'));
+        } elseif (Auth::user()->plan == 'premium') {
+            return view('invoices.wid')->with(compact('invoiceData', 'productsDatas', 'due'));
+        }
     }
 }
