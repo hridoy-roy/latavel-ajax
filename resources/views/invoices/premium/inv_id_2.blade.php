@@ -242,16 +242,16 @@
                 <table class="table">
                     <tbody>
                         <tr class="text-end">
-                            <th>Subtotal:</th>
-                            <td style="width: 15%;">300.00</td>
+                            <th>Due: </th>
+                            <td style="width: 15%;">{{ $due }}</td>
                         </tr>
                         <tr class="text-end">
-                            <th>Sales Tax 6.25%:</th>
-                            <td style="width: 15%;">300.00</td>
+                            <th>Tax {{ $invoiceData->invoice_tax_percent }}%:</th>
+                            <td style="width: 15%;">{{ tax($invoiceData->invoice_tax_percent, $invoiceData->total ) }}</td>
                         </tr>
                         <tr class="text-end">
                             <th>Total:</th>
-                            <td style="width: 15%;">300.00</td>
+                            <td style="width: 15%;">{{ $invoiceData->total }}</td>
                         </tr>
                     </tbody>
                 </table>
