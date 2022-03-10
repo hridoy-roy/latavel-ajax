@@ -39,14 +39,3 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('/invoice/download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
 });
 
-
-// Route::get('/layout', function () {
-//     return view('frontend.home');
-// });
-// Route::get('/login2', function () {
-//     return view('auth.login-2');
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth','verified'])->name('dashboard');
