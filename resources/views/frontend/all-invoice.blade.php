@@ -9,6 +9,7 @@
 <link href="{{ asset('assets/admin/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Multi Item Selection examples -->
 <link href="{{ asset('assets/admin/plugins/datatables/select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <style>
 .dataTables_filter,.datatable_length{
@@ -128,7 +129,7 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
                                         <td>৳ {{ $invoiceData->invoice_amu_paid }}</td>
                                         <td>৳ {{ $invoiceData->total }}</td>
                                         <td class="text-center">
-                                            <span class="btn btn-danger btn-sm" onclick="deleteInvoice()"><i class="bi bi-trash"></i></span>
+                                            <span class="btn btn-danger btn-sm" onclick="deleteInvoice({{ $invoiceData->id }})"><i class="bi bi-trash"></i></span>
                                         </td>
                                     </tr>
                                     @empty
@@ -141,13 +142,13 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
                     </div>
                 </div>
                 <div class="row">
-                            <div class="col-12">
-                                <div class="card-box">
+                    <div class="col-12">
+                        <div class="card-box">
 
-                                    
-                                </div>
-                            </div>
-                        </div> <!-- end row -->
+                            
+                        </div>
+                    </div>
+                </div> <!-- end row -->
             </div>
 
         </div>
@@ -176,7 +177,7 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
 
 <!-- Selection table -->
 <script src="{{ asset('assets/admin/plugins/datatables/dataTables.select.min.js') }}"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
 
@@ -208,6 +209,15 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
         table.buttons().container()
                 .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
     } );
+
+</script>
+
+
+
+<script>
+
+
+
 
 </script>
 @endpush

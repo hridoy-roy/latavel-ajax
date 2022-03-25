@@ -375,4 +375,37 @@ function currency1(){
   $("#imageUpload").change(function() {
     readURL(this);
   });
+
+
+  function deleteInvoice(id){
+    console.log(id);
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/delete/invoices/'+id,
+                method: 'delete',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                data: '',
+                dataType: "json",
+                success: function(data) {
+                  location.reload()
+                }
+            })
+            Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+            )
+        }
+    })
+}
   // <!-- Image Upload End-->
