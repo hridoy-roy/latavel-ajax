@@ -86,6 +86,9 @@
                                     <div class="my-3 already_billto">
                                         <p class="fw-bold">Do not have an account? <a href="/auth/google/redirect">Sign in google</a></p>
                                     </div>
+                                    <div class="my-3 already_billto">
+                                        <p class="fw-bold">Do not have an account? <a href="/auth/facebook/redirect">Sign in facebook</a></p>
+                                    </div>
                                 </div>
                             </form>
                         </div>
