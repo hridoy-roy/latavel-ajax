@@ -14,16 +14,16 @@
         <title>@yield('title')</title>
 
         <!-- Switchery css -->
-        <link href="{{ asset('assets/admin/plugins/switchery/switchery.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('public/assets/admin/plugins/switchery/switchery.min.css') }}" rel="stylesheet" />
 
         <!-- Bootstrap CSS -->
-        <link href="{{ asset('assets/admin/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('public/assets/admin/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- App CSS -->
-        <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('public/assets/admin/css/style.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- Modernizr js -->
-        <script src="{{ asset('assets/admin/js/modernizr.min.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/modernizr.min.js') }}"></script>
 
         <!-- Custom Css Start -->
         @stack('admin_style_css')
@@ -69,20 +69,20 @@
         </script>
 
         <!-- jQuery  -->
-        <script src="{{ asset('assets/admin/js/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/detect.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/fastclick.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/jquery.blockUI.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/waves.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/jquery.nicescroll.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/jquery.scrollTo.min.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/jquery.slimscroll.js') }}"></script>
-        <script src="{{ asset('plugins/switchery/switchery.min.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/detect.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/fastclick.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/jquery.blockUI.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/waves.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/jquery.nicescroll.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/jquery.scrollTo.min.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/jquery.slimscroll.js') }}"></script>
+        <script src="{{ asset('public/plugins/switchery/switchery.min.js') }}"></script>
 
         <!-- App js -->
-        <script src="{{ asset('assets/admin/js/jquery.core.js') }}"></script>
-        <script src="{{ asset('assets/admin/js/jquery.app.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/jquery.core.js') }}"></script>
+        <script src="{{ asset('public/assets/admin/js/jquery.app.js') }}"></script>
 
         @stack('admin_style_js')
 

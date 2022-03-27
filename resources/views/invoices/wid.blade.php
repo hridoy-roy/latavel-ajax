@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Custom Css -->
-    <link rel="stylesheet" href="{{ asset('assets/frontend/css/invoices/wid.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/assets/frontend/css/invoices/wid.css') }}">
 
     <title>Invoice</title>
 </head>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="logo col" style="text-align: -webkit-right;">
                             @if ($invoiceData->invoice_logo)
-                            <img src="{{ asset('storage/invoice/logo/'.$invoiceData->invoice_logo) }}" alt="" width="150" class="img-fluid">
+                            <img src="{{ asset('public/storage/invoice/logo/'.$invoiceData->invoice_logo) }}" alt="" width="150" class="img-fluid">
                             @else
                             <h1>NO LOGO</h1>
                             @endif                            

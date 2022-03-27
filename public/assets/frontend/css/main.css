@@ -43,6 +43,16 @@ html {
   text-shadow: none;
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
 /*
  * A better looking default horizontal rule
  */
@@ -268,6 +278,101 @@ textarea {
 }
 
 /* Theme Css Start */
+
+/* user menu Start*/
+.user-menu-wrap {
+  position: relative;
+}
+.menu-container {
+  visibility: hidden;
+  opacity: 0;
+}
+.menu-container.active {
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+.user-menu {
+  position: absolute;
+  right: -22px;
+  background-color: #fff;
+  width: 256px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  margin-top: 20px;
+  z-index: 99999;
+}
+.user-menu .profile-highlight {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 12px 16px;
+  margin-bottom: 6px;
+}
+.user-menu .profile-highlight img {
+  width: 48px;
+  height: 48px;
+  border-radius: 25px;
+  object-fit: cover;
+}
+.user-menu .profile-highlight .details {
+  display: flex;
+  flex-direction: column;
+  margin: auto 12px;
+}
+.user-menu .profile-highlight .details #profile-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+.user-menu .profile-highlight .details #profile-footer {
+  font-weight: 300;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.user-menu .footer {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 6px;
+  margin-top: 6px;
+}
+.user-menu .footer .user-menu-link {
+  font-size: 13px;
+}
+.user-menu .user-menu-link {
+  display: flex;
+  text-decoration: none;
+  color: #333;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 12px 16px;
+}
+.user-menu .user-menu-link div {
+  margin: auto 10px;
+}
+.user-menu .user-menu-link:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+.user-menu:before {
+  position: absolute;
+  top: -16px;
+  right: 45px;
+  display: inline-block;
+  content: "";
+  border: 8px solid transparent;
+  border-bottom-color: #e0e0e0;
+}
+.user-menu:after {
+  position: absolute;
+  top: -14px;
+  right: 45px;
+  display: inline-block;
+  content: "";
+  border: 7px solid transparent;
+  border-bottom-color: #fff;
+}
+/* user menu End*/
+
 /* Header Css Start */
 .header_sevtion > nav {
   box-shadow: 0px 2px 10px 0px #ccc;
@@ -473,6 +578,8 @@ p{
   font-weight: 400;
   border-right: 2px solid #898989;
   padding: 0 5px;
+  border-radius: 0;
+  display: unset;
 }
 .dashboard .dashboard_link a:nth-last-child(1){
   border-right: 0;

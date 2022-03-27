@@ -181,7 +181,7 @@
                     <div
                         class="border rounded-circle logo d-flex flex-column justify-content-center align-items-center">
                         @if ($invoiceData->invoice_logo)
-                        <img src="{{ asset('storage/invoice/logo/'.$invoiceData->invoice_logo) }}" alt="" width="150" class="img-fluid">
+                        <img src="{{ asset('public/storage/invoice/logo/'.$invoiceData->invoice_logo) }}" alt="" width="150" class="img-fluid">
                         @else
                         <h1>NO LOGO</h1>
                         @endif 
