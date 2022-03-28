@@ -92,7 +92,7 @@ class InvoiceController extends Controller
                 }
             } elseif ($id != null && $invoice_logo != null) {
                 $find = Invoice::findOrFail($id);
-                $image_path         = public_path("storage\invoice\logo\\") . $find->invoice_logo;
+                $image_path         = public_path("storage/invoice/logo//") . $find->invoice_logo;
                 if (File::exists($image_path)) {
                     File::delete($image_path);
                     // Create File
@@ -206,7 +206,7 @@ class InvoiceController extends Controller
         $due = $invoiceData->total - $invoiceData->invoice_amu_paid;
         // dd(Auth::user()->plan);
         if (Auth::user()->plan == 'free') {
-            return view('invoices.premium.inv_id_2')->with(compact('invoiceData', 'productsDatas', 'due'));
+            return view('invoices.free.invoice_1')->with(compact('invoiceData', 'productsDatas', 'due'));
         } elseif (Auth::user()->plan == 'premium') {
             return view('invoices.wid')->with(compact('invoiceData', 'productsDatas', 'due'));
         }

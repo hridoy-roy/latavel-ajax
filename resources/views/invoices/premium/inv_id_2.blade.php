@@ -205,7 +205,7 @@
                                 <p class="my-2">{{ $invoiceData->invoice_id }}</p>
                                 <p class="my-2">{{ $invoiceData->invoice_dou_date }}</p>
                                 <p class="my-2">{{ $invoiceData->invoice_po_number }}</p>
-                                <p class="my-2">{{ $invoiceData->invoice_dou_date }}</p>
+                                <p class="my-2">{{ $invoiceData->invoice_payment_term }}</p>
                             </div>
                         </div>
                     </div>
