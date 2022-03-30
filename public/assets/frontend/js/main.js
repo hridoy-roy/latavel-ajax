@@ -62,9 +62,6 @@ function currency1(){
         var product_name = $('#product_name').val();
         var product_quantity = $('#product_quantity').val();
         var product_rate = $('#product_rate').val();
-        console.log(product_name);
-        console.log(product_quantity);
-        console.log(product_rate);
         if((product_name != '') && (product_quantity != '') && (product_rate != '')){
           $.ajax({
             url: '/product/store',
@@ -239,11 +236,11 @@ function currency1(){
                 var totalamount = 0;
                 $.each(responce, function (key, value) {
                     totalamount = totalamount + value.product_amount
-                    data = data + "<tr>"
-                    data = data + "<th scope='row'>" + ++key + "</th>"
-                    data = data + "<td>" + value.product_name + "</td>"
-                    data = data + "<td>" + value.product_quantity + "</td>"
-                    data = data + "<td>" + value.product_rate + "</td>"
+                    data = data + "<tr onClick='editData(" + value.id + ")' id='tableRow-"+value.id+"'>"
+                    data = data + "<th scope='row' id='key'>" + ++key + "</th>"
+                    data = data + "<td id='product_name-"+value.id+"'>" + value.product_name + "</td>"
+                    data = data + "<td id='product_quantity-"+value.id+"'>" + value.product_quantity + "</td>"
+                    data = data + "<td id='product_rate-"+value.id+"'>" + value.product_rate + "</td>"
                     data = data + "<td>" + value.product_amount + "</td>"
                     data = data + "<td class='text-center'>"
                     data = data + "<button type='button' onClick='deleteData(" + value.id + ")' class='btn btn-sm btn-danger fw-bolder'><i class='bi bi-trash'></i></button>"
@@ -341,26 +338,67 @@ function currency1(){
         $('#balanceDue').text(balanceDue);
     }
 
+  function editData(id) {
+    var key = $('#key').text();
+    var product_name = $('#product_name-'+id).text();
+    var product_quantity = $('#product_quantity-'+id).text();
+    var product_rate = $('#product_rate-'+id).text();
+
+    var product_amount = product_quantity * product_rate;
+    
+    $("#tableRow-"+id).hide();
+    var input = '';
+    input = input + "<tr class='editInput'>"
+    input = input + "<th scope='row' class='p-3'>"+key+"</th>"
+    input = input + "<td>"
+    input = input + "<textarea type='text' name='product_name' id='product_name"+id+"' class='form-control' placeholder='Description of service or product' rows='1' onchange='addData();'>"+product_name+"</textarea>"
+    input = input + "<div id='name_error' class='invalid-feedback'></div>"
+    input = input + "</td>"
+    input = input + "<td class='px-0'>"
+    input = input + "<div class='input-group'>"
+    input = input + "<input type='number' name='product_quantity' id='product_quantity"+id+"' class='form-control' value='"+product_quantity+"' placeholder='Quantity' onchange='ptotal();addData();'>"
+    input = input + "<div class='input-group-text fw-bold border-0'>X</div>"
+    input = input + "<div id='quantity_error' class='invalid-feedback'></div>"
+    input = input + "</div>"
+    input = input + " </td>"
+    input = input + "<td class='px-0'>"
+    input = input + "<div class='input-group'>"
+    input = input + "<input type='number' name='product_rate' id='product_rate"+id+"' class='form-control' value='"+product_rate+"' placeholder='Rate' onchange='ptotal();addData();'>"
+    input = input + "<div id='product_rate_error' class='invalid-feedback'></div>"
+    input = input + "</div>"
+    input = input + "</td>"
+    input = input + "<td class='pe-0'>"
+    input = input + "<div class='rounded'>"
+    input = input + "<span id='product_amount' class='fw-bolder form-control'>"+product_amount+"</span>"
+    input = input + "</div>"
+    input = input + "</td>"
+    input = input + "<td>"
+    input = input + "<button type='button' onClick='saveData(" +id+ ")' class='btn btn-success fw-bolder'><i class='bi bi-check-circle-fill'></i></button>"
+    input = input + "</td>"
+    input = input + "</tr>"
+    $('#tableBody').html(input);
+
+
+  }
 
   function deleteData(id) {
 
-      var id = id;
+        var id = id;
 
-      $.ajax({
-          type: "delete",
-          dataType: "json",
-          data: { id: id },
-          headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-          url: "/products/delete/" + id,
-          success: function (data) {
-            $('#product_amount').text("");
-              allData();
-          },
-          error: function (error) {
-          }
-      });
+        $.ajax({
+            type: "delete",
+            dataType: "json",
+            data: { id: id},
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            url: "/products/delete/" + id,
+            success: function (data) {
+              $('#product_amount').text("");
+                allData();
+            },
+            error: function (error) {
+            }
+        });
       }
-
 
 
 
@@ -413,3 +451,61 @@ function currency1(){
     })
 }
   // <!-- Image Upload End-->
+
+
+  function saveData(id){
+  
+    var product_name = $('#product_name'+id).val();
+    var product_quantity = $('#product_quantity'+id).val();
+    var product_rate = $('#product_rate'+id).val();
+    // alert([product_name,product_quantity,product_rate]);
+    var id = id;
+  
+    $.ajax({
+        url: '/products/update',
+        type: 'PUT',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        data: { id:id,
+                product_name:product_name,
+                product_quantity:product_quantity,
+                product_rate:product_rate
+        },
+        dataType: 'json',
+        success: function (data) {
+            allData();
+        },
+        error: function (error) {
+          console.log(error.responseJSON.errors);
+          if (error.responseJSON.errors.product_name != null)
+                {
+                    $('#product_name').addClass("is-invalid");
+                    $('#name_error').text(error.responseJSON.errors.product_name);
+                } else
+                {
+                    $('#product_name').removeClass("is-invalid");
+                    $('#product_name').addClass("is-valid");
+                }
+
+                if (error.responseJSON.errors.product_quantity != null)
+                {
+                    $('#product_quantity').addClass("is-invalid");
+                    $('#quantity_error').text(error.responseJSON.errors.product_quantity);
+                } else
+                {
+                    $('#product_quantity').removeClass("is-invalid");
+                    $('#product_quantity').addClass("is-valid");
+                }
+                
+                if (error.responseJSON.errors.product_rate != null)
+                {
+                    $('#product_rate').addClass("is-invalid");
+                    $('#product_rate_error').text(error.responseJSON.errors.product_rate);
+                } else
+                {
+                    $('#product_rate').removeClass("is-invalid");
+                    $('#product_rate').addClass("is-valid");
+                }
+        }
+    });
+  }
+  

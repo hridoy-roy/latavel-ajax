@@ -1,7 +1,7 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'Billto',
+    'name' => 'Billto1',
     'env' => 'local',
     'debug' => true,
     'url' => 'http://localhost',
@@ -228,7 +228,7 @@
         'driver' => 'octane',
       ),
     ),
-    'prefix' => 'billto_cache',
+    'prefix' => 'billto1_cache',
   ),
   'cors' => 
   array (
@@ -327,7 +327,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'billto_database_',
+        'prefix' => 'billto1_database_',
       ),
       'default' => 
       array (
@@ -529,7 +529,7 @@
     'from' => 
     array (
       'address' => 'hridoy.womenindigital@gmail.com',
-      'name' => 'Billto',
+      'name' => 'Billto1',
     ),
     'markdown' => 
     array (
@@ -668,7 +668,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'billto_session',
+    'cookie' => 'billto1_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,

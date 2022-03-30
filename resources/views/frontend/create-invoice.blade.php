@@ -252,7 +252,7 @@
                     <option value="ZAR" label="South African rand">ZAR</option>
                     <option value="ZMW" label="Zambian kwacha">ZMW</option>
                     <option value="ZWB" label="Zimbabwean bonds">ZWB</option>
-                </select>
+                  </select>
                 </div>
                 <div>
                   <label class="form-label">Using Default Template</label>
@@ -327,20 +327,20 @@
           <table class="table">
             <thead style="background-color: #FFB317;">
               <tr>
-                <th scope="col">#</th>
+                <th scope="col" style="width: 3%">#</th>
                 <th scope="col">Item</th>
                 <th scope="col" style="width: 14%">Quantity</th>
-                <th scope="col" style="width: 10%">Rate</th>
+                <th scope="col" style="width: 14%">Rate</th>
                 <th scope="col" style="width: 10%">Amount</th>
                 <th scope="col" style="width: 5%">Action</th>
               </tr>
             </thead>
             <tbody id="tableBody">
-
+             
             </tbody>
+
           </table>
         </div>
-
         <div class="product row">
           <div class="p-0 pe-1 pb-2 col-md-6">
             <textarea type="text" name="product_name" id="product_name" class="form-control" placeholder="Description of service or product" rows="1" onchange="addData();"></textarea>
@@ -504,4 +504,7 @@
 @push('frontend_js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+
+</script>
 @endpush

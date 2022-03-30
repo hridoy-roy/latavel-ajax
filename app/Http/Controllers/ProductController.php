@@ -41,7 +41,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
        
         $validated = $request->validate([
             'product_name' => 'required|max:255',
@@ -101,9 +100,26 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'product_name' => 'required|max:255',
+            'product_quantity' => 'required|integer|digits_between:1,10',
+            'product_rate' => 'required|integer|digits_between:1,10'
+        ]);
+
+        $productAmount = $request->product_quantity * $request->product_rate;
+
+        $id  = $request->id;
+        Product::where('id', $id)
+                        ->update([
+                            'product_name' => $request->product_name,
+                            'product_quantity' => $request->product_quantity,
+                            'product_rate' => $request->product_rate,
+                            'product_amount' => $productAmount
+                        ]);
+
+        return response()->json($id);
     }
 
     /**
