@@ -120,6 +120,7 @@ class InvoiceController extends Controller
                 'invoice_tax_percent' => $request->invoice_tax,
                 'invoice_amu_paid_percent' => $advance_amount,
                 'invoice_amu_paid' => $totalpaid,
+                'requesting_advance_amount' => $request->requesting_advance_amount,
                 'total' => $total,
                 'invoice_status' => 'complete',
             );

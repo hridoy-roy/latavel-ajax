@@ -34,6 +34,8 @@ class CreateInvoicesTable extends Migration
             $table->string('invoice_tax_percent')->nullable();
             $table->string('invoice_amu_paid_percent')->nullable();
             $table->string('invoice_amu_paid')->nullable();
+            $table->string('requesting_advance_amount')->nullable();
+            $table->string('receive_advance_amount')->nullable();
             $table->string('total')->nullable();
             $table->string('currency', 30)->nullable();
             $table->enum('invoice_status', ['complete','incomlete'])->default('incomlete');

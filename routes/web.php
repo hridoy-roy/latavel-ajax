@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Frontend\PagesController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\PagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,4 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('/invoice/download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
 });
 
+Auth::routes(['verify' => true]);

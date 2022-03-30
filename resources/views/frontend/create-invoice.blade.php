@@ -348,14 +348,14 @@
           </div>
           <div class="text-start p-0 pb-2 col-md-2">
             <div class="input-group">
-              <input type="text" name="product_quantity" id="product_quantity" class="form-control" placeholder="Quantity" onchange="ptotal();addData();">
+              <input type="number" name="product_quantity" id="product_quantity" class="form-control" placeholder="Quantity" onchange="ptotal();addData();">
               <div class="input-group-text fw-bold border-0">X</div>
               <div id="quantity_error" class="invalid-feedback"></div>
             </div>
           </div>
           <div class="text-start p-0 pe-1 pb-2 col-md-2">
             <div class="input-group">
-              <input type="text" name="product_rate" id="product_rate" class="form-control" placeholder="Rate" onchange="ptotal();addData();">
+              <input type="number" name="product_rate" id="product_rate" class="form-control" placeholder="Rate" onchange="ptotal();addData();">
               <div class="input-group-text" id="currency">USD</div>
               <div id="product_rate_error" class="invalid-feedback"></div>
             </div>
@@ -379,61 +379,77 @@
         </div>
         {{-- </form> --}}
         <div class="row pt-4">
-          <div class="col-md-7">
+          <div class="col-md-6">
             <div>
               <label for="invoice_notes" class="form-label p-2">Notes</label>
-              <textarea name="invoice_notes" id="invoice_notes" rows="3" class="form-control" placeholder="Notes - any related information not already covered"></textarea>
+              <textarea name="invoice_notes" id="invoice_notes" rows="5" class="form-control" placeholder="Notes - any related information not already covered"></textarea>
               <div id="invoice_notes_error" class="invalid-feedback"></div>
             </div>
             <div class="">
               <label for="invoice_terms" class="form-label p-2 d-flex align-items-center">Terms</label>
-              <textarea name="invoice_terms" id="invoice_terms" rows="3" class="form-control" placeholder="Terms and conditions, late fees, payment methods, delivery schedule"></textarea>
+              <textarea name="invoice_terms" id="invoice_terms" rows="5" class="form-control" placeholder="Terms and conditions, late fees, payment methods, delivery schedule"></textarea>
               <div id="invoice_terms_error" class="invalid-feedback"></div>
             </div>
           </div>
-          <div class="col-md-5 d-flex flex-column justify-content-end pt-2 pe-4">
+          <div class="col-md-6 d-flex flex-column justify-content-end pt-2 pe-4">
             <div class="row">
-              <div class="col-5 d-flex align-items-center fw-bolder text-primary">Sub total</div>
+              <div class="col-7 d-flex align-items-center fw-bolder text-primary">Sub total</div>
               <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
                 <span class="p-2 fw-bolder text-primary" id="subtotal">0.00</span>
                 <div class="input-group-text" id="currency">USD</div>
               </div>
             </div>
             <div class="row pt-2 ">
-              <div class="col-5 d-flex align-items-center">Tax</div>
+              <div class="col-7 d-flex align-items-center">Tax</div>
               <div class="col input-group p-0">
-                <input type="text" name="invoice_tax" class="form-control" value="0" id="invoice_tax" onchange="total()">
+                <input type="number" name="invoice_tax" class="form-control" value="" id="invoice_tax" onchange="total()">
                 <div class="input-group-text">&#8453;</div>
                 <div id="invoice_tax_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="d-flex flex-column justify-content-end pt-2">
               <div class="row">
-                <div class="col-5 d-flex align-items-center fw-bolder text-success">Total</div>
+                <div class="col-7 d-flex align-items-center fw-bolder text-success">Total</div>
                 <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
                   <span class="p-2 fw-bolder text-success" id="total" onchange="totalInwords();">0.00</span>
                   <div class="input-group-text" id="currency">USD</div>
                 </div>
                 <p id="totalInwords"></p>
               </div>
-              <div class="row pt-2 ">
-                <div class="col-5 d-flex align-items-center">Advance Amount</div>
+              {{-- <div class="row pt-2 ">
+                <div class="col-7 d-flex align-items-center">Advance Amount</div>
                 <div class="col input-group p-0">
-                  <input type="text" name="advance_amount" class="form-control" value="0" id="advance_amount" onchange="total()">
+                  <input type="number" name="advance_amount" class="form-control" value="" id="advance_amount" onchange="total()">
                   <div class="input-group-text">&#8453;</div>
                   <div id="advance_amount_error" class="invalid-feedback"></div>
                 </div>
+              </div> --}}
+              <div class="row pt-2 ">
+                <div class="col-7 d-flex align-items-center"><label for="#advance_amount">Requesting Advance Amount</label></div>
+                <div class="col input-group p-0">
+                  <input type="number" name="requesting_advance_amount" class="form-control" value="" id="advance_amount" onchange="total()">
+                  <div class="input-group-text">&#8453;</div>
+                  <div id="requesting_advance_amount_error" class="invalid-feedback"></div>
+                </div>
+              </div>
+              <div class="row pt-2 ">
+                <div class="col-7 d-flex align-items-center">Receive Advance Amount</div>
+                <div class="col input-group p-0">
+                  <input type="number" name="receive_advance_amount" class="form-control" role="button" aria-disabled="true" value="" id="receive_advance_amount" onchange="">
+                  <div class="input-group-text" id="currency">USD</div>
+                  <div id="receive_advance_amount_error" class="invalid-feedback"></div>
+                </div>
               </div>
               <div class="row pt-2">
-                <div class="col-5 d-flex align-items-center">Amount Paid</div>
+                <div class="col-7 d-flex align-items-center">Amount Paid</div>
                 <div class="col input-group p-0">
-                  <input type="text" class="form-control" name="invoice_amu_paid" value="0" id="invoice_amu_paid" onchange="total()">
+                  <input type="number" class="form-control" name="invoice_amu_paid" value="" id="invoice_amu_paid" onchange="total()">
                   <div class="input-group-text" id="currency">USD</div>
                   <div id="invoice_amu_paid_error" class="invalid-feedback"></div>
                 </div>
               </div>
               <div class="row pt-2">
-                <div class="col-5 d-flex align-items-center fw-bolder text-danger">Balance Due</div>
+                <div class="col-7 d-flex align-items-center fw-bolder text-danger">Balance Due</div>
                 <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
                   <span class="p-2 fw-bolder text-danger" id="balanceDue">0.00</span>
                   <div class="input-group-text" id="currency">USD</div>
