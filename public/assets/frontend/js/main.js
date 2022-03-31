@@ -55,13 +55,13 @@ function currency1(){
 
       // add new Product ajax request
       function addData(){
-
         // Invoice data
         var id = $('#id').val();
         // Product data
         var product_name = $('#product_name').val();
         var product_quantity = $('#product_quantity').val();
         var product_rate = $('#product_rate').val();
+        console.log(id);
         if((product_name != '') && (product_quantity != '') && (product_rate != '')){
           $.ajax({
             url: '/product/store',
@@ -76,7 +76,7 @@ function currency1(){
                 document.getElementById("completeInvoice").disabled = false;
             },
             error: function (error) {
-              // console.log(error);
+              console.log(error);
                 if (error.responseJSON.errors.product_name != null)
                 {
                     $('#product_name').addClass("is-invalid");
@@ -236,12 +236,12 @@ function currency1(){
                 var totalamount = 0;
                 $.each(responce, function (key, value) {
                     totalamount = totalamount + value.product_amount
-                    data = data + "<tr onClick='editData(" + value.id + ")' id='tableRow-"+value.id+"'>"
-                    data = data + "<th scope='row' id='key'>" + ++key + "</th>"
-                    data = data + "<td id='product_name-"+value.id+"'>" + value.product_name + "</td>"
-                    data = data + "<td id='product_quantity-"+value.id+"'>" + value.product_quantity + "</td>"
-                    data = data + "<td id='product_rate-"+value.id+"'>" + value.product_rate + "</td>"
-                    data = data + "<td>" + value.product_amount + "</td>"
+                    data = data + "<tr id='tableRow-"+value.id+"'>"
+                    data = data + "<th onClick='editData(" + value.id + ")' scope='row' id='key-"+value.id+"'>" + ++key + "</th>"
+                    data = data + "<td onClick='editData(" + value.id + ")' id='product_name-"+value.id+"'>" + value.product_name + "</td>"
+                    data = data + "<td onClick='editData(" + value.id + ")' id='product_quantity-"+value.id+"'>" + value.product_quantity + "</td>"
+                    data = data + "<td onClick='editData(" + value.id + ")' id='product_rate-"+value.id+"'>" + value.product_rate + "</td>"
+                    data = data + "<td onClick='editData(" + value.id + ")' >" + value.product_amount + "</td>"
                     data = data + "<td class='text-center'>"
                     data = data + "<button type='button' onClick='deleteData(" + value.id + ")' class='btn btn-sm btn-danger fw-bolder'><i class='bi bi-trash'></i></button>"
                     data = data + "</td>"
@@ -335,21 +335,21 @@ function currency1(){
           var paid = $('#invoice_amu_paid').val() * 1;
         }
         var balanceDue = total - paid;
-        $('#balanceDue').text(balanceDue);
+        $('#balanceDue').text(total);
     }
 
   function editData(id) {
-    var key = $('#key').text();
+    var key = $('#key-'+id).text();
     var product_name = $('#product_name-'+id).text();
     var product_quantity = $('#product_quantity-'+id).text();
     var product_rate = $('#product_rate-'+id).text();
 
     var product_amount = product_quantity * product_rate;
     
-    $("#tableRow-"+id).hide();
+    // $("#tableRow-"+id).css("display", "none");
     var input = '';
-    input = input + "<tr class='editInput'>"
-    input = input + "<th scope='row' class='p-3'>"+key+"</th>"
+    input = input + "<tr id='editInput-"+id+"'>"
+    input = input + "<th scope='row' class='p-3' id='row-"+id+"'>"+ key +"</th>"
     input = input + "<td>"
     input = input + "<textarea type='text' name='product_name' id='product_name"+id+"' class='form-control' placeholder='Description of service or product' rows='1' onchange='addData();'>"+product_name+"</textarea>"
     input = input + "<div id='name_error' class='invalid-feedback'></div>"
@@ -376,7 +376,7 @@ function currency1(){
     input = input + "<button type='button' onClick='saveData(" +id+ ")' class='btn btn-success fw-bolder'><i class='bi bi-check-circle-fill'></i></button>"
     input = input + "</td>"
     input = input + "</tr>"
-    $('#tableBody').html(input);
+    $("#tableRow-"+id).replaceWith(input);
 
 
   }
@@ -452,60 +452,53 @@ function currency1(){
 }
   // <!-- Image Upload End-->
 
+  function requestingAdvanceAmount() {
+      var reqAdvAmo = document.getElementById("requesting_advance_amount").value;
+      var total = $("#total").text() * 1;
+
+      var requestingAdvanceAmount = (reqAdvAmo*total)/100;
+
+      $('#requesting_advance_amount_number').text(requestingAdvanceAmount);
+      console.log(requestingAdvanceAmount);
+  }
 
   function saveData(id){
-  
+    var key = $('#row-'+id).text();
     var product_name = $('#product_name'+id).val();
     var product_quantity = $('#product_quantity'+id).val();
     var product_rate = $('#product_rate'+id).val();
     // alert([product_name,product_quantity,product_rate]);
     var id = id;
-  
     $.ajax({
         url: '/products/update',
         type: 'PUT',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        data: { id:id,
+        data: { key:key,
+                id:id,
                 product_name:product_name,
                 product_quantity:product_quantity,
                 product_rate:product_rate
         },
         dataType: 'json',
-        success: function (data) {
-            allData();
+        success: function (responce) {
+          var data = '';
+          data = data + "<tr onClick='editData(" + responce.id + ")' id='tableRow-"+responce.id+"'>"
+          data = data + "<th scope='row' id='key-"+responce.id+"'>" + responce.key + "</th>"
+          data = data + "<td id='product_name-"+responce.id+"'>" + responce.product_name + "</td>"
+          data = data + "<td id='product_quantity-"+responce.id+"'>" + responce.product_quantity + "</td>"
+          data = data + "<td id='product_rate-"+responce.id+"'>" + responce.product_rate + "</td>"
+          data = data + "<td>" + responce.productAmount + "</td>"
+          data = data + "<td class='text-center'>"
+          data = data + "<button type='button' onClick='deleteData(" + responce.id + ")' class='btn btn-sm btn-danger fw-bolder'><i class='bi bi-trash'></i></button>"
+          data = data + "</td>"
+          data = data + "</tr>"
+          $("#editInput-"+id).replaceWith(data);
         },
         error: function (error) {
-          console.log(error.responseJSON.errors);
-          if (error.responseJSON.errors.product_name != null)
-                {
-                    $('#product_name').addClass("is-invalid");
-                    $('#name_error').text(error.responseJSON.errors.product_name);
-                } else
-                {
-                    $('#product_name').removeClass("is-invalid");
-                    $('#product_name').addClass("is-valid");
-                }
-
-                if (error.responseJSON.errors.product_quantity != null)
-                {
-                    $('#product_quantity').addClass("is-invalid");
-                    $('#quantity_error').text(error.responseJSON.errors.product_quantity);
-                } else
-                {
-                    $('#product_quantity').removeClass("is-invalid");
-                    $('#product_quantity').addClass("is-valid");
-                }
-                
-                if (error.responseJSON.errors.product_rate != null)
-                {
-                    $('#product_rate').addClass("is-invalid");
-                    $('#product_rate_error').text(error.responseJSON.errors.product_rate);
-                } else
-                {
-                    $('#product_rate').removeClass("is-invalid");
-                    $('#product_rate').addClass("is-valid");
-                }
+          
         }
     });
   }
+
+
   

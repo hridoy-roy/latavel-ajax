@@ -32,9 +32,7 @@ class CreateInvoicesTable extends Migration
             $table->string('invoice_notes', 1024)->nullable();
             $table->string('invoice_terms', 1024)->nullable();
             $table->string('invoice_tax_percent')->nullable();
-            $table->string('invoice_amu_paid_percent')->nullable();
-            $table->string('invoice_amu_paid')->nullable();
-            $table->string('requesting_advance_amount')->nullable();
+            $table->string('requesting_advance_amount_percent')->nullable();
             $table->string('receive_advance_amount')->nullable();
             $table->string('total')->nullable();
             $table->string('currency', 30)->nullable();

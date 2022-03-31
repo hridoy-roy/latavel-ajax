@@ -74,8 +74,8 @@ class InvoiceController extends Controller
             // Tax Calculation Formula End
 
             // Amount Paid || Advance
-            $advance_amount = $request->advance_amount;
-            $totalpaid = ($total * $advance_amount)/100;
+            // $advance_amount = $request->advance_amount;
+            // $totalpaid = ($total * $advance_amount)/100;
             // Amount Paid || Advance
 
             // invocie Logo name Strat
@@ -118,9 +118,9 @@ class InvoiceController extends Controller
                 'invoice_notes' => $request->invoice_notes,
                 'invoice_terms' => $request->invoice_terms,
                 'invoice_tax_percent' => $request->invoice_tax,
-                'invoice_amu_paid_percent' => $advance_amount,
-                'invoice_amu_paid' => $totalpaid,
-                'requesting_advance_amount' => $request->requesting_advance_amount,
+                // 'invoice_amu_paid_percent' => $advance_amount,
+                // 'invoice_amu_paid' => $totalpaid,
+                'requesting_advance_amount_percent' => $request->requesting_advance_amount,
                 'total' => $total,
                 'invoice_status' => 'complete',
             );
@@ -199,12 +199,14 @@ class InvoiceController extends Controller
             'invoice_notes',
             'invoice_terms',
             'invoice_tax_percent',
-            'invoice_amu_paid_percent',
-            'invoice_amu_paid',
+            'requesting_advance_amount_percent',
+            // 'invoice_amu_paid_percent',
+            // 'invoice_amu_paid',
             'total',
         ])->first();
         $productsDatas = Invoice::find($id)->products->skip(0)->take(6);
-        $due = $invoiceData->total - $invoiceData->invoice_amu_paid;
+        $due = $invoiceData->total;
+        //  - $invoiceData->invoice_amu_paid;
         // dd(Auth::user()->plan);
         if (Auth::user()->plan == 'free') {
             return view('invoices.free.invoice_1')->with(compact('invoiceData', 'productsDatas', 'due'));

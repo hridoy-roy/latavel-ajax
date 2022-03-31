@@ -111,7 +111,7 @@ class ProductController extends Controller
         $productAmount = $request->product_quantity * $request->product_rate;
 
         $id  = $request->id;
-        Product::where('id', $id)
+        $data = Product::where('id', $id)
                         ->update([
                             'product_name' => $request->product_name,
                             'product_quantity' => $request->product_quantity,
@@ -119,7 +119,18 @@ class ProductController extends Controller
                             'product_amount' => $productAmount
                         ]);
 
-        return response()->json($id);
+        if ($data != null) {
+            $productData = [
+                'key' => $request->key,
+                'id' => $id,
+                'product_name' => $request->product_name,
+                'product_quantity' => $request->product_quantity,
+                'product_rate' => $request->product_rate,
+                'productAmount' => $productAmount
+            ];
+        }
+     
+        return response()->json($productData);
     }
 
     /**

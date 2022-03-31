@@ -328,7 +328,7 @@
             <thead style="background-color: #FFB317;">
               <tr>
                 <th scope="col" style="width: 3%">#</th>
-                <th scope="col">Item</th>
+                <th scope="col">Description</th>
                 <th scope="col" style="width: 14%">Quantity</th>
                 <th scope="col" style="width: 14%">Rate</th>
                 <th scope="col" style="width: 10%">Amount</th>
@@ -414,7 +414,7 @@
                   <span class="p-2 fw-bolder text-success" id="total" onchange="totalInwords();">0.00</span>
                   <div class="input-group-text" id="currency">USD</div>
                 </div>
-                <p id="totalInwords"></p>
+                <p id="totalInwords" class="text-end text-dark" style="font-size: 10px;text-transform: capitalize;"></p>
               </div>
               {{-- <div class="row pt-2 ">
                 <div class="col-7 d-flex align-items-center">Advance Amount</div>
@@ -427,27 +427,34 @@
               <div class="row pt-2 ">
                 <div class="col-7 d-flex align-items-center"><label for="#advance_amount">Requesting Advance Amount</label></div>
                 <div class="col input-group p-0">
-                  <input type="number" name="requesting_advance_amount" class="form-control" value="" id="advance_amount" onchange="total()">
+                  <input type="number" name="requesting_advance_amount" class="form-control" value="" id="requesting_advance_amount" onchange="requestingAdvanceAmount()">
                   <div class="input-group-text">&#8453;</div>
                   <div id="requesting_advance_amount_error" class="invalid-feedback"></div>
+                </div>
+              </div>
+              <div class="row pt-2">
+                <div class="col-7 d-flex align-items-center fw-bolder text-dark">Requesting Advance Amount </div>
+                <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+                  <span class="p-2 fw-bolder text-dark" id="requesting_advance_amount_number">0.00</span>
+                  <div class="input-group-text" id="currency">USD</div>
                 </div>
               </div>
               <div class="row pt-2 ">
                 <div class="col-7 d-flex align-items-center">Receive Advance Amount</div>
                 <div class="col input-group p-0">
-                  <input type="number" name="receive_advance_amount" class="form-control" role="button" aria-disabled="true" value="" id="receive_advance_amount" onchange="">
+                  <input type="number" name="receive_advance_amount" class="form-control" role="button" aria-disabled="true" value="" id="receive_advance_amount" disabled onchange="">
                   <div class="input-group-text" id="currency">USD</div>
                   <div id="receive_advance_amount_error" class="invalid-feedback"></div>
                 </div>
               </div>
-              <div class="row pt-2">
+              {{-- <div class="row pt-2">
                 <div class="col-7 d-flex align-items-center">Amount Paid</div>
                 <div class="col input-group p-0">
                   <input type="number" class="form-control" name="invoice_amu_paid" value="" id="invoice_amu_paid" onchange="total()">
                   <div class="input-group-text" id="currency">USD</div>
                   <div id="invoice_amu_paid_error" class="invalid-feedback"></div>
                 </div>
-              </div>
+              </div> --}}
               <div class="row pt-2">
                 <div class="col-7 d-flex align-items-center fw-bolder text-danger">Balance Due</div>
                 <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">

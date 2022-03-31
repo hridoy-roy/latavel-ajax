@@ -39,6 +39,7 @@ class UserSeeder extends Seeder
             'is_admin' => false,
             'email_verified_at' => now(),
             'password' => Hash::make('womenindigital'),
+            'plan' => 'premium',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
