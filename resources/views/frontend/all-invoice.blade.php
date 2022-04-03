@@ -130,6 +130,7 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
                                         <td>৳ {{ $invoiceData->total }}</td>
                                         <td class="text-center">
                                             <span class="btn btn-danger btn-sm" onclick="deleteInvoice({{ $invoiceData->id }})"><i class="bi bi-trash"></i></span>
+                                            <a class="btn btn-primary btn-sm" href="{{ route('edit.invoice', $invoiceData->id) }}"><i class="bi bi-pencil-square"></i></a>
                                         </td>
                                     </tr>
                                     @empty

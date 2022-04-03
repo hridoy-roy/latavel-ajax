@@ -76,17 +76,26 @@
                       <label for="imageUpload"><i class="bi bi-plus"></i></label>
                     </div>
                     <div class="avatar-preview">
-                      <div id="imagePreview" style="background-image: url();">
+                      <div id="imagePreview" @if (isset($invoiceData->invoice_logo))
+                        style="background-image: url({{ url('public/storage/invoice/logo/'.$invoiceData->invoice_logo) }});"
+                        @else
+                        style="background-image: url();"
+                        @endif>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+             
               <div class="col-md-8">
                 <div class="d-flex ">
                   <label class="form-label pe-2 pt-1">Currency: </label>
                   <select class="tk w-50 fw-bolder form-select form-select-sm" name="currency" id="currencyList" onchange="currency1()">
-                    <option value="USD" selected="selected" label="US dollar">USD</option>
+                    @if (isset($invoiceData->currency))
+                    <option value="{{ $invoiceData->currency }}" selected="selected" label="{{ $invoiceData->currency }}">{{ $invoiceData->currency }}</option>
+                    @else
+                    <option value="USD" selected="selected" label="USD">USD</option>
+                    @endif
                     <option value="EUR" label="Euro">EUR</option>
                     <option value="JPY" label="Japanese yen">JPY</option>
                     <option value="GBP" label="Pound sterling">GBP</option>
@@ -262,14 +271,14 @@
             <div class="row">
               <div class="col-md-8">
                 <label for="invoice_form" class="form-label">From *</label>
-                <textarea name="invoice_form" id="invoice_form" rows="2" type="text" class="form-control" placeholder="Who is this invoice from? (required)">@if ($lastInvoice != null){{ $lastInvoice->invoice_form }}@endif</textarea>
+                <textarea name="invoice_form" id="invoice_form" rows="2" type="text" class="form-control" placeholder="Who is this invoice from? (required)">@if (isset($invoiceData->invoice_form)){{ $invoiceData->invoice_form }}@elseif (isset($lastInvoice->invoice_form)){{ $lastInvoice->invoice_form }}@else @endif</textarea>
                 <div id="invoice_form_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="row pt-1 pb-3">
               <div class="col-md-8">
                 <label for="invoice_to" class="form-label">Bill to *</label>
-                <textarea name="invoice_to" id="invoice_to" rows="2" type="text" class="form-control" placeholder="Who is this invoice to?(required)">@if ($lastInvoice != null){{ $lastInvoice->invoice_to }}@endif</textarea>
+                <textarea name="invoice_to" id="invoice_to" rows="2" type="text" class="form-control" placeholder="Who is this invoice to?(required)">@if (isset($invoiceData->invoice_to)){{ $invoiceData->invoice_to }}@elseif (isset($lastInvoice->invoice_to)){{ $lastInvoice->invoice_to }}@else @endif</textarea>
                 <div id="invoice_to_error" class="invalid-feedback"></div>
               </div>
             </div>
@@ -282,9 +291,15 @@
               <div class="col-sm-8 mb-2">
                 <div class="input-group">
                   <div class="input-group-text">&#9839;</div>
-                  <input type="text" name="invoice_id" class="form-control" value="INVID01" id="invoice_id" placeholder="INVOICE ID">
+                  <input type="text" name="invoice_id" class="form-control" value="@if (isset($invoiceData->invoice_id)){{ $invoiceData->invoice_id }} @else {{ "INVID".$invoiceCountNew }} @endif" id="invoice_id" placeholder="INVOICE ID">
                   <input type="hidden" id="id" name="id" value="">
-                  <div class="input-group-text">01</div>
+                  <div class="input-group-text">@if (isset($invoiceCount))
+                    {{ $invoiceCount }}
+                  @elseif (isset($invoiceCountNew))
+                  {{ $invoiceCountNew }}
+                  @else
+                      1
+                  @endif</div>
                   <div id="invoice_id_error" class="invalid-feedback"></div>
                 </div>
               </div>

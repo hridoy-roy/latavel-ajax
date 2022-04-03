@@ -29,8 +29,10 @@ class InvoiceController extends Controller
                             'invoice_to',
                         ])
                     ->first();
+        $invoiceCountNew = Invoice::where('user_id', Auth::user()->id)->count();
+        $invoiceCountNew += 1;
 
-        return view('frontend.create-invoice')->with(compact('lastInvoice'));
+        return view('frontend.create-invoice')->with(compact('lastInvoice', 'invoiceCountNew'));
     }
 
     /**
