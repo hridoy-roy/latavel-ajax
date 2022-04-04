@@ -23,9 +23,9 @@ class DashboardController extends Controller
     {
         $invoiceData = Invoice::where('id', $id)->get(['id', 'invoice_logo', 'invoice_form', 'invoice_to', 'invoice_id', 'invoice_date', 'invoice_payment_term', 'invoice_dou_date', 'invoice_po_number', 'invoice_notes', 'invoice_terms', 'invoice_tax_percent', 'requesting_advance_amount_percent', 'receive_advance_amount', 'total', 'currency'])->first();
         $invoiceCount = Invoice::where('user_id', Auth::user()->id)->count();
-        // $productData = Product::where('invoice_id', $id)->get(['product_name', 'product_quantity', 'product_rate', 'product_amount']);
+        $requesting_advance_amount = ($invoiceData->total*$invoiceData->requesting_advance_amount_percent)/100;
         // foreach ($productData as $key => $value) { echo $value; };
-        return view('frontend.create-invoice')->with(compact('invoiceData', 'invoiceCount'));
+        return view('frontend.create-invoice')->with(compact('invoiceData', 'invoiceCount', 'requesting_advance_amount'));
     }
 
     public function destroy($id)

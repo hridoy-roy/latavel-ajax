@@ -93,6 +93,7 @@ class InvoiceController extends Controller
                     $file->move(public_path('storage/invoice/logo'), $filename);
                 }
             } elseif ($id != null && $invoice_logo != null) {
+                
                 $find = Invoice::findOrFail($id);
                 $image_path         = public_path("storage/invoice/logo//") . $find->invoice_logo;
                 if (File::exists($image_path)) {

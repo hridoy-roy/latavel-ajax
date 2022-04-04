@@ -55,7 +55,7 @@
 <!-- banner section End -->
 
 <!-- Invoice Section Start -->
-<section class="invoice_section">
+<section class="invoice_section" >
   <div class="my-5">
     <form method="post" id="invoiceForm" enctype="multipart/form-data">
       @csrf
@@ -292,7 +292,7 @@
                 <div class="input-group">
                   <div class="input-group-text">&#9839;</div>
                   <input type="text" name="invoice_id" class="form-control" value="@if (isset($invoiceData->invoice_id)){{ $invoiceData->invoice_id }} @else {{ "INVID".$invoiceCountNew }} @endif" id="invoice_id" placeholder="INVOICE ID">
-                  <input type="hidden" id="id" name="id" value="">
+                  <input type="hidden" id="id" name="id" value="@if (isset($invoiceData->id)){{ $invoiceData->id }}@endif">
                   <div class="input-group-text">@if (isset($invoiceCount))
                     {{ $invoiceCount }}
                   @elseif (isset($invoiceCountNew))
@@ -307,14 +307,14 @@
             <div class="row mb-2">
               <label for="invoice_date" class="col-sm-4 col-form-label">Date</label>
               <div class="col-sm-8">
-                <input type="date" name="invoice_date" class="form-control" value="{{ date('Y-m-d'); }}" id="invoice_date">
+                <input type="date" name="invoice_date" class="form-control" value="@if (isset($invoiceData->invoice_date)){{ $invoiceData->invoice_date }}@else{{ date('Y-m-d'); }}@endif" id="invoice_date">
                 <div id="invoice_date_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="row mb-2">
               <label for="invoice_payment_term" class="col-sm-4 col-form-label">Payment Terms</label>
               <div class="col-sm-8">
-                <input type="text" name="invoice_payment_term" class="form-control" id="invoice_payment_term" placeholder="Online/Bank/Cash Transaction">
+                <input type="text" name="invoice_payment_term" class="form-control" id="invoice_payment_term" placeholder="Online/Bank/Cash Transaction" value="@if (isset($invoiceData->invoice_payment_term)) {{ $invoiceData->invoice_payment_term }} @endif">
                 <div id="invoice_payment_term_error" class="invalid-feedback"></div>
               </div>
             </div>
@@ -325,14 +325,14 @@
               $date->modify('+4 day');
               @endphp
               <div class="col-sm-8">
-                <input type="date" name="invoice_dou_date" class="form-control" value="{{ $date->format('Y-m-d'); }}" id="invoice_dou_date">
+                <input type="date" name="invoice_dou_date" class="form-control" value="@if (isset($invoiceData->invoice_dou_date)){{ $invoiceData->invoice_dou_date }}@else {{ $date->format('Y-m-d'); }} @endif" id="invoice_dou_date">
                 <div id="invoice_dou_date_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="row mb-2">
               <label for="invoice_po_number" class="col-sm-4 col-form-label">PO Number</label>
               <div class="col-sm-8">
-                <input type="text" name="invoice_po_number" class="form-control" id="invoice_po_number">
+                <input type="text" name="invoice_po_number" class="form-control" id="invoice_po_number" value="@if (isset($invoiceData->invoice_po_number)){{ $invoiceData->invoice_po_number }}@endif">
                 <div id="invoice_po_number_error" class="invalid-feedback"></div>
               </div>
             </div>
@@ -397,12 +397,12 @@
           <div class="col-md-6">
             <div>
               <label for="invoice_notes" class="form-label p-2">Notes</label>
-              <textarea name="invoice_notes" id="invoice_notes" rows="5" class="form-control" placeholder="Notes - any related information not already covered"></textarea>
+              <textarea name="invoice_notes" id="invoice_notes" rows="5" class="form-control" placeholder="Notes - any related information not already covered">@if (isset($invoiceData->invoice_notes)){{ $invoiceData->invoice_notes }}@endif</textarea>
               <div id="invoice_notes_error" class="invalid-feedback"></div>
             </div>
             <div class="">
               <label for="invoice_terms" class="form-label p-2 d-flex align-items-center">Terms</label>
-              <textarea name="invoice_terms" id="invoice_terms" rows="5" class="form-control" placeholder="Terms and conditions, late fees, payment methods, delivery schedule"></textarea>
+              <textarea name="invoice_terms" id="invoice_terms" rows="5" class="form-control" placeholder="Terms and conditions, late fees, payment methods, delivery schedule">@if (isset($invoiceData->invoice_terms)){{ $invoiceData->invoice_terms }}@endif</textarea>
               <div id="invoice_terms_error" class="invalid-feedback"></div>
             </div>
           </div>
@@ -417,7 +417,7 @@
             <div class="row pt-2 ">
               <div class="col-7 d-flex align-items-center">Tax</div>
               <div class="col input-group p-0">
-                <input type="number" name="invoice_tax" class="form-control" value="" id="invoice_tax" onchange="total()">
+                <input type="number" name="invoice_tax" class="form-control" value="@if (isset($invoiceData->invoice_tax_percent)){{ $invoiceData->invoice_tax_percent }}@endif" id="invoice_tax" onchange="total()">
                 <div class="input-group-text">&#8453;</div>
                 <div id="invoice_tax_error" class="invalid-feedback"></div>
               </div>
@@ -426,7 +426,7 @@
               <div class="row">
                 <div class="col-7 d-flex align-items-center fw-bolder text-success">Total</div>
                 <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
-                  <span class="p-2 fw-bolder text-success" id="total" onchange="totalInwords();">0.00</span>
+                  <span class="p-2 fw-bolder text-success" id="total" onchange="totalInwords();">@if (isset($invoiceData->total)){{ $invoiceData->total }}@endif</span>
                   <div class="input-group-text" id="currency">USD</div>
                 </div>
                 <p id="totalInwords" class="text-end text-dark" style="font-size: 10px;text-transform: capitalize;"></p>
@@ -442,7 +442,7 @@
               <div class="row pt-2 ">
                 <div class="col-7 d-flex align-items-center"><label for="#advance_amount">Requesting Advance Amount</label></div>
                 <div class="col input-group p-0">
-                  <input type="number" name="requesting_advance_amount" class="form-control" value="" id="requesting_advance_amount" onchange="requestingAdvanceAmount()">
+                  <input type="number" name="requesting_advance_amount" class="form-control" value="@if (isset($invoiceData->requesting_advance_amount_percent)){{ $invoiceData->requesting_advance_amount_percent }}@endif" id="requesting_advance_amount" onchange="requestingAdvanceAmount()">
                   <div class="input-group-text">&#8453;</div>
                   <div id="requesting_advance_amount_error" class="invalid-feedback"></div>
                 </div>
@@ -450,7 +450,7 @@
               <div class="row pt-2">
                 <div class="col-7 d-flex align-items-center fw-bolder text-dark">Requesting Advance Amount </div>
                 <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
-                  <span class="p-2 fw-bolder text-dark" id="requesting_advance_amount_number">0.00</span>
+                  <span class="p-2 fw-bolder text-dark" id="requesting_advance_amount_number">@if (isset($requesting_advance_amount)){{ $requesting_advance_amount }}@endif</span>
                   <div class="input-group-text" id="currency">USD</div>
                 </div>
               </div>
@@ -487,7 +487,8 @@
         </div>
       </div>
       <div class="container p-0 pt-3">
-        <button type="submit" id="completeInvoice" class="btn send-invoice py-2 px-4" disabled>Complete Invoice</button>
+        <button type="submit" id="completeInvoice" class="btn send-invoice py-2 px-4" @if (isset($invoiceData))@else disabled
+        @endif >@if (isset($invoiceData)) {{ "Update Invoice" }} @else{{ "Complete Invoice" }}@endif </button>
         <a href="#" class="btn send-invoice py-2 px-4 disabled" role="button" aria-disabled="true" onclick="completeInvoice()">Send Invoice</a>
         <a href="#" id="downlodeInvoice" target="_blank" class="btn send-downlod py-2 px-4 disabled" >Download Invoice</a>
       </div>
@@ -522,11 +523,16 @@
   </div>
 </section>
 <!-- Invoice Template End -->
+@if (isset($invoiceData->id))
+
+@endif
 @endsection
 @push('frontend_js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-
+// A $( document ).ready() block.
+$( document ).ready(function() {
+  allData();
+});
 </script>
 @endpush

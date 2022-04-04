@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Frontend\PagesController;
@@ -40,4 +41,13 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::post('/invoices/store', [InvoiceController::class, 'store'])->name('store.');
     Route::post('/invoices/complete/{id}', [InvoiceController::class, 'complete'])->name('complete.');
     Route::get('/invoice/download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
+});
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+    Artisan::call('optimize');
+    return "Application cache cleared!";
 });
