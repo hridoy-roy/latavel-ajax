@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\frontend\DashboardController;
+use App\Http\Controllers\Frontend\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth','verified']], function () {
