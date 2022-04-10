@@ -6,14 +6,14 @@
 @section('frontend_content')
 <!-- Banner Start -->
   <section class="banner_section">
-    <div style="background: url({{ asset('public/assets/frontend/img/banner/banner-back.jpg') }}); opacity: .8;">
+    <div style="background: url({{ asset('assets/frontend/img/banner/banner-back.jpg') }}); opacity: .8;">
       <div class="container py-5">
         <div class="row align-items-center">
           <div class="col-md-6">
             <a href="{{ route('create') }}" class="btn billto_btn">Create Bill</a>
           </div>
           <div class="col-md-6 text-end">
-            <img src="{{ asset('public/assets/frontend/img/banner/banner.png') }}" alt="" srcset="">
+            <img src="{{ asset('assets/frontend/img/banner/banner.png') }}" alt="" srcset="">
           </div>
         </div>
       </div>
@@ -68,12 +68,12 @@
           <p class="fs-sm fw-bolder">Start creating your professional bill</p>
         </div>
         <div class="row text-center">
-          <div class="col-md-4"><a href="#"> <img src="{{ asset('public/assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
-          <div class="col-md-4"><a href="#"> <img src="{{ asset('public/assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
-          <div class="col-md-4"><a href="#"> <img src="{{ asset('public/assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
-          <div class="col-md-4"><a href="#"> <img src="{{ asset('public/assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
-          <div class="col-md-4"><a href="#"> <img src="{{ asset('public/assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
-          <div class="col-md-4"><a href="#"> <img src="{{ asset('public/assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
+          <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
+          <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
+          <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
+          <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
+          <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
+          <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a></div>
         </div>
       </div>
     </div>

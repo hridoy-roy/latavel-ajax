@@ -20,6 +20,7 @@ use App\Http\Controllers\Frontend\PagesController;
 
 // Web site Normal pages
 Route::get('/', [PagesController::class, 'index'])->name('home');
+Route::get('/privacy-policy', [PagesController::class, 'privacyPolicy'])->name('privacy.policy');
 Route::post('/create/bill', [PagesController::class, 'createbill'])->name('create.boll');
 
 
@@ -42,6 +43,7 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::post('/invoices/complete/{id}', [InvoiceController::class, 'complete'])->name('complete.');
     Route::get('/invoice/download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
 });
+
 
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');

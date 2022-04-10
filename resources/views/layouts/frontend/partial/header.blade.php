@@ -1,8 +1,14 @@
+<style>
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+</style>
 <header class="header_sevtion">
     <nav class="navbar navbar-expand-lg navbar-light p-0" style="background-color: #F0F0F0;">
       <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
-          <img src="{{ asset('public/assets/frontend/img/LOGO/billto-logo.png') }}" alt="LOGO" width="" height="60">
+          <img src="{{ asset('assets/frontend/img/LOGO/billto-logo.png') }}" alt="LOGO" width="" height="60">
         </a>
         <div class="navbar">
           <ul class="navbar-nav d-flex flex-row me-auto mb-2 mb-lg-0">
@@ -11,8 +17,8 @@
             <li class="nav-item d-flex align-items-center pe-3">
               <div class="user-menu-wrap">
 
-                <a class="mini-photo-wrapper" href="#">
-                  <img class="mini-photo" src="{{ asset('public/assets/frontend/img/LOGO/billto-logo.png') }}" width="" height="36"/>
+                <a class="mini-photo-wrapper dropbtn nav-link m-0 p-0" href="javascript:void(0);" onclick="myFunction()">
+                  <h2 class="m-0 p-0 fw-bold">{{ auth()->user()->name }}</h2>
                 </a>
                 
                 <div class="menu-container">
@@ -23,7 +29,7 @@
                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                       </svg>
                       <div class="details">
-                        <div id="profile-name">{{ auth()->user()->name }}</div>
+                        {{-- <div id="profile-name">{{ auth()->user()->name }}</div> --}}
                         {{-- <div id="profile-footer">Team Hallaway</div> --}}
                       </div>
                     </div>

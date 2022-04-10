@@ -3,12 +3,12 @@
 @push('frontend_css')
 
 <!-- DataTables -->
-<link href="{{ asset('public/assets/admin/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ asset('public/assets/admin/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/admin/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="{{ asset('public/assets/admin/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/admin/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Multi Item Selection examples -->
-<link href="{{ asset('public/assets/admin/plugins/datatables/select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/admin/plugins/datatables/select.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <style>
@@ -158,26 +158,26 @@ div.dataTables_wrapper div.dataTables_paginate,.dataTables_info{
 @endsection
 @push('frontend_js')
 <!-- Required datatable js -->
-<script src="{{ asset('public/assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('public/assets/admin/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
 <!-- Buttons examples -->
-<script src="{{ asset('public/assets/admin/plugins/datatables/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('public/assets/admin/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('public/assets/admin/plugins/datatables/jszip.min.js') }}"></script>
-<script src="{{ asset('public/assets/admin/plugins/datatables/pdfmake.min.js') }}"></script>
-<script src="{{ asset('public/assets/admin/plugins/datatables/vfs_fonts.js') }}"></script>
-<script src="{{ asset('public/assets/admin/plugins/datatables/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('public/assets/admin/plugins/datatables/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/buttons.print.min.js') }}"></script>
 
 <!-- Key Tables -->
-<script src="{{ asset('public/assets/admin/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
 
 <!-- Responsive examples -->
-<script src="{{ asset('public/assets/admin/plugins/datatables/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('public/assets/admin/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
 
 <!-- Selection table -->
-<script src="{{ asset('public/assets/admin/plugins/datatables/dataTables.select.min.js') }}"></script>
+<script src="{{ asset('assets/admin/plugins/datatables/dataTables.select.min.js') }}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {

@@ -12,6 +12,11 @@ class PagesController extends Controller
         return view('frontend.home');
     }
 
+    public function privacyPolicy()
+    {
+        return view('frontend.privacy-policy');
+    }
+
     public function create()
     {
         return view('frontend.create_invoice');
