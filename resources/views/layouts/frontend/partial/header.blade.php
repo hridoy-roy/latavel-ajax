@@ -1,8 +1,15 @@
 <style>
-.dropdown {
-  position: relative;
-  display: inline-block;
+.dropbtn {
+  cursor: pointer;
 }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+}
+
+.show {display: block;}
 </style>
 <header class="header_sevtion">
     <nav class="navbar navbar-expand-lg navbar-light p-0" style="background-color: #F0F0F0;">
@@ -16,13 +23,12 @@
             
             <li class="nav-item d-flex align-items-center pe-3">
               <div class="user-menu-wrap">
-
-                <a class="mini-photo-wrapper dropbtn nav-link m-0 p-0" href="javascript:void(0);" onclick="myFunction()">
-                  <h2 class="m-0 p-0 fw-bold">{{ auth()->user()->name }}</h2>
-                </a>
+                <button class="dropbtn btn fs-3"   onclick="myFunction()">
+                 {{ auth()->user()->name }}
+                </button>
                 
-                <div class="menu-container">
-                  <ul class="user-menu p-0">
+                <div id="myDropdown" class="dropdown-content">
+                  <ul class="user-menu m-0 mt-2 p-0">
                     <div class="profile-highlight">
                       <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -46,7 +52,7 @@
                         <a class="user-menu-link fw-bold" href="#" style="color: #F44336;"  onclick="event.preventDefault(); this.closest('form').submit();"><i class="bi bi-box-arrow-right pe-2 fw-bold"></i> Sign out</a>
                         </form>
                       </li>
-                      <li class="user-menu__item"><a class="user-menu-link fw-bold" href="#"><i class="bi bi-gear pe-2 fw-bold"></i> Settings</a></li>
+                      <li class="user-menu__item"><a class="user-menu-link fw-bold" href="{{ route('settigns') }}"><i class="bi bi-gear pe-2 fw-bold"></i> Settings</a></li>
                     </div>
                   </ul>
                 </div>
@@ -92,3 +98,25 @@
       </div>
     </nav>
   </header>
+
+  <script>
+    /* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+  </script>

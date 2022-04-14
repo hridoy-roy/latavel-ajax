@@ -66,13 +66,13 @@
                         style="background: #F0F0F0;">
                         <ul class="nav nav-tabs pt-4">
                             <li class="nav-item p-0">
-                                <a class="nav-link active" aria-current="page" href="#">
+                                <a class="nav-link" aria-current="page" href="{{ route('settigns') }}">
                                     <i class="bi bi-person-circle"></i>
                                     My Name and Email
                                 </a>
                             </li>
                             <li>
-                                <a class="nav-link" aria-current="page" href="{{ route('default.setting') }}">
+                                <a class="nav-link active" aria-current="page" href="#">
                                     <i class="bi bi-gear-wide-connected"></i>
                                     Default Settigns
                                 </a>

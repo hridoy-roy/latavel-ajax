@@ -118,13 +118,13 @@
                                     <!-- Email Address -->
                                     <div class="form-group pb-3">
                                         <label for="email" class="pb-2 fw-bolder">Email</label>
-                                        <input type="email" name="email" value="{{ old('email') }}" class="py-2 form-control @error('email') is-invalid @enderror" required autofocus id="email"
+                                        <input type="email" name="email" value="{{ old('email' , 'demo@mail.com') }}" class="py-2 form-control @error('email') is-invalid @enderror" required autofocus id="email"
                                             aria-describedby="emailHelp" placeholder="Enter email">
                                     </div>
                                     <!-- Password -->
                                     <div class="form-group pb-3">
                                         <label for="password" class="pb-2 fw-bolder">Password</label>
-                                        <input type="password" name="password" required class="py-2 form-control @error('email') is-invalid @enderror" id="password"
+                                        <input type="password" name="password" value="{{ old('password' , 'demo2022') }}" required class="py-2 form-control @error('email') is-invalid @enderror" id="password"
                                             placeholder="Password" autocomplete="current-password">
                                     </div>
                                     <!-- Remember Me -->
