@@ -22,7 +22,7 @@
         <div>
             <div class="container my-5">
                 <div class="text-center pb-5">
-                    <h2 class="h2_title mb-4">Wellcome back to Billto</h2>
+                    <h2 class="h2_title mb-4">Welcome back to Billto</h2>
                     <div class="dashboard_link">
                         <a class="" href="#">Invoice</a>
                         <a class="" href="#">Tax Invoice</a>

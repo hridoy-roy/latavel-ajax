@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -24,16 +25,16 @@ Route::get('/privacy-policy', [PagesController::class, 'privacyPolicy'])->name('
 Route::post('/create/bill', [PagesController::class, 'createbill'])->name('create.boll');
 
 
-require __DIR__.'/auth.php';
-require __DIR__.'/dashboard.php';
-require __DIR__.'/socialite.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/dashboard.php';
+require __DIR__ . '/socialite.php';
 
 // product add route With Ajax
 
 
 // Invoice Route
 
-Route::group(['middleware' => ['auth','verified']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/products/create', [ProductController::class, 'index']);
     Route::post('/product/store', [ProductController::class, 'store'])->name('store.product');
     Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
@@ -41,11 +42,15 @@ Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('/create/invoice', [InvoiceController::class, 'index'])->name('create');
     Route::post('/invoices/store', [InvoiceController::class, 'store'])->name('store.');
     Route::post('/invoices/complete/{id}', [InvoiceController::class, 'complete'])->name('complete.');
-    Route::get('/invoice/download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
 });
 
+Route::get('/invoice/download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
 
-Route::get('/clear-cache', function() {
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::post('/send/invoice', [EmailsController::class, 'sendInvoice'])->name('send.invoice');
+});
+
+Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     Artisan::call('view:clear');
     Artisan::call('config:clear');

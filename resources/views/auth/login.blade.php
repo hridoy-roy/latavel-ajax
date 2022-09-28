@@ -93,7 +93,7 @@
         <div>
             <div class="container my-5">
                 <div class="text-center">
-                    <h2 class="h2_title mb-4">Wellcome back to Billto</h2>
+                    <h2 class="h2_title mb-4">Welcome back to Billto</h2>
                     <p class="form_title pb-4">Sign in</p>
                 </div>
                 <div class="row">

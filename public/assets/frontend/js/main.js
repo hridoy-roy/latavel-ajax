@@ -68,6 +68,7 @@ function currency1(){
             dataType: 'json',
             success: function(response) {
                 $('#id').val(response[1]);
+                $('#mail_invoice_id').val(response[1]);
                 clearData();
                 allData();
                 document.getElementById("completeInvoice").disabled = false;
@@ -138,6 +139,7 @@ function currency1(){
               })
             }
             $('#downlodeInvoice').removeClass("disabled");
+            $('#sendInvoice').removeClass("disabled");
           },
           error: function(error) {
             okButton.fire({

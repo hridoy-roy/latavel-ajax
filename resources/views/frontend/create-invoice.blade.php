@@ -6,7 +6,6 @@
     border-radius: 0px !important;
     background-size: contain !important0;
   }
-
 </style>
 @endpush
 @section('frontend_content')
@@ -55,7 +54,7 @@
 <!-- banner section End -->
 
 <!-- Invoice Section Start -->
-<section class="invoice_section" >
+<section class="invoice_section">
   <div class="my-5">
     <form method="post" id="invoiceForm" enctype="multipart/form-data">
       @csrf
@@ -86,13 +85,15 @@
                   </div>
                 </div>
               </div>
-             
+
               <div class="col-md-8">
                 <div class="d-flex ">
                   <label class="form-label pe-2 pt-1">Currency: </label>
-                  <select class="tk w-50 fw-bolder form-select form-select-sm" name="currency" id="currencyList" onchange="currency1()">
+                  <select class="tk w-50 fw-bolder form-select form-select-sm" name="currency" id="currencyList"
+                    onchange="currency1()">
                     @if (isset($invoiceData->currency))
-                    <option value="{{ $invoiceData->currency }}" selected="selected" label="{{ $invoiceData->currency }}">{{ $invoiceData->currency }}</option>
+                    <option value="{{ $invoiceData->currency }}" selected="selected"
+                      label="{{ $invoiceData->currency }}">{{ $invoiceData->currency }}</option>
                     @else
                     <option value="USD" selected="selected" label="USD">USD</option>
                     @endif
@@ -271,14 +272,16 @@
             <div class="row">
               <div class="col-md-8">
                 <label for="invoice_form" class="form-label">From *</label>
-                <textarea name="invoice_form" id="invoice_form" rows="2" type="text" class="form-control" placeholder="Who is this invoice from? (required)">@if (isset($invoiceData->invoice_form)){{ $invoiceData->invoice_form }}@elseif (isset($lastInvoice->invoice_form)){{ $lastInvoice->invoice_form }}@else @endif</textarea>
+                <textarea name="invoice_form" id="invoice_form" rows="2" type="text" class="form-control"
+                  placeholder="Who is this invoice from? (required)">@if (isset($invoiceData->invoice_form)){{ $invoiceData->invoice_form }}@elseif (isset($lastInvoice->invoice_form)){{ $lastInvoice->invoice_form }}@else @endif</textarea>
                 <div id="invoice_form_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="row pt-1 pb-3">
               <div class="col-md-8">
                 <label for="invoice_to" class="form-label">Bill to *</label>
-                <textarea name="invoice_to" id="invoice_to" rows="2" type="text" class="form-control" placeholder="Who is this invoice to?(required)">@if (isset($invoiceData->invoice_to)){{ $invoiceData->invoice_to }}@elseif (isset($lastInvoice->invoice_to)){{ $lastInvoice->invoice_to }}@else @endif</textarea>
+                <textarea name="invoice_to" id="invoice_to" rows="2" type="text" class="form-control"
+                  placeholder="Who is this invoice to?(required)">@if (isset($invoiceData->invoice_to)){{ $invoiceData->invoice_to }}@elseif (isset($lastInvoice->invoice_to)){{ $lastInvoice->invoice_to }}@else @endif</textarea>
                 <div id="invoice_to_error" class="invalid-feedback"></div>
               </div>
             </div>
@@ -291,15 +294,18 @@
               <div class="col-sm-8 mb-2">
                 <div class="input-group">
                   <div class="input-group-text">&#9839;</div>
-                  <input type="text" name="invoice_id" class="form-control" value="@if (isset($invoiceData->invoice_id)){{ $invoiceData->invoice_id }} @else {{ "INVID".$invoiceCountNew }} @endif" id="invoice_id" placeholder="INVOICE ID">
-                  <input type="hidden" id="id" name="id" value="@if (isset($invoiceData->id)){{ $invoiceData->id }}@endif">
+                  <input type="text" name="invoice_id" class="form-control"
+                    value="@if (isset($invoiceData->invoice_id)){{ $invoiceData->invoice_id }} @else {{ "
+                    INVID".$invoiceCountNew }} @endif" id="invoice_id" placeholder="INVOICE ID">
+                  <input type="hidden" id="id" name="id"
+                    value="@if (isset($invoiceData->id)){{ dd($invoiceData->id) }}@endif">
                   <div class="input-group-text">@if (isset($invoiceCount))
                     {{ $invoiceCount }}
-                  @elseif (isset($invoiceCountNew))
-                  {{ $invoiceCountNew }}
-                  @else
-                      1
-                  @endif</div>
+                    @elseif (isset($invoiceCountNew))
+                    {{ $invoiceCountNew }}
+                    @else
+                    1
+                    @endif</div>
                   <div id="invoice_id_error" class="invalid-feedback"></div>
                 </div>
               </div>
@@ -307,14 +313,18 @@
             <div class="row mb-2">
               <label for="invoice_date" class="col-sm-4 col-form-label">Date</label>
               <div class="col-sm-8">
-                <input type="date" name="invoice_date" class="form-control" value="@if (isset($invoiceData->invoice_date)){{ $invoiceData->invoice_date }}@else{{ date('Y-m-d'); }}@endif" id="invoice_date">
+                <input type="date" name="invoice_date" class="form-control"
+                  value="@if (isset($invoiceData->invoice_date)){{ $invoiceData->invoice_date }}@else{{ date('Y-m-d'); }}@endif"
+                  id="invoice_date">
                 <div id="invoice_date_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="row mb-2">
               <label for="invoice_payment_term" class="col-sm-4 col-form-label">Payment Terms</label>
               <div class="col-sm-8">
-                <input type="text" name="invoice_payment_term" class="form-control" id="invoice_payment_term" placeholder="Online/Bank/Cash Transaction" value="@if (isset($invoiceData->invoice_payment_term)) {{ $invoiceData->invoice_payment_term }} @endif">
+                <input type="text" name="invoice_payment_term" class="form-control" id="invoice_payment_term"
+                  placeholder="Online/Bank/Cash Transaction"
+                  value="@if (isset($invoiceData->invoice_payment_term)) {{ $invoiceData->invoice_payment_term }} @endif">
                 <div id="invoice_payment_term_error" class="invalid-feedback"></div>
               </div>
             </div>
@@ -325,14 +335,17 @@
               $date->modify('+4 day');
               @endphp
               <div class="col-sm-8">
-                <input type="date" name="invoice_dou_date" class="form-control" value="@if (isset($invoiceData->invoice_dou_date)){{ $invoiceData->invoice_dou_date }}@else {{ $date->format('Y-m-d'); }} @endif" id="invoice_dou_date">
+                <input type="date" name="invoice_dou_date" class="form-control"
+                  value="@if (isset($invoiceData->invoice_dou_date)){{ $invoiceData->invoice_dou_date }}@else {{ $date->format('Y-m-d'); }} @endif"
+                  id="invoice_dou_date">
                 <div id="invoice_dou_date_error" class="invalid-feedback"></div>
               </div>
             </div>
             <div class="row mb-2">
               <label for="invoice_po_number" class="col-sm-4 col-form-label">PO Number</label>
               <div class="col-sm-8">
-                <input type="text" name="invoice_po_number" class="form-control" id="invoice_po_number" value="@if (isset($invoiceData->invoice_po_number)){{ $invoiceData->invoice_po_number }}@endif">
+                <input type="text" name="invoice_po_number" class="form-control" id="invoice_po_number"
+                  value="@if (isset($invoiceData->invoice_po_number)){{ $invoiceData->invoice_po_number }}@endif">
                 <div id="invoice_po_number_error" class="invalid-feedback"></div>
               </div>
             </div>
@@ -351,26 +364,29 @@
               </tr>
             </thead>
             <tbody id="tableBody">
-             
+
             </tbody>
 
           </table>
         </div>
         <div class="product row">
           <div class="p-0 pe-1 pb-2 col-md-6">
-            <textarea type="text" name="product_name" id="product_name" class="form-control" placeholder="Description of service or product" rows="1" onchange="addData();"></textarea>
+            <textarea type="text" name="product_name" id="product_name" class="form-control"
+              placeholder="Description of service or product" rows="1" onchange="addData();"></textarea>
             <div id="name_error" class="invalid-feedback"></div>
           </div>
           <div class="text-start p-0 pb-2 col-md-2">
             <div class="input-group">
-              <input type="number" name="product_quantity" id="product_quantity" class="form-control" placeholder="Quantity" onchange="ptotal();addData();">
+              <input type="number" name="product_quantity" id="product_quantity" class="form-control"
+                placeholder="Quantity" onchange="ptotal();addData();">
               <div class="input-group-text fw-bold border-0">X</div>
               <div id="quantity_error" class="invalid-feedback"></div>
             </div>
           </div>
           <div class="text-start p-0 pe-1 pb-2 col-md-2">
             <div class="input-group">
-              <input type="number" name="product_rate" id="product_rate" class="form-control" placeholder="Rate" onchange="ptotal();addData();">
+              <input type="number" name="product_rate" id="product_rate" class="form-control" placeholder="Rate"
+                onchange="ptotal();addData();">
               <div class="input-group-text" id="currency">USD</div>
               <div id="product_rate_error" class="invalid-feedback"></div>
             </div>
@@ -386,113 +402,133 @@
         <div class="mt-4 ms-2">
           <span id="product_clear" class="btn btn-danger" onclick="pclear()">
             Clear Input
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
-              <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
-              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon"
+              viewBox="0 0 16 16">
+              <path
+                d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+              <path
+                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
             </svg>
           </span>
         </div>
-        {{-- </form> --}}
-        <div class="row pt-4">
-          <div class="col-md-6">
-            <div>
-              <label for="invoice_notes" class="form-label p-2">Notes</label>
-              <textarea name="invoice_notes" id="invoice_notes" rows="5" class="form-control" placeholder="Notes - any related information not already covered">@if (isset($invoiceData->invoice_notes)){{ $invoiceData->invoice_notes }}@endif</textarea>
-              <div id="invoice_notes_error" class="invalid-feedback"></div>
-            </div>
-            <div class="">
-              <label for="invoice_terms" class="form-label p-2 d-flex align-items-center">Terms</label>
-              <textarea name="invoice_terms" id="invoice_terms" rows="5" class="form-control" placeholder="Terms and conditions, late fees, payment methods, delivery schedule">@if (isset($invoiceData->invoice_terms)){{ $invoiceData->invoice_terms }}@endif</textarea>
-              <div id="invoice_terms_error" class="invalid-feedback"></div>
-            </div>
-          </div>
-          <div class="col-md-6 d-flex flex-column justify-content-end pt-2 pe-4">
-            <div class="row">
-              <div class="col-7 d-flex align-items-center fw-bolder text-primary">Sub total</div>
-              <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
-                <span class="p-2 fw-bolder text-primary" id="subtotal">0.00</span>
-                <div class="input-group-text" id="currency">USD</div>
-              </div>
-            </div>
-            <div class="row pt-2 ">
-              <div class="col-7 d-flex align-items-center">Tax</div>
-              <div class="col input-group p-0">
-                <input type="number" name="invoice_tax" class="form-control" value="@if (isset($invoiceData->invoice_tax_percent)){{ $invoiceData->invoice_tax_percent }}@endif" id="invoice_tax" onchange="total()">
-                <div class="input-group-text">&#8453;</div>
-                <div id="invoice_tax_error" class="invalid-feedback"></div>
-              </div>
-            </div>
-            <div class="d-flex flex-column justify-content-end pt-2">
-              <div class="row">
-                <div class="col-7 d-flex align-items-center fw-bolder text-success">Total</div>
-                <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
-                  <span class="p-2 fw-bolder text-success" id="total" onchange="totalInwords();">@if (isset($invoiceData->total)){{ $invoiceData->total }}@endif</span>
-                  <div class="input-group-text" id="currency">USD</div>
-                </div>
-                <p id="totalInwords" class="text-end text-dark" style="font-size: 10px;text-transform: capitalize;"></p>
-              </div>
-              {{-- <div class="row pt-2 ">
-                <div class="col-7 d-flex align-items-center">Advance Amount</div>
-                <div class="col input-group p-0">
-                  <input type="number" name="advance_amount" class="form-control" value="" id="advance_amount" onchange="total()">
-                  <div class="input-group-text">&#8453;</div>
-                  <div id="advance_amount_error" class="invalid-feedback"></div>
-                </div>
-              </div> --}}
-              <div class="row pt-2 ">
-                <div class="col-7 d-flex align-items-center"><label for="#advance_amount">Requesting Advance Amount</label></div>
-                <div class="col input-group p-0">
-                  <input type="number" name="requesting_advance_amount" class="form-control" value="@if (isset($invoiceData->requesting_advance_amount_percent)){{ $invoiceData->requesting_advance_amount_percent }}@endif" id="requesting_advance_amount" onchange="requestingAdvanceAmount()">
-                  <div class="input-group-text">&#8453;</div>
-                  <div id="requesting_advance_amount_error" class="invalid-feedback"></div>
-                </div>
-              </div>
-              <div class="row pt-2">
-                <div class="col-7 d-flex align-items-center fw-bolder text-dark">Requesting Advance Amount </div>
-                <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
-                  <span class="p-2 fw-bolder text-dark" id="requesting_advance_amount_number">@if (isset($requesting_advance_amount)){{ $requesting_advance_amount }}@endif</span>
-                  <div class="input-group-text" id="currency">USD</div>
-                </div>
-              </div>
-              <div class="row pt-2 ">
-                <div class="col-7 d-flex align-items-center">Receive Advance Amount</div>
-                <div class="col input-group p-0">
-                  <input type="number" name="receive_advance_amount" class="form-control" role="button" aria-disabled="true" value="" id="receive_advance_amount" disabled onchange="">
-                  <div class="input-group-text" id="currency">USD</div>
-                  <div id="receive_advance_amount_error" class="invalid-feedback"></div>
-                </div>
-              </div>
-              {{-- <div class="row pt-2">
-                <div class="col-7 d-flex align-items-center">Amount Paid</div>
-                <div class="col input-group p-0">
-                  <input type="number" class="form-control" name="invoice_amu_paid" value="" id="invoice_amu_paid" onchange="total()">
-                  <div class="input-group-text" id="currency">USD</div>
-                  <div id="invoice_amu_paid_error" class="invalid-feedback"></div>
-                </div>
-              </div> --}}
-              <div class="row pt-2">
-                <div class="col-7 d-flex align-items-center fw-bolder text-danger">Balance Due</div>
-                <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
-                  <span class="p-2 fw-bolder text-danger" id="balanceDue">0.00</span>
-                  <div class="input-group-text" id="currency">USD</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {{--
+    </form> --}}
+    <div class="row pt-4">
+      <div class="col-md-6">
+        <div>
+          <label for="invoice_notes" class="form-label p-2">Notes</label>
+          <textarea name="invoice_notes" id="invoice_notes" rows="5" class="form-control"
+            placeholder="Notes - any related information not already covered">@if (isset($invoiceData->invoice_notes)){{ $invoiceData->invoice_notes }}@endif</textarea>
+          <div id="invoice_notes_error" class="invalid-feedback"></div>
         </div>
+        <div class="">
+          <label for="invoice_terms" class="form-label p-2 d-flex align-items-center">Terms</label>
+          <textarea name="invoice_terms" id="invoice_terms" rows="5" class="form-control"
+            placeholder="Terms and conditions, late fees, payment methods, delivery schedule">@if (isset($invoiceData->invoice_terms)){{ $invoiceData->invoice_terms }}@endif</textarea>
+          <div id="invoice_terms_error" class="invalid-feedback"></div>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex flex-column justify-content-end pt-2 pe-4">
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-7 d-flex align-items-center fw-bolder text-primary">Sub total</div>
+          <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+            <span class="p-2 fw-bolder text-primary" id="subtotal">0.00</span>
+            <div class="input-group-text" id="currency">USD</div>
           </div>
-
+        </div>
+        <div class="row pt-2 ">
+          <div class="col-7 d-flex align-items-center">Tax</div>
+          <div class="col input-group p-0">
+            <input type="number" name="invoice_tax" class="form-control"
+              value="@if (isset($invoiceData->invoice_tax_percent)){{ $invoiceData->invoice_tax_percent }}@endif"
+              id="invoice_tax" onchange="total()">
+            <div class="input-group-text">&#8453;</div>
+            <div id="invoice_tax_error" class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-end pt-2">
+          <div class="row">
+            <div class="col-7 d-flex align-items-center fw-bolder text-success">Total</div>
+            <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+              <span class="p-2 fw-bolder text-success" id="total"
+                onchange="totalInwords();">@if(isset($invoiceData->total)){{ $invoiceData->total }}@endif</span>
+              <div class="input-group-text" id="currency">USD</div>
+            </div>
+            <p id="totalInwords" class="text-end text-dark" style="font-size: 10px;text-transform: capitalize;"></p>
+          </div>
+          {{-- <div class="row pt-2 ">
+            <div class="col-7 d-flex align-items-center">Advance Amount</div>
+            <div class="col input-group p-0">
+              <input type="number" name="advance_amount" class="form-control" value="" id="advance_amount"
+                onchange="total()">
+              <div class="input-group-text">&#8453;</div>
+              <div id="advance_amount_error" class="invalid-feedback"></div>
+            </div>
+          </div> --}}
+          <div class="row pt-2 ">
+            <div class="col-7 d-flex align-items-center"><label for="#advance_amount">Requesting Advance Amount</label>
+            </div>
+            <div class="col input-group p-0">
+              <input type="number" name="requesting_advance_amount" class="form-control"
+                value="@if (isset($invoiceData->requesting_advance_amount_percent)){{ $invoiceData->requesting_advance_amount_percent }}@endif"
+                id="requesting_advance_amount" onchange="requestingAdvanceAmount()">
+              <div class="input-group-text">&#8453;</div>
+              <div id="requesting_advance_amount_error" class="invalid-feedback"></div>
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-7 d-flex align-items-center fw-bolder text-dark">Requesting Advance Amount </div>
+            <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+              <span class="p-2 fw-bolder text-dark"
+                id="requesting_advance_amount_number">@if(isset($requesting_advance_amount)){{
+                $requesting_advance_amount }}@endif</span>
+              <div class="input-group-text" id="currency">USD</div>
+            </div>
+          </div>
+          <div class="row pt-2 ">
+            <div class="col-7 d-flex align-items-center">Receive Advance Amount</div>
+            <div class="col input-group p-0">
+              <input type="number" name="receive_advance_amount" class="form-control" role="button" aria-disabled="true"
+                value="" id="receive_advance_amount" disabled onchange="">
+              <div class="input-group-text" id="currency">USD</div>
+              <div id="receive_advance_amount_error" class="invalid-feedback"></div>
+            </div>
+          </div>
+          {{-- <div class="row pt-2">
+            <div class="col-7 d-flex align-items-center">Amount Paid</div>
+            <div class="col input-group p-0">
+              <input type="number" class="form-control" name="invoice_amu_paid" value="" id="invoice_amu_paid"
+                onchange="total()">
+              <div class="input-group-text" id="currency">USD</div>
+              <div id="invoice_amu_paid_error" class="invalid-feedback"></div>
+            </div>
+          </div> --}}
+          <div class="row pt-2">
+            <div class="col-7 d-flex align-items-center fw-bolder text-danger">Balance Due</div>
+            <div class="col d-flex justify-content-end input-group border-bottom rounded p-0">
+              <span class="p-2 fw-bolder text-danger" id="balanceDue">0.00</span>
+              <div class="input-group-text" id="currency">USD</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="container p-0 pt-3">
-        <button type="submit" id="completeInvoice" class="btn send-invoice py-2 px-4" @if (isset($invoiceData))@else disabled
-        @endif >@if (isset($invoiceData)) {{ "Update Invoice" }} @else{{ "Complete Invoice" }}@endif </button>
-        <a href="#" class="btn send-invoice py-2 px-4 disabled" role="button" aria-disabled="true" onclick="completeInvoice()">Send Invoice</a>
-        <a href="#" id="downlodeInvoice" target="_blank" class="btn send-downlod py-2 px-4 disabled" >Download Invoice</a>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
       </div>
-    </form>
+
+    </div>
+  </div>
+  <div class="container p-0 pt-3">
+    <button type="submit" id="completeInvoice" class="btn send-invoice py-2 px-4" @if (isset($invoiceData))@else
+      disabled @endif>@if (isset($invoiceData)) {{ "Update Invoice" }} @else{{ "Complete Invoice" }}@endif </button>
+    <button type="button" class="btn send-invoice py-2 px-4 disabled" data-bs-toggle="modal"
+      data-bs-target="#exampleModal" id="sendInvoice">Send Invoice</button>
+    {{-- <a href="#" class="btn send-invoice py-2 px-4 disabled" role="button" aria-disabled="true"
+      onclick="completeInvoice()">Send Invoice</a> --}}
+    <a href="#" id="downlodeInvoice" target="_blank" class="btn send-downlod py-2 px-4 disabled">Download Invoice</a>
+  </div>
+  </form>
   </div>
 </section>
 <!-- Invoice Section End -->
@@ -506,31 +542,71 @@
         <p class="fs-sm fw-bolder">Start creating your professional bill</p>
       </div>
       <div class="row text-center">
-        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a>
+        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360"
+              srcset=""></a>
         </div>
-        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a>
+        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360"
+              srcset=""></a>
         </div>
-        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a>
+        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360"
+              srcset=""></a>
         </div>
-        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a>
+        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360"
+              srcset=""></a>
         </div>
-        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a>
+        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360"
+              srcset=""></a>
         </div>
-        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360" srcset=""></a>
+        <div class="col-md-4"><a href="#"> <img src="{{ asset('assets/frontend/img/demo/1.jpg') }}" alt="" height="360"
+              srcset=""></a>
         </div>
       </div>
     </div>
   </div>
 </section>
 <!-- Invoice Template End -->
-@if (isset($invoiceData->id))
 
-@endif
+{{-- model start--}}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Your invoice</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('send.invoice') }}" method="POST">
+        @csrf
+        <input type="hidden" id="mail_invoice_id" name="invoice_id" value="">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Send To:</label>
+            <input type="email" class="form-control" name="send_to" required>
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Subject To:</label>
+            <input type="text" class="form-control" name="subject" required>
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Body Message:</label>
+            <textarea class="form-control" name="body"></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn send-invoice">Send Invoice</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{-- model end--}}
+
 @endsection
 @push('frontend_js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-// A $( document ).ready() block.
+  // A $( document ).ready() block.
 $( document ).ready(function() {
   allData();
 });
